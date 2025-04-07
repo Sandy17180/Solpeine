@@ -1,5 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Lobster_Two } from "next/font/google";
 import "./globals.css";
+
+const lobster = Lobster_Two({
+  variable: "--font-lobster",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
