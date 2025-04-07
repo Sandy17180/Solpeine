@@ -7,10 +7,10 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const images = [
   "/image1.jpeg",
   "/image2.jpeg",
-  "/image1.jpeg",
-  "/image2.jpeg",
-  "/image1.jpeg",
-  "/image2.jpeg",
+  "/image3.jpg",
+  "/image4.jpg",
+  "/image5.jpg",
+  "/image6.jpg",
 ];
 
 const HeroCarousel = () => {
@@ -61,7 +61,7 @@ const HeroCarousel = () => {
             src={src}
             alt={`Slide ${index + 1}`}
             fill
-            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+            className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-1000 ease-in-out ${
               index === currentIndex
                 ? "opacity-100 z-10"
                 : "opacity-0 z-0"

@@ -39,7 +39,7 @@ const Header = () => {
   return (
     <section className="py-4 lg:py-8 flex justify-center fixed w-full lg:sticky top-0 z-50">
       <div className="w-full">
-        <div className="border border-black/15 rounded-[27px] bg-neutral-100/10 backdrop-blur mx-2 px-8">
+        <div className="border border-black/15 rounded-[27px] bg-neutral-50/60 backdrop-blur mx-2 px-8">
           <div className="grid grid-cols-2 lg:grid-cols-3 items-center px-4 md:pr-2 p-2 mx-2">
             {/* logo */}
             <div>
