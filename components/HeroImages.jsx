@@ -73,7 +73,7 @@ const HeroCarousel = () => {
             src={src}
             alt={`Slide ${index + 1}`}
             fill
-            className={`absolute top-0 left-0 w-full object-cover transition-opacity duration-1000 ease-in-out ${
+            className={`absolute top-0 left-0 w-full object-cover object-bottom transition-opacity duration-1000 ease-in-out ${
               index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           />
