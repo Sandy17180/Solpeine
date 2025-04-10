@@ -7,15 +7,22 @@ import arrowRight from "@/public/arrowRight.svg";
 import arrowLeft from "@/public/arrowLeft.svg";
 
 const images = [
-  "/image1.jpeg",
-  "/image3.jpg",
-  "/image4.jpg",
-  "/image5.jpg",
-  "/image7.png",
-  "/image8.png",
-  "/image9.png",
-  "/image10.png",
-  "/image11.png",
+  "/image6.jpg",
+  "/image7.jpg",
+  "/image8.jpg",
+  "/image9.jpg",
+  "/image10.jpg",
+  "/image11.jpg",
+  "/image12.jpg",
+  "/image13.jpg",
+  "/image14.png",
+  "/image16.png",
+  "/image17.png",
+  "/image18.png",
+  "/image19.png",
+  "/image20.png",
+  "/image21.png",
+  "/image45.png",
 ];
 
 const HeroCarousel = () => {
