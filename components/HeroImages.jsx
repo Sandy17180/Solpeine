@@ -3,14 +3,19 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import arrowRight from "@/public/arrowRight.svg";
+import arrowLeft from "@/public/arrowLeft.svg";
 
 const images = [
   "/image1.jpeg",
-  "/image2.jpeg",
   "/image3.jpg",
   "/image4.jpg",
   "/image5.jpg",
-  "/image6.jpg",
+  "/image7.png",
+  "/image8.png",
+  "/image9.png",
+  "/image10.png",
+  "/image11.png",
 ];
 
 const HeroCarousel = () => {
@@ -21,7 +26,7 @@ const HeroCarousel = () => {
   const startSlide = () => {
     slideInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
-    }, 3000);
+    }, 5000);
   };
 
   const stopSlide = () => {
@@ -49,22 +54,20 @@ const HeroCarousel = () => {
 
   return (
     <div
-      className="relative w-full h-[70vh] overflow-hidden px-2"
+      className="relative w-full h-[639px] overflow-hidden"
       onMouseEnter={stopSlide}
       onMouseLeave={startSlide}
     >
       {/* All Slides - rendered absolutely */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full pb-auto">
         {images.map((src, index) => (
           <Image
             key={index}
             src={src}
             alt={`Slide ${index + 1}`}
             fill
-            className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-1000 ease-in-out ${
-              index === currentIndex
-                ? "opacity-100 z-10"
-                : "opacity-0 z-0"
+            className={`absolute top-0 left-0 w-full object-cover transition-opacity duration-1000 ease-in-out ${
+              index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           />
         ))}
@@ -73,17 +76,17 @@ const HeroCarousel = () => {
       {/* Arrows */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 z-20 cursor-pointer"
+        className="absolute top-1/2 left-[42px] transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
         aria-label="Previous Slide"
       >
-        <FaChevronLeft />
+        <Image src={arrowLeft} alt="arrow left"/>
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 z-20 cursor-pointer"
+        className="absolute top-1/2 right-[42px] transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
         aria-label="Next Slide"
       >
-        <FaChevronRight />
+        <Image src={arrowRight} alt="arrow right"/>
       </button>
 
       {/* Dots */}
@@ -92,8 +95,10 @@ const HeroCarousel = () => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentIndex ? "bg-white" : "bg-white/50"
+            className={`w-[17px] h-[17px] rounded-full transition-colors ${
+              index === currentIndex
+                ? "bg-white border-[1px] shadow-[0_0_6px_rgba(255,255,255,0.5)]"
+                : "bg-white/50"
             }`}
           />
         ))}

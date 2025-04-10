@@ -1,6 +1,7 @@
 "use client";
 
 import logo from "@/public/logo.svg";
+import arrowDown from "@/public/arrowDown.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { Lobster_Two } from "next/font/google";
@@ -37,20 +38,20 @@ const Header = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
 
   return (
-    <section className="py-4 lg:py-8 flex justify-center fixed w-full lg:sticky top-0 z-50">
-      <div className="w-full">
-        <div className="border border-black/15 rounded-[27px] bg-neutral-50/60 backdrop-blur mx-2 px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-3 items-center px-4 md:pr-2 p-2 mx-2">
+    <section className="flex justify-center w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)]">
+      <div className="w-full h-[135px]">
+        <div className=" bg-neutral-50/60 backdrop-blur h-full">
+          <div className="grid grid-cols-2 lg:grid-cols-3 items-center pl-[42px] relative">
             {/* logo */}
             <div>
               <Link href={"/"}>
-                <Image src={logo} alt="Logo" width={120} height={70} />
+                <Image src={logo} alt="Logo" width={209} height={129.5} />
               </Link>
             </div>
 
             {/* links */}
             <div className="justify-end items-center hidden lg:flex">
-              <nav className="flex gap-6 font-medium relative">
+              <nav className="flex gap-8 font-[400] relative translate-x-40">
                 {navLinks.map((link, index) => {
                   const isOpen = openDropdown === index;
                   return (
@@ -58,14 +59,16 @@ const Header = () => {
                       {link.dropdown ? (
                         <button
                           onClick={() => setOpenDropdown(isOpen ? null : index)}
-                          className={`flex items-center gap-1 text-black font-medium hover:text-primary/90 ${lobster.className} text-xl`}
+                          className={`flex items-center gap-2 text-black hover:text-primary/90 ${lobster.className} text-xl`}
                         >
                           {link.label}
-                          <FaChevronDown
+                          <Image
                             className={`transition-transform duration-300 ${
                               isOpen ? "rotate-180" : "rotate-0"
                             }`}
+                            src={arrowDown}
                             size={12}
+                            alt="Arrow Down"
                           />
                         </button>
                       ) : (
@@ -102,7 +105,7 @@ const Header = () => {
             </div>
 
             {/* social-media buttons */}
-            <div className="hidden lg:flex justify-end items-center gap-4">
+            <div className="hidden lg:flex justify-end items-center gap-4 pr-[42px]">
               <Link
                 href={"#instagram"}
                 className="text-black font-medium hover:text-primary/90 text-3xl"
