@@ -39,13 +39,13 @@ const Header = () => {
 
   return (
     <section className="flex justify-center w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)]">
-      <div className="w-full h-[135px]">
+      <div className="w-full">
         <div className=" bg-neutral-50/60 backdrop-blur h-full">
-          <div className="grid grid-cols-2 lg:grid-cols-3 items-center pl-[42px] relative">
+          <div className="grid grid-cols-2 lg:grid-cols-3 items-center pl-[42px] relative h-[94px]">
             {/* logo */}
             <div>
               <Link href={"/"}>
-                <Image src={logo} alt="Logo" width={209} height={129.5} />
+                <Image src={logo} alt="Logo" width={151} height={78} />
               </Link>
             </div>
 
@@ -59,7 +59,7 @@ const Header = () => {
                       {link.dropdown ? (
                         <button
                           onClick={() => setOpenDropdown(isOpen ? null : index)}
-                          className={`flex items-center gap-2 text-black hover:text-primary/90 ${lobster.className} text-xl`}
+                          className={`flex items-center gap-2 text-black hover:text-primary/90 ${lobster.className} text-[22px]`}
                         >
                           {link.label}
                           <Image
@@ -74,7 +74,7 @@ const Header = () => {
                       ) : (
                         <Link
                           href={link.href}
-                          className={`text-black font-medium hover:text-primary/90 ${lobster.className} text-xl`}
+                          className={`text-black font-medium hover:text-primary/90 ${lobster.className} text-[22px]`}
                         >
                           {link.label}
                         </Link>
@@ -113,8 +113,8 @@ const Header = () => {
                 <Image
                   src={instagramLogo}
                   alt="Instagram"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                 />
               </Link>
               <Link
@@ -124,8 +124,8 @@ const Header = () => {
                 <Image
                   src={pinterestLogo}
                   alt="Pinterest"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                 />
               </Link>
               <Link
@@ -135,8 +135,8 @@ const Header = () => {
                 <Image
                   src={linkedinLogo}
                   alt="LinkedIn"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                 />
               </Link>
             </div>

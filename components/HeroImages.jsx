@@ -61,7 +61,7 @@ const HeroCarousel = () => {
 
   return (
     <div
-      className="relative w-full h-[639px] overflow-hidden"
+      className="relative w-full h-[720px] overflow-hidden"
       onMouseEnter={stopSlide}
       onMouseLeave={startSlide}
     >

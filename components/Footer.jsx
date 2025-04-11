@@ -9,12 +9,12 @@ const sawarabi = Sawarabi_Mincho({
 })
 const Footer = () => {
   return (
-    <footer className={` text-black py-10 px-6 mt-16 ${sawarabi.className}`}>
+    <footer className={` text-black h-[171px] mt-[20px] ${sawarabi.className}`}>
       <div className={`max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 ${sawarabi.className}`}>
         {/* Brand */}
         <div>
           <Link href={"/"}>
-            <Image src={logo} alt="Logo" width={190} height={100} />
+            <Image src={logo} alt="Logo" width={189} height={98} />
           </Link>
           <p className="text-sm text-gray-400 mt-2">
             Bringing ideas to life, one pixel at a time.
@@ -52,7 +52,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="mt-10 text-center text-gray-500 text-sm">
+      <div className="text-center text-gray-500 text-sm">
         &copy; {new Date().getFullYear()} YourBrand. All rights reserved.
       </div>
     </footer>
