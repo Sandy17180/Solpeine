@@ -89,3 +89,100 @@ export default function Testimonials() {
     </div>
   );
 }
+import Link from "next/link";
+import Image from "next/image";
+import { Taprom } from "next/font/google";
+import { Sacramento, Lobster_Two, Sawarabi_Mincho } from "next/font/google";
+
+// Font Imports
+const sacramento = Sacramento({ subsets: ["latin"], weight: ["400"] });
+const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
+const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
+const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
+
+// Testimonials Data
+const testimonials = [
+  {
+    name: "Kate Bonham",
+    quote:
+      "I have never felt so comfortable in front of a camera until I worked with Solpiene.",
+    image: "/Katie.jpeg",
+  },
+  {
+    name: "Kate Bonham",
+    quote:
+      "I have never felt so comfortable in front of a camera until I worked with Solpiene.",
+    image: "/Katie.jpeg",
+  },
+  {
+    name: "Kate Bonham",
+    quote:
+      "I have never felt so comfortable in front of a camera until I worked with Solpiene.",
+    image: "/Katie.jpeg",
+  },
+];
+
+// Component
+export default function Testimonials() {
+  return (
+    <div className="py-16 bg-[#FAF4EF]">
+      {/* Section Title */}
+      <div className="text-center mb-12">
+        <h2 className={`text-4xl italic text-[#DA3E3E] ${taprom.className}`}>
+          Testimonials <span className="inline-block ml-2">📷❤️</span>
+        </h2>
+      </div>
+
+      {/* Testimonials Grid */}
+      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {testimonials.map((t, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center transition hover:scale-105 duration-300"
+          >
+            {/* Image */}
+            <div className="w-28 h-28 rounded-full bg-[conic-gradient(at_top_left,#BFB4B4,#F7F7F7)] p-[3px] mb-4">
+              <div className="w-full h-full rounded-full overflow-hidden">
+                <Image
+                  src={t.image}
+                  alt={t.name}
+                  width={112}
+                  height={112}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Name */}
+            <h3 className={`text-lg mb-2 text-black ${lobster.className}`}>
+              {t.name}
+            </h3>
+
+            {/* Quote with Sawarabi Mincho */}
+            <p
+              className={`italic text-md text-gray-700 mb-4 text-center ${sawarabi.className}`}
+            >
+              "{t.quote}"
+            </p>
+
+            {/* Read More Button */}
+            <Link href="/read-more">
+              <button className="bg-[#DA3E3E] text-white px-4 py-2 rounded-full hover:bg-red-600 transition">
+                Read more
+              </button>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* View More Button */}
+      <div className="text-center mt-12">
+        <Link href="/testimonials">
+          <button className="bg-[#DA3E3E] text-white px-6 py-3 rounded-full text-lg hover:bg-red-600 transition">
+            View more testimonials
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
