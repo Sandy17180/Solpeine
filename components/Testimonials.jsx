@@ -1,11 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Taprom } from "next/font/google";
-import { Sacramento, Lobster_Two } from "next/font/google";
+import { Sawarabi_Mincho,Taprom } from "next/font/google";
 
-const sacramento = Sacramento({ subsets: ["latin"], weight: ["400"] });
+const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
-const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
 
 const testimonials = [
   {
@@ -15,77 +13,91 @@ const testimonials = [
     image: "/Katie.jpeg",
   },
   {
-    name: "Kate Bonham",
+    name: "Jane Doe",
     quote:
-      "I have never felt so comfortable in front of a camera until I worked with Solpiene.",
+      "Solpiene captured the most authentic version of myself—I'll treasure the results forever.",
     image: "/Katie.jpeg",
   },
   {
-    name: "Kate Bonham",
+    name: "Sarah Lee",
     quote:
-      "I have never felt so comfortable in front of a camera until I worked with Solpiene.",
+      "Their team helped me feel calm, confident, and truly seen. Highly recommended!",
     image: "/Katie.jpeg",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <div className="py-16 bg-white">
-      {/* Section title */}
-      <h2
-        className={`text-4xl font-semibold text-center mb-2 ${taprom.className}`}
-      >
-        Testimonials
-      </h2>
+    <div className="py-16 bg-[#FAF4EF]">
+      
+      <div className="text-center mb-12">
+      <h2 className={`text-[58px] leading-[70px] tracking-[0.16em] font-normal text-[#DA3E3E] ${taprom.className}`}>
+          
+        </h2>
+        <div className="flex justify-center mt-4">
+          <Image
+            src="/testimonial.png" 
+            alt="ECG line under heading"
+            width={480}
+            height={115}
+            className="h-[115px] w-auto"
+          />
+        </div>
+        
+      </div>
 
-      {/* Divider line below title */}
-      <div className="w-35 h-[2px] bg-gray-400 mx-auto mb-12" />
-
-      {/* Testimonials grid */}
+      
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {testimonials.map((t, index) => (
           <div
             key={index}
-            className="bg-[linear-gradient(to_bottom,#BFB4B4,#F7F7F7)] shadow-sm rounded-2xl p-6 flex flex-col items-center transition hover:scale-105 duration-300"
+            className="bg-gradient-to-b from-[#BFB4B4] to-[#F7F7F7] shadow-lg rounded-2xl px-6 py-8 flex flex-col items-center max-w-sm mx-auto  "
           >
-            {/* Image with gradient ring */}
-            <div className="w-32 h-32 rounded-full bg-[conic-gradient(at_top_left,#BFB4B4,#F7F7F7)] p-[3px] mb-4">
+           
+            <div className="w-28 h-28 rounded-full bg-[conic-gradient(at_top_left,#BFB4B4,#F7F7F7)] p-[3px] mb-4">
               <div className="w-full h-full rounded-full overflow-hidden">
                 <Image
                   src={t.image}
                   alt={t.name}
-                  width={128}
-                  height={128}
+                  width={112}
+                  height={112}
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
 
-            {/* Name */}
-            <h3 className={`text-lg mb-2 text-black ${lobster.className}`}>
+            
+            <h3 className={`text-lg mb-2 text-black ${sawarabi.className}`}>
               {t.name}
             </h3>
 
-            {/* Quote */}
+            
             <p
-              className={`italic text-2xl text-gray-700 mb-4 text-center ${sacramento.className}`}
+              className={`text-center text-md text-gray-700 mb-6 ${sawarabi.className}`}
             >
-              {t.quote}
+              "{t.quote}"
             </p>
 
-            {/* Read more button */}
+            
             <Link href="/read-more">
-              <button className="bg-black text-white px-4 py-1 rounded hover:bg-gray-800">
+              <button className="bg-[#D94A27] text-white px-6 py-2 rounded-full text-sm shadow-[0_6px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.3)] duration-300">
                 Read more
               </button>
             </Link>
-         
-
-          </div>))}
-          
+          </div>
+        ))}
       </div>
-      <h2 className="text-3xl font-bold text-center mb-4"></h2>
-      <hr className="w-1440 h-[2px] bg-gray-400 mx-auto mb-8 border-0" />
+
+     
+      <div className="text-center mt-12">
+        <Link href="/testimonials">
+          <button className="bg-[#D94A27] text-white px-6 py-2 rounded-full text-sm shadow-[0_6px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.3)] duration-300">
+            View more testimonials
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
+
+
