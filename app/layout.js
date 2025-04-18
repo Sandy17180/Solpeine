@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Lobster_Two } from "next/font/google";
+import SocialButtons from "@/components/SocialButtons"
 import "./globals.css";
 
 const lobster = Lobster_Two({
@@ -27,8 +28,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden w-full max-w-screen bg-[#F5F1EA]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden w-lvw bg-[#F5F1EA]`}
       >
+        <SocialButtons/>
         {children}
       </body>
     </html>

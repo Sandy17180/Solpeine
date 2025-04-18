@@ -1,17 +1,13 @@
 "use client";
 
 import logo from "@/public/logo.svg";
-import arrowDown from "@/public/arrowDown.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { Lobster_Two } from "next/font/google";
-import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
-import instagramLogo from "@/public/instagramLogo.svg";
-import linkedinLogo from "@/public/linkedinLogo.svg";
-import pinterestLogo from "@/public/pinterestLogo.svg";
+import { Sawarabi_Mincho } from "next/font/google";
 
 const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
+const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 
 const navLinks = [
   {
@@ -35,112 +31,37 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const [openDropdown, setOpenDropdown] = useState(null);
-
   return (
-    <section className="flex justify-center w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)]">
-      <div className="w-full">
-        <div className=" bg-neutral-50/60 backdrop-blur h-full">
-          <div className="grid grid-cols-2 lg:grid-cols-3 items-center pl-[42px] relative h-[94px]">
-            {/* logo */}
-            <div>
-              <Link href={"/"}>
-                <Image src={logo} alt="Logo" width={151} height={78} />
-              </Link>
-            </div>
-
-            {/* links */}
-            <div className="justify-end items-center hidden lg:flex">
-              <nav className="flex gap-8 font-[400] relative translate-x-40">
-                {navLinks.map((link, index) => {
-                  const isOpen = openDropdown === index;
-                  return (
-                    <div key={link.label} className="relative">
-                      {link.dropdown ? (
-                        <button
-                          onClick={() => setOpenDropdown(isOpen ? null : index)}
-                          className={`flex items-center gap-2 text-black hover:text-primary/90 ${lobster.className} text-[22px]`}
-                        >
-                          {link.label}
-                          <Image
-                            className={`transition-transform duration-300 ${
-                              isOpen ? "rotate-180" : "rotate-0"
-                            }`}
-                            src={arrowDown}
-                            size={12}
-                            alt="Arrow Down"
-                          />
-                        </button>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          className={`text-black font-medium hover:text-primary/90 ${lobster.className} text-[22px]`}
-                        >
-                          {link.label}
-                        </Link>
-                      )}
-
-                      {/* Dropdown content */}
-                      {link.dropdown && isOpen && (
-                        <div className="absolute left-0 mt-2 bg-white shadow-lg rounded-md z-50">
-                          <ul className="py-2 px-4 space-y-2 min-w-[150px]">
-                            {link.dropdown.map((item) => (
-                              <li key={item.label}>
-                                <Link
-                                  href={item.href}
-                                  onClick={() => setOpenDropdown(null)}
-                                  className="block text-black hover:text-primary/90"
-                                >
-                                  {item.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </nav>
-            </div>
-
-            {/* social-media buttons */}
-            <div className="hidden lg:flex justify-end items-center gap-4 pr-[42px]">
-              <Link
-                href={"#instagram"}
-                className="text-black font-medium hover:text-primary/90 text-3xl"
-              >
-                <Image
-                  src={instagramLogo}
-                  alt="Instagram"
-                  width={32}
-                  height={32}
-                />
-              </Link>
-              <Link
-                href={"#pinterest"}
-                className="text-black font-medium hover:text-primary/90 text-3xl"
-              >
-                <Image
-                  src={pinterestLogo}
-                  alt="Pinterest"
-                  width={32}
-                  height={32}
-                />
-              </Link>
-              <Link
-                href={"#linkedin"}
-                className="text-black font-medium hover:text-primary/90 text-3xl"
-              >
-                <Image
-                  src={linkedinLogo}
-                  alt="LinkedIn"
-                  width={32}
-                  height={32}
-                />
-              </Link>
-            </div>
-          </div>
+    <section className="backdrop-blur w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] px-11 bg-[#f5f1ea]/70">
+      <div className="grid grid-cols-2 lg:grid-cols-3 items-center relative h-[94px]">
+        {/* logo */}
+        <div className="">
+          <Link href={"/"}>
+            <Image src={logo} alt="Logo"width={193} height={78} />
+          </Link>
+          <p className={`text-[#3a3a3a] text-xs ${sawarabi.className}`}>
+            Sculpted in light, frame by frame
+          </p>
+        </div>
+        <div></div>
+        {/* links */}
+        <div className="justify-end items-center hidden lg:flex">
+          <nav className="flex gap-8 font-[400] relative">
+            {navLinks.map((link, index) => {
+              return (
+                <div key={link.label} className="relative">
+                  <button>
+                    <Link
+                      href={link.href}
+                      className={`text-[#d94a27] font-medium hover:text-[#3a3a3a] ${lobster.className} text-[22px]`}
+                    >
+                      {link.label}
+                    </Link>
+                  </button>
+                </div>
+              );
+            })}
+          </nav>
         </div>
       </div>
     </section>
