@@ -68,7 +68,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="shadow-lg hover:scale-110 transition hover:brightness-150">
+              <div className="shadow-2xl hover:shadow-none hover:scale-110 transition hover:brightness-130">
                 <Image
                   src={social.src}
                   alt={social.alt}

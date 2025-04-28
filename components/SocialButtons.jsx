@@ -44,7 +44,7 @@ export default function SocialButtons() {
     <div className="fixed top-[270px] right-1 -translate-y-1/2 flex flex-col gap-4 z-50">
       {socials.map((social) => (
         <Link key={social.href} href={social.href} target="_blank" rel="noopener noreferrer">
-          <div className="shadow-lg hover:scale-110 hover:brightness-150 transition">
+          <div className="shadow-2xl hover:scale-110 hover:brightness-130 transition hover:shadow-none">
             <Image src={social.src} alt={social.alt} width={32} height={32} />
           </div>
         </Link>
