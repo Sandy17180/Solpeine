@@ -41,7 +41,7 @@ const socials = [
 
 export default function SocialButtons() {
   return (
-    <div className="fixed top-[270px] right-1 -translate-y-1/2 flex flex-col gap-4 z-50">
+    <div className="fixed top-[270px] right-2 -translate-y-1/2 flex flex-col gap-4 z-50">
       {socials.map((social) => (
         <Link key={social.href} href={social.href} target="_blank" rel="noopener noreferrer">
           <div className="shadow-2xl hover:scale-110 hover:brightness-130 transition hover:shadow-none">
