@@ -12,22 +12,14 @@ const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 const navLinks = [
   {
     label: "Workfolio",
-    href: "#Workfolio",
-    dropdown: [
-      { label: "Projects", href: "#projects" },
-      { label: "Case Studies", href: "#case-studies" },
-    ],
+    href: "workfolio",
   },
   {
     label: "Reflair",
-    href: "#Reflair",
-    dropdown: [
-      { label: "Inspiration", href: "#inspiration" },
-      { label: "Moodboards", href: "#moodboards" },
-    ],
+    href: "reflair",
   },
-  { label: "Contact", href: "#Contact" },
-  { label: "About", href: "#About" },
+  { label: "About", href: "about" },
+  { label: "Contact", href: "contact" },
 ];
 
 const Header = () => {
@@ -37,7 +29,7 @@ const Header = () => {
         {/* logo */}
         <div className="">
           <Link href={"/"}>
-            <Image src={logo} alt="Logo"width={193} height={78} />
+            <Image src={logo} alt="Logo" width={193} height={78} />
           </Link>
           <p className={`text-[#3a3a3a] text-xs ${sawarabi.className}`}>
             Sculpted in light, frame by frame
