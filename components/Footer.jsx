@@ -51,7 +51,7 @@ const socials = [
 const Footer = () => {
   return (
       <footer
-        className={` text-black py-6 ${sawarabi.className}`}
+        className={` text-black pb-6 pt-8 ${sawarabi.className}`}
       >
         <div
           className={`max-w-7xl mx-auto flex items-center justify-center gap-16 `}
