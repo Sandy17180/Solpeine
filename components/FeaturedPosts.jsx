@@ -130,7 +130,6 @@ export default function FeaturedPosts() {
           ))}
         </div>
       </section>
-      <hr className="w-screen h-[2px] bg-gray-400 border-0" />
     </>
   );
 }
