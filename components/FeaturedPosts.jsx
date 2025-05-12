@@ -1,5 +1,8 @@
+"use client"
+
 import Image from "next/image";
-import { Taprom, Sawarabi_Mincho,Lato } from "next/font/google";
+import { Taprom, Sawarabi_Mincho, Lato } from "next/font/google";
+import { motion } from "framer-motion";
 
 const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
@@ -71,65 +74,69 @@ export default function FeaturedPosts() {
           </div>
         </h2>
 
-        <div className="relative flex flex-col ">
-          {featuredPosts.map((post, index) => (
-            <div
-              key={post.id}
-              className={`flex w-full ${
-                index % 2 === 0 ? "justify-start" : "justify-end"
-              } relative`}
-            >
-              {/* Image and caption wrapper */}
-              <div className="flex flex-col items-center relative">
-                <div className="group transition-[width] duration-500 ease-in-out block">
-                  {/* image */}
-                  <div
-                    className={` overflow-hidden shadow-md w-[604px] ${
-                      index % 2 === 0 ? "h-[526px]" : "h-[956px]"
-                    } transition-[width] duration-500 ease-in-out hover:w-[630px] ${
-                      index % 2 === 0 ? "origin-left" : "origin-right"
-                    }`}
+        <div className="relative flex flex-col">
+          {featuredPosts.map((post, index) => {
+            const isEven = index % 2 === 0;
+
+            return (
+              <div
+                key={post.id}
+                className={`flex w-full ${
+                  isEven ? "justify-start" : "justify-end"
+                } relative`}
+              >
+                <div className="flex flex-col items-center relative group transition-[width] duration-500 ease-in-out">
+                  {/* Image with directional expansion */}
+                  <motion.div
+                    initial={{ scaleX: 1 }}
+                    whileHover={{ scaleX: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className={`overflow-hidden shadow-md w-[604px] ${
+                      isEven ? "h-[526px]" : "h-[956px]"
+                    } origin-${isEven ? "left" : "right"}`}
                   >
                     <Image
                       src={post.image}
                       alt={post.caption}
                       width={604}
-                      height={index % 2 === 0 ? 526 : 956}
+                      height={isEven ? 526 : 956}
                       className={`w-[604px] ${
                         index % 2 === 0 ? "h-[526px]" : "h-[956px]"
                       } object-cover transition-[width] duration-500 ease-in-out hover:w-[630px]`}
                     />
-                  </div>
+                  </motion.div>
 
                   {/* Caption */}
                   <div
-                    className={`absolute bottom-[-48px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center text-base font-normal italic px-6 py-3 rounded-2xl shadow-2xl w-[574px] h-[86px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato.className} font-normal text-xl z-5 cursor-default`}
+                    className={`absolute bottom-[-48px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center text-base italic px-6 py-3 rounded-2xl shadow-2xl w-[574px] h-[86px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato.className} font-normal text-xl z-5 cursor-default`}
                   >
                     {post.caption}
                   </div>
+
+                  {/* Arrow */}
+                  {index < featuredPosts.length - 1 && (
+                    <div
+                      className={`absolute bottom-0 translate-y-full ${
+                        isEven
+                          ? "left-[calc(100%-575px)] w-[620px] h-[650px]"
+                          : "right-[calc(100%-270px)] w-[316px] h-[410px]"
+                      } z-0`}
+                    >
+                      <Image
+                        src={isEven ? "/arrowOdd.svg" : "/arrowEven.svg"}
+                        alt="Decorative path"
+                        width={isEven ? 620 : 316}
+                        height={isEven ? 650 : 312}
+                      />
+                    </div>
+                  )}
                 </div>
-                {/* Arrow between items */}
-                {index < featuredPosts.length - 1 && (
-                  <div
-                    className={`absolute bottom-0 translate-y-full w-[630px] h-[650px]${
-                      index % 2 === 0
-                        ? "w-[630px] h-[650px] left-[calc(100%-575px)]"
-                        : "w-[316px] h-[410px] right-[calc(100%-540px)]"
-                    } z-0`}
-                  >
-                    <Image
-                      src={index % 2 === 0 ? "/arrowOdd.svg" : "/arrowEven.svg"}
-                      alt="Decorative path"
-                      width={index % 2 === 0 ? 620 : 316}
-                      height={index % 2 === 0 ? 650 : 312}
-                    />
-                  </div>
-                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
+      <hr className="w-screen h-[2px] bg-gray-400 border-0" />
     </>
   );
 }
