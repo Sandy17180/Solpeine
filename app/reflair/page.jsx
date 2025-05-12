@@ -28,7 +28,7 @@ const PhotoGallery = () => {
           transition={{ duration: 0.5, delay: index * 0.05 }}
           className="w-full break-inside-avoid overflow-hidden"
         >
-          <div className="rounded overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+          <div className="overflow-hidden shadow-md hover:shadow-xl transition-shadow">
             <Image
               src={photo.src}
               alt={photo.alt}
