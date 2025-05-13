@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import { Taprom, Sawarabi_Mincho, Lato } from "next/font/google";
@@ -59,7 +59,7 @@ const featuredPosts = [
 export default function FeaturedPosts() {
   return (
     <>
-      <section className="relative max-w-7xl mx-auto px-4 py-16 bg-[#F5F1EA]">
+      <section className="relative max-w-7xl mx-auto px-4 pt-16 pb-28 bg-[#F5F1EA]">
         <h2
           className={`text-3xl text-center mb-20 text-[#D94A27] relative ${taprom.className}`}
         >
@@ -136,7 +136,6 @@ export default function FeaturedPosts() {
           })}
         </div>
       </section>
-      <hr className="w-screen h-[2px] bg-gray-400 border-0" />
     </>
   );
 }
