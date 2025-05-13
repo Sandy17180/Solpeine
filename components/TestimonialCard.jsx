@@ -16,7 +16,7 @@ return (
         alt="icon"
         width={38}
         height={38}
-        className="rotate-180 text-orange-500"
+        className="text-orange-500"
       />
     </div>
 
