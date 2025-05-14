@@ -24,7 +24,7 @@ const Page = () => {
             <div>
               <Image src="/name.svg" width={800} height={110} alt="name" />
               <p
-                className={`${taprom.className} text-2xl text-[#D94A27] mt-4 mb-6`}
+                className={`${taprom.className} text-2xl text-[#D94A27] mt-4 mb-6 tracking-[0.15em]`}
               >
                 Your friendly neighborhood photographer
               </p>
@@ -52,17 +52,17 @@ const Page = () => {
               </p>
             </div>
             <div className="flex justify-end">
-              <div className="flex justify-end flex-col mt-6">
+              <div className="flex justify-end flex-col mt-10">
                 <Image
                   src="/signature.svg"
-                  width={172}
-                  height={120}
+                  width={190}
+                  height={100}
                   alt="signature"
                 />
                 <Link
                   href={"https://www.instagram.com/sandeepsai_fotofusion/"}
                   target="_blank"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 mt-6"
                 >
                   <Image
                     src={instagramLogo}
