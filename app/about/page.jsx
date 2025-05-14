@@ -55,7 +55,7 @@ const Page = () => {
               <div className="flex justify-end flex-col mt-10">
                 <Image
                   src="/signature.svg"
-                  width={190}
+                  width={195}
                   height={100}
                   alt="signature"
                 />
