@@ -91,6 +91,9 @@ export default function FeaturedPosts() {
                     initial={{ scaleX: 1 }}
                     whileHover={{ scaleX: 1.05 }}
                     transition={{ duration: 0.3 }}
+                    style={{
+                      transformOrigin: isEven ? "left" : "right", // Control the expansion direction
+                    }}
                     className={`overflow-hidden shadow-md w-[604px] ${
                       isEven ? "h-[526px]" : "h-[956px]"
                     } origin-${isEven ? "left" : "right"}`}
