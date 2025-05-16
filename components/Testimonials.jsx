@@ -17,43 +17,43 @@ const testimonials = [
   {
     name: "Kate Bonham",
     quote:
-      "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and I can't wait to share them with the world! From the moment we began the shoot, their energy was calming and uplifting. They gave clear direction while still allowing me to be myself, which made the entire experience feel effortless and fun. I never once felt awkward or overly posed—just seen, understood, and beautifully captured. Each photo tells a story and feels like a true representation of who I am.",
+      "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and I can't wait to share them with the world! From the moment we began the shoot, their energy was calming and uplifting. They gave clear direction while still allowing me to be myself, which made the entire experience feel effortless and fun. I never once felt awkward or overly posed—just seen, understood, and beautifully captured. Each photo tells a story and feels like a true representation of who I am.",
     profile: "Graduate Student"
   },
   {
     name: "Jane Doe",
     quote:
-    "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
+    "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
     profile: "Software Engineer",
   },
   {
     name: "Sarah Lee",
     quote:
-    "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
+    "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
     profile: "Marketing Manager",
   },
   {
     name: "Kate Bonham",
     quote:
-      "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and I can't wait to share them with the world! From the moment we began the shoot, their energy was calming and uplifting. They gave clear direction while still allowing me to be myself, which made the entire experience feel effortless and fun. I never once felt awkward or overly posed—just seen, understood, and beautifully captured. Each photo tells a story and feels like a true representation of who I am.",
+      "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and I can't wait to share them with the world! From the moment we began the shoot, their energy was calming and uplifting. They gave clear direction while still allowing me to be myself, which made the entire experience feel effortless and fun. I never once felt awkward or overly posed—just seen, understood, and beautifully captured. Each photo tells a story and feels like a true representation of who I am.",
     profile: "Graduate Student"
   },
   {
     name: "Jane Doe",
     quote:
-    "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
+    "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
     profile: "Software Engineer",
   },
   {
     name: "Sarah Lee",
     quote:
-    "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
+    "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
     profile: "Marketing Manager",
   },
   {
     name: "Sarah Lee",
     quote:
-    "I have never felt so comfortable in front of a camera until I worked with Solpiene. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
+    "I have never felt so comfortable in front of a camera until I worked with Solpeine. They have an amazing way of making you feel at ease, bringing out natural expressions and emotions. The final photos truly reflect my personality and confidence, and i can’t wait to share them with the world!",
     profile: "Marketing Manager",
   },
 ];
