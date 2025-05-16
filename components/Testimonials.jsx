@@ -6,7 +6,7 @@ import { testimonials } from "@/data/testimonials"; // Make sure this file exist
 import TestimonialCard from "./TestimonialCard";
 import { useState } from "react";
 
-const lato = Lato({ subsets: ["latin, italic"], weight: ["400"] });
+const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
 export default function Testimonials() {
   const [visibleCount, setVisibleCount] = useState(3);
