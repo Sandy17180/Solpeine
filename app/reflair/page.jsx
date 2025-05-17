@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import photos from "@/data/reflair.json";
+import {photos} from "@/data/reflair.js";
 import {Lato} from "next/font/google";
 
 const lato = Lato({
