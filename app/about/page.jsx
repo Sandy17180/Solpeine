@@ -31,7 +31,7 @@ const Page = () => {
             </div>
 
             <div
-              className={`${lato.className} mt-1 space-y-4 text-lg leading-relaxed`}
+              className={`${lato.className} mt-1 space-y-4 text-lg leading-relaxed tracking-wider`}
             >
               <p>
                 What began as a simple summer pastime at the age of eight - a
