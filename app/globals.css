@@ -10,5 +10,6 @@ body {
 }
 
 .input-style {
-  @apply w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400;
+  @apply p-[10px] border border-[#C2B6B6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-[#d94a27] focus:border-[#d94a27] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a];
 }
+
