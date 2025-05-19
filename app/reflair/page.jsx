@@ -2,19 +2,28 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {photos} from "@/data/reflair.js";
-import {Lato} from "next/font/google";
+import { photos } from "@/data/reflair.js";
+import { Lato } from "next/font/google";
 
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400"],
 });
 
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const PhotoGallery = () => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    setImages(photos);
+    setImages(shuffleArray(photos));
   }, []);
 
   return (
@@ -38,7 +47,9 @@ const PhotoGallery = () => {
               className="w-full h-auto object-cover"
             />
             <div className="p-3 w-full text-center tracking-wider">
-              <p className={`text-xl text-gray-800 ${lato.className}`}>{photo.caption}</p>
+              <p className={`text-xl text-gray-800 ${lato.className}`}>
+                {photo.caption}
+              </p>
             </div>
           </div>
         </motion.div>
