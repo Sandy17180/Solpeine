@@ -7,22 +7,22 @@ const petImages = [
   {
     id: 1,
     image: "/HeadshotImage.jpg",
-    orientation: "portrait",
+    orientation: "landscape",
   },
   {
     id: 2,
     image: "/HeadshotImage.jpg",
-    orientation: "portrait",
+    orientation: "landscape",
   },
   {
     id: 3,
     image: "/HeadshotImage.jpg",
-    orientation: "portrait",
+    orientation: "landscape",
   },
   {
     id: 4,
     image: "/HeadshotImage.jpg",
-    orientation: "portrait",
+    orientation: "landscape",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function FashionPortfolio() {
             alt="Headshot Title"
             width={415}
             height={80}
-            className="object-contain"
+            className="object-contain shadow-none"
           />
         </div>
 
@@ -116,7 +116,7 @@ export default function FashionPortfolio() {
       </div>
 
       {/* Thumbnail list */}
-      <div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-15 px-6 pt-4 overflow-y-auto scrollbar-hide relative z-20 -mt-20 items-center">
+      <div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-5 px-6 pt-4 overflow-y-auto scrollbar-hide relative z-20 -mt-20 items-center">
         {petImages.map((img, idx) => {
           const { width, height } = getThumbNailImageSize(img.orientation);
           return (

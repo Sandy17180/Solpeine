@@ -63,7 +63,7 @@ export default function Events() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/EventsGenre.svg"
+            src="/EventsGenre.png"
             alt="Event Title"
             width={415}
             height={80}

@@ -63,7 +63,7 @@ export default function ProductGenre() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/ProductGenre.svg"
+            src="/ProductGenre.png"
             alt="Product Title"
             width={415}
             height={80}

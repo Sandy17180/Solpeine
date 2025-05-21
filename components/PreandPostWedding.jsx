@@ -63,7 +63,7 @@ export default function PreandPostWedding() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/pre_and_post_wedding.svg"
+            src="/pre_postGenre.png"
             alt="preandpost Title"
             width={415}
             height={80}

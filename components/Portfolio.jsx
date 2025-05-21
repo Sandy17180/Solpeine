@@ -62,7 +62,7 @@ export default function Portfolio() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/PortfolioGenre.svg"
+            src="/PortfolioGenre.png"
             alt="Portfolio Title"
             width={415}
             height={80}

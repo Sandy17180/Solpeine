@@ -63,7 +63,7 @@ export default function PetPortfolio() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/pet-title.svg"
+            src="/PetGenre.png"
             alt="Pet Title"
             width={415}
             height={80}

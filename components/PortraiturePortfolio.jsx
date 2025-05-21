@@ -62,7 +62,7 @@ export default function FashionPortfolio() {
         <div className="mb-6">
           <Image
             style={{ marginTop: -72, marginLeft: -38 }}
-            src="/PortraitureGenre.svg"
+            src="/PortraitureGenre.png"
             alt="Potraiture Title"
             width={415}
             height={80}
