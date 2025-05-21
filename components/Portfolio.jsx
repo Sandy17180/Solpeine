@@ -73,7 +73,7 @@ export default function Portfolio() {
         {/* Main image carousel */}
         <div
           className="relative flex justify-start items-center  w-full w-[1200px] h-[720px]"
-          style={{ marginLeft: 48, marginTop: 44 }}
+          style={{ marginLeft: 72, marginTop: 44 }}
         >
           {/* Previous button */}
           <button onClick={prevImage} className="z-10 mr-4 bg-#F5F1EAE0  p-2"style={{marginBottom: 302}}>
