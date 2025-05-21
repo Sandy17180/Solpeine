@@ -33,3 +33,4 @@ export const genreCaption = {
   headshots: "/headshots.svg",
   pet: "/pet.svg",
 };
+
