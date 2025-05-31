@@ -52,13 +52,11 @@ export default function GenrePage() {
       case "events":
         return <Events/>
       default:
-        
     }
   };
 
   return (
     <div className="p-10">
-      
       {renderContent()}
     </div>
   );
