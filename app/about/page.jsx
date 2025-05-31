@@ -37,11 +37,7 @@ const Page = () => {
             </div>
 
             <div
-<<<<<<< Updated upstream
-              className={`${lato.className} mt-1 space-y-4 text-lg leading-relaxed`}
-=======
-              className={`${lato.className} space-y-5 text-lg leading-relaxed tracking-wide`}
->>>>>>> Stashed changes
+              className={`${lato.className} mt-1 space-y-4 text-lg leading-relaxed tracking-wider`}
             >
               <p>
                 What began as a simple summer pastime at the age of eight — a
@@ -91,7 +87,7 @@ const Page = () => {
 
           {/* Image Section */}
           <div className="translate-x-20 translate-y-20">
-            <div className="xl:w-[437px] xl:h-[635px] lg:w-[350px] lg:h-[500px] overflow-hidden shadow-[25px_25px_0px_rgba(255,255,255)]">
+            <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden flex justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
               <Image
                 src="/sandeep_profile.jpg"
                 width={437}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Lato } from "next/font/google";
-import { testimonials } from "@/data/testimonials"; // Make sure this file exists and is exporting `testimonials`
+import { testimonials } from "@/data/testimonials";
 import TestimonialCard from "./TestimonialCard";
 import { useState } from "react";
 
@@ -31,7 +31,8 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto items-start">
+      
+      <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto items-stretch">
         {testimonials.slice(0, visibleCount).map((t, index) => (
           <TestimonialCard
             key={index}
@@ -43,6 +44,7 @@ export default function Testimonials() {
         ))}
       </div>
 
+      {/* Optional Load More Button */}
       {/* {isMoreToShow && (
         <div className="text-center mt-[72px]">
           <button

@@ -16,7 +16,7 @@ import ProductGenre from "@/components/ProductGenre";
 
 export default function GenrePage() {
   const params = useParams();
-  const genre = params.genre?.toLowerCase();
+  const genre = params.genre?.toLowerCase(); 
 
   // const isValidGenre = genres.includes(genre);
 
@@ -52,13 +52,11 @@ export default function GenrePage() {
       case "events":
         return <Events/>
       default:
-        
     }
   };
 
   return (
     <div className="p-10">
-      
       {renderContent()}
     </div>
   );

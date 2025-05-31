@@ -12,14 +12,14 @@ const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 const navLinks = [
   {
     label: "Workfolio",
-    href: "workfolio",
+    href: "/workfolio",
   },
   {
     label: "Reflair",
-    href: "reflair",
+    href: "/reflair",
   },
-  { label: "About", href: "about" },
-  { label: "Contact", href: "contact" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Header = () => {

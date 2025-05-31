@@ -85,27 +85,24 @@ export default function FeaturedPosts() {
                   isEven ? "justify-start" : "justify-end"
                 } relative`}
               >
-                <div className="flex flex-col items-center relative group transition-[width] duration-500 ease-in-out">
+                <div className="flex flex-col items-center relative group transition-transform duration-500 ease-in-out">
                   {/* Image with directional expansion */}
                   <motion.div
-                    initial={{ scaleX: 1 }}
-                    whileHover={{ scaleX: 1.05 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
                     style={{
-                      transformOrigin: isEven ? "left" : "right", // Control the expansion direction
+                      transformOrigin: isEven ? "left" : "right",
                     }}
-                    className={`overflow-hidden shadow-md w-[604px] ${
+                    className={`relative shadow-md overflow-hidden ${
                       isEven ? "h-[526px]" : "h-[956px]"
-                    } origin-${isEven ? "left" : "right"}`}
+                    } w-[604px]`}
                   >
                     <Image
                       src={post.image}
                       alt={post.caption}
-                      width={604}
-                      height={isEven ? 526 : 956}
-                      className={`w-[604px] ${
-                        index % 2 === 0 ? "h-[526px]" : "h-[956px]"
-                      } object-cover transition-[width] duration-500 ease-in-out hover:w-[630px]`}
+                      fill
+                      className="object-cover"
                     />
                   </motion.div>
 

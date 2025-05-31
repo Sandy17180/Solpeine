@@ -7,6 +7,7 @@ import Image from "next/image";
 
 export default function WorkfolioPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  
 
   return (
     <div className="grid grid-cols-3 gap-[62px] px-20 py-[62px] w-full">
@@ -42,6 +43,7 @@ export default function WorkfolioPage() {
               ${shiftClass}`}
           >
             <Link
+            
               href={`/workfolio/${genre}`}
               className="h-full w-full flex items-center justify-center bg-black"
             >
@@ -67,6 +69,8 @@ export default function WorkfolioPage() {
           </div>
         );
       })}
+      
+
     </div>
   );
 }
