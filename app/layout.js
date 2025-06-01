@@ -1,9 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Lobster_Two } from "next/font/google";
-import SocialButtons from "@/components/SocialButtons"
-import Footer from "@/components/Footer"
+import SocialButtons from "@/components/SocialButtons";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const lobster = Lobster_Two({
   variable: "--font-lobster",
@@ -34,6 +35,26 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <SocialButtons />
+        <Toaster
+          position="center-top"
+          gutter={12}
+          toastOptions={{
+            duration: 5000,
+            className: "",
+            style: {
+              background: "#453b29",
+              color: "#fff",
+            },
+          }}
+          // 👇 transition config
+          transition={{
+            enter: "transform translate-y-2 opacity-0",
+            enterFrom: "transform translate-y-0 opacity-100",
+            leave: "transform scale-95 opacity-0",
+            duration: 300,
+          }}
+        />
+
         {children}
         <Footer />
       </body>
