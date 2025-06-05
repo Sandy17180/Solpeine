@@ -3,7 +3,8 @@ import Image from "next/image";
 import { Lato } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+
 const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export default function ContactPage() {
@@ -17,76 +18,72 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [wordCount, setWordCount] = useState(0);
+  const [invalidFields, setInvalidFields] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+
+    let newValue = value;
+
+    if (name === "message") {
+      newValue = value.slice(0, 500);
+      setWordCount(newValue.length);
+    }
+
+    if (name === "phone") {
+      newValue = value.replace(/\D/g, "").slice(0, 10);
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
+
+    // Remove red border when valid again
+    if (isValidField(name, newValue)) {
+      setInvalidFields((prev) => ({ ...prev, [name]: false }));
+    }
   };
 
-  const validate = () => {
-    const newErrors = {};
-
+  const isValidField = (name, value) => {
     const nameRegex = /^[A-Za-z\s]+$/;
 
-    if (!formData.firstName || formData.firstName.trim().length < 2) {
-      newErrors.firstName = "First name must be at least 2 characters";
-    } else if (!nameRegex.test(formData.firstName.trim())) {
-      newErrors.firstName = "First name can only contain letters and spaces";
-    }
+    switch (name) {
+      case "firstName":
+      case "lastName":
+        return value.trim().length >= 2 && nameRegex.test(value.trim());
 
-    if (!formData.lastName || formData.lastName.trim().length < 2) {
-      newErrors.lastName = "Last name must be at least 2 characters";
-    } else if (!nameRegex.test(formData.lastName.trim())) {
-      newErrors.lastName = "Last name can only contain letters and spaces";
-    }
+      case "email":
+        return /\S+@\S+\.\S+/.test(value.trim());
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
-    }
+      case "phone":
+        return /^\d{10}$/.test(value);
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
-    } else {
-      const cleaned = formData.phone.replace(/[\s-]/g, "");
-      if (!/^\+?\d{10,}$/.test(cleaned)) {
-        newErrors.phone =
-          "Phone number must have at least 10 digits; may start with '+' and allow spaces or hyphens";
-      }
-    }
+      case "city":
+        return value.trim().length >= 2 && nameRegex.test(value.trim());
 
-    if (!formData.city || formData.city.trim().length < 2) {
-      newErrors.city = "City must be at least 2 characters";
-    } else if (!nameRegex.test(formData.city.trim())) {
-      newErrors.city = "City can only contain letters and spaces";
-    }
+      case "date":
+        return value.trim() !== "" && !isNaN(new Date(value).getTime());
 
-    if (!formData.date) {
-      newErrors.date = "Date is required";
-    } else if (isNaN(new Date(formData.date).getTime())) {
-      newErrors.date = "Invalid date";
-    }
+      case "message":
+        return value.trim() !== "" && value.length <= 500;
 
-    if (!formData.message || formData.message.trim().length < 2) {
-      newErrors.message = "Message is required";
+      default:
+        return true;
     }
-
-    return newErrors;
   };
-  
-  
+
+  const validateAllFields = () => {
+    const newInvalids = {};
+    Object.entries(formData).forEach(([field, value]) => {
+      newInvalids[field] = !isValidField(field, value);
+    });
+    setInvalidFields(newInvalids);
+    return Object.values(newInvalids).some((isInvalid) => isInvalid);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      Object.values(validationErrors).forEach((msg) => toast.error(msg));
-      return;
-    }
+    const hasErrors = validateAllFields();
+    if (hasErrors) return;
 
     toast.success("Your inquiry has been submitted successfully!");
     console.log("Form submitted:", formData);
@@ -101,12 +98,18 @@ export default function ContactPage() {
       date: "",
       message: "",
     });
-    setErrors({});
+    setWordCount(0);
+    setInvalidFields({});
   };
+
+  const inputBase =
+    "p-[10px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2";
+  const normalBorder =
+    "border-[#C2B6B6] focus:ring-[#d94a27] focus:border-[#d94a27] focus:border-1";
+  const errorBorder = "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
 
   return (
     <div className={`w-full flex relative left-10 top-0 ${lato.className}`}>
-      {/* Left: Form (40% width) */}
       <div className="w-2/5 px-8 pt-4 pb-[75px] relative z-10">
         <Image src="/connect.svg" height={32} width={554} alt="contact" />
         <p className="mb-6 mt-12 text-[#3a3a3ae6] font-semibold text-lg leading-7 tracking-wide">
@@ -116,69 +119,100 @@ export default function ContactPage() {
         <form className="grid gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row gap-5">
             <input
-              type="text"
               name="firstName"
+              type="text"
               placeholder="First name *"
-              className="input-style flex-1"
-              required
               value={formData.firstName}
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.firstName ? errorBorder : normalBorder
+              } flex-1`}
+               required
             />
             <input
               name="lastName"
               type="text"
               placeholder="Last name *"
-              className="input-style flex-1"
+              required
               value={formData.lastName}
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.lastName ? errorBorder : normalBorder
+              } flex-1`}
             />
           </div>
+
           <div className="flex flex-col md:flex-row gap-5">
             <input
               name="email"
               type="email"
               placeholder="Email address *"
-              className="input-style flex-1"
+              required
               value={formData.email}
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.email ? errorBorder : normalBorder
+              } flex-1`}
             />
             <input
               name="phone"
-              type="tel"
+              required
+              type="number"
               placeholder="Phone number *"
-              className="input-style flex-1"
               value={formData.phone}
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.phone ? errorBorder : normalBorder
+              } flex-1`}
             />
           </div>
+
           <div className="flex flex-col md:flex-row gap-5">
             <input
               name="city"
               type="text"
               placeholder="City *"
-              className="input-style flex-1"
+              required
               value={formData.city}
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.city ? errorBorder : normalBorder
+              } flex-1`}
             />
             <input
               name="date"
               type={formData.date ? "date" : "text"}
               placeholder="Tentative shooting dates *"
-              className="input-style flex-1"
               onFocus={(e) => (e.target.type = "date")}
               min={new Date().toISOString().split("T")[0]}
               value={formData.date}
+              required
               onChange={handleChange}
+              className={`${inputBase} ${
+                invalidFields.date ? errorBorder : normalBorder
+              } flex-1`}
             />
           </div>
 
-          <textarea
-            name="message"
-            placeholder="Please enter details of your requirements (500 words) *"
-            className="input-style h-56"
-            value={formData.message}
-            onChange={handleChange}
-          />
+          <div className="flex flex-col relative h-56">
+            <textarea
+              name="message"
+              placeholder="Please enter details of your requirements (max 500 characters) *"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className={`${inputBase} ${
+                invalidFields.message ? errorBorder : normalBorder
+              } pb-4 h-56 resize-none z-10 leading-6 text-sm font-sans`}
+            />
+            <div className="absolute bottom-0 right-4 text-sm z-20">
+              <span
+                className={wordCount > 500 ? "text-red-500" : "text-gray-500"}
+              >
+                {wordCount}/500 characters
+              </span>
+            </div>
+          </div>
 
           <button
             type="submit"
@@ -192,10 +226,9 @@ export default function ContactPage() {
           </div>
         </form>
 
-        {/* WhatsApp Link */}
         <Link
           className="mt-6 flex items-center space-x-2"
-          href={"https://wa.me/919036021726"}
+          href="https://wa.me/919036021726"
           target="_blank"
         >
           <Image
@@ -208,7 +241,6 @@ export default function ContactPage() {
         </Link>
       </div>
 
-      {/* Right: Image with gradient overlay (60% width) */}
       <div className="w-3/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
         <div
