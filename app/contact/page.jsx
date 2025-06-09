@@ -3,11 +3,13 @@ import Image from "next/image";
 import { Lato } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import SuccessModal from "@/components/SuccessModal";
+
 
 const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export default function ContactPage() {
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -80,12 +82,17 @@ export default function ContactPage() {
     return Object.values(newInvalids).some((isInvalid) => isInvalid);
   };
 
+  const getLocalDate = () => {
+    const local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    return local.toISOString().split("T")[0];
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const hasErrors = validateAllFields();
     if (hasErrors) return;
 
-    toast.success("Your inquiry has been submitted successfully!");
     console.log("Form submitted:", formData);
 
     // Reset form
@@ -100,6 +107,9 @@ export default function ContactPage() {
     });
     setWordCount(0);
     setInvalidFields({});
+    setShowSuccess(true);
+
+    setTimeout(() => setShowSuccess(false), 5000);
   };
 
   const inputBase =
@@ -127,7 +137,7 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.firstName ? errorBorder : normalBorder
               } flex-1`}
-               required
+              required
             />
             <input
               name="lastName"
@@ -184,7 +194,7 @@ export default function ContactPage() {
               type={formData.date ? "date" : "text"}
               placeholder="Tentative shooting dates *"
               onFocus={(e) => (e.target.type = "date")}
-              min={new Date().toISOString().split("T")[0]}
+              min={getLocalDate()}
               value={formData.date}
               required
               onChange={handleChange}
@@ -248,6 +258,7 @@ export default function ContactPage() {
           style={{ backgroundImage: "url('/image7.jpg')" }}
         />
       </div>
+      <SuccessModal show={showSuccess} onClose={() => setShowSuccess(false)} />
     </div>
   );
 }
