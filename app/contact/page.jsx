@@ -156,7 +156,7 @@ export default function ContactPage() {
             <input
               name="email"
               type="email"
-              placeholder="Email address *"
+              placeholder="Email address (user@domain)*"
               required
               value={formData.email}
               onChange={handleChange}
