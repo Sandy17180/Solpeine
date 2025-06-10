@@ -59,7 +59,7 @@ const featuredPosts = [
 export default function FeaturedPosts() {
   return (
     <>
-      <section className="relative max-w-7xl mx-auto px-4 pt-16 pb-28 bg-[#F5F1EA]">
+      <section className="relative max-w-7xl mx-auto px-4 pt-16 pb-64 bg-[#F5F1EA]">
         <h2
           className={`text-3xl text-center mb-20 text-[#D94A27] relative ${taprom.className}`}
         >
