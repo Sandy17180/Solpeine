@@ -97,12 +97,13 @@ const Footer = () => {
       {/* Copyright section*/}
       <div className="text-center text-[#3a3a3a] text-xs space-x-9 flex justify-center items-center mt-3.5">
         <p>&copy; {new Date().getFullYear()} Solpeine</p>
-        <Link href="/terms" className="hover:text-gray-800">
+        
+        {/* <Link href="/terms" className="hover:text-gray-800">
           Terms of Service
         </Link>
         <Link href="/policy" className="hover:text-gray-800">
           Privacy Policy
-        </Link>
+        </Link> */}
       </div>
     </footer>
   );
