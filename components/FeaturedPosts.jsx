@@ -3,58 +3,13 @@
 import Image from "next/image";
 import { Taprom, Sawarabi_Mincho, Lato } from "next/font/google";
 import { motion } from "framer-motion";
+import { featuredPosts } from "@/data/featuredPost";
 
 const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
-const featuredPosts = [
-  {
-    id: 1,
-    image: "/tiger.jpg",
-    caption: "Born to roam, bound to none..",
-  },
-  {
-    id: 2,
-    image: "/door1.jpeg",
-    caption: "Knock, and the unknown answers.",
-  },
-  {
-    id: 3,
-    image: "/statue.jpg",
-    caption: "Not just a flight, but a perspective shift...",
-  },
-  {
-    id: 4,
-    image: "/panorama.png",
-    caption: "A silent witness to passing time.",
-  },
-  {
-    id: 5,
-    image: "/preWedding.jpg",
-    caption: "A silent witness to passing time.",
-  },
-  {
-    id: 6,
-    image: "/Fashion.jpg",
-    caption: "A quiet moment, a thousand thoughts.",
-  },
-  {
-    id: 7,
-    image: "/bike.jpg",
-    caption: "Ride. Roar. Repeat.",
-  },
-  {
-    id: 8,
-    image: "/Girl.jpg",
-    caption: "Glow within, shine beyond.",
-  },
-  {
-    id: 9,
-    image: "/Dog.jpg",
-    caption: "Dreaming of treats and endless belly rubs.",
-  },
-];
+
 
 export default function FeaturedPosts() {
   return (
