@@ -36,7 +36,7 @@ export const featuredPosts = [
   },
   {
     id: 8,
-    image: "/HeadShot.jpg",
+    image: "/HeadshotPicture.jpg",
     caption: "Glow within, shine beyond.",
   },
   {
