@@ -22,6 +22,8 @@ export default function ContactPage() {
 
   const [wordCount, setWordCount] = useState(0);
   const [invalidFields, setInvalidFields] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +77,7 @@ export default function ContactPage() {
 
   const validateAllFields = () => {
     const newInvalids = {};
+    const newErrors = {};
     Object.entries(formData).forEach(([field, value]) => {
       newInvalids[field] = !isValidField(field, value);
     });
@@ -92,7 +95,7 @@ export default function ContactPage() {
     e.preventDefault();
     const hasErrors = validateAllFields();
     if (hasErrors) return;
-
+    
     console.log("Form submitted:", formData);
 
     // Reset form
@@ -126,7 +129,7 @@ export default function ContactPage() {
           For general questions and inquiries please fill out the contact form.
         </p>
 
-        <form className="grid gap-4" onSubmit={handleSubmit}>
+        <form className="grid gap-4" onSubmit={handleSubmit} noValidate>
           <div className="flex flex-col md:flex-row gap-5">
             <input
               name="firstName"
@@ -138,6 +141,7 @@ export default function ContactPage() {
                 invalidFields.firstName ? errorBorder : normalBorder
               } flex-1`}
               required
+              title="Please enter your first name (at least 2 characters, letters only)"
             />
             <input
               name="lastName"
@@ -149,6 +153,7 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.lastName ? errorBorder : normalBorder
               } flex-1`}
+              title="Please enter your last name (at least 2 characters, letters only)"
             />
           </div>
 
@@ -156,13 +161,14 @@ export default function ContactPage() {
             <input
               name="email"
               type="email"
-              placeholder="Email address (user@domain)*"
+              placeholder="Email address *"
               required
               value={formData.email}
               onChange={handleChange}
               className={`${inputBase} ${
                 invalidFields.email ? errorBorder : normalBorder
               } flex-1`}
+              title="Please enter a valid email in the format: username@example.com"
             />
             <input
               name="phone"
@@ -174,6 +180,7 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.phone ? errorBorder : normalBorder
               } flex-1`}
+              title="Please enter a valid 10 digit phone number"
             />
           </div>
 
@@ -188,12 +195,14 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.city ? errorBorder : normalBorder
               } flex-1`}
+               title="Please enter your city (at least 2 characters, letters only)"
             />
             <input
               name="date"
               type={formData.date ? "date" : "text"}
               placeholder="Tentative shooting dates *"
               onFocus={(e) => (e.target.type = "date")}
+              onKeyDown={(e) => e.preventDefault()}
               min={getLocalDate()}
               value={formData.date}
               required
@@ -214,6 +223,7 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.message ? errorBorder : normalBorder
               } pb-4 h-56 resize-none z-10 leading-6 text-sm font-sans`}
+              title="Please enter your message (at least 1 character, max 500 characters)"
             />
             <div className="absolute bottom-0 right-4 text-sm z-20">
               <span
