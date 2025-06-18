@@ -89,7 +89,7 @@ export default function ProductGenre() {
 
           {/* Main image */}
           <div
-            style={{ width: 610, height: 488, marginBottom: 369 }}
+            style={{ width: 610, height: 488, marginBottom: 369,marginTop: 117, marginRight: 60  }}
             className="relative flex justify-center items-center"
           >
             <Image

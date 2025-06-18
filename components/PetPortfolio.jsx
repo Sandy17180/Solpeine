@@ -89,9 +89,15 @@ export default function PetPortfolio() {
 
           {/* Main image */}
           <div
-            style={{ width: 610, height: 488, marginBottom: 369 }}
-            className="relative flex justify-center items-center"
-          >
+  style={{ 
+    width: 610, 
+    height: 488, 
+    marginBottom: 369, 
+    marginTop: 117, 
+    marginRight: 60 
+  }}
+  className="relative flex justify-center items-center"
+>
             <Image
               src={currentImage.image}
               alt={`Pet ${currentIndex + 1}`}

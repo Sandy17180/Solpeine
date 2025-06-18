@@ -4,29 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 
 const petImages = [
-  {
-    id: 1,
-    image: "/PortraitureImage.jpg",
-    orientation: "portrait",
-  },
-  {
-    id: 2,
-    image: "/fashionPortrait.jpg",
-    orientation: "portrait",
-  },
-  {
-    id: 3,
-    image: "/PortraitureImage.jpg",
-    orientation: "portrait",
-  },
-  {
-    id: 4,
-    image: "/PortraitureImage.jpg",
-    orientation: "portrait",
-  },
+  { id: 1, image: "/PortraitureImage.jpg", orientation: "portrait" },
+  { id: 2, image: "/PortraitureImage.jpg", orientation: "portrait" },
+  { id: 3, image: "/PortraitureImage.jpg", orientation: "portrait" },
+  { id: 4, image: "/PortraitureImage.jpg", orientation: "portrait" },
 ];
 
-export default function FashionPortfolio() {
+export default function PortraiturePortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextImage = () => {
@@ -49,34 +33,31 @@ export default function FashionPortfolio() {
       : { width: 350, height: 280 };
   };
 
-  const getMainImageSize=()=>{
-    return { width: 488, height: 563 }
-
+  const getMainImageSize = () => {
+    return { width: 488, height: 563 };
   };
-  const {width,height} = getMainImageSize(currentImage.orientation);
+
+  const { width, height } = getMainImageSize();
 
   return (
-    <div className="flex min-h-screen bg-#F5F1EAE0 text-black px-10 py-8">
-      <div className="flex-1 flex flex-col items-start">
-        {/* Title image */}
-        <div className="mb-6">
+    <div className="flex min-h-screen bg-[#F5F1EAE0] text-black px-10 py-8">
+      {/* Left/Center Section */}
+      <div className="flex flex-col w-[calc(100%-398px)]">
+        {/* Title at Top-Left */}
+        <div className="mb-8">
           <Image
-            style={{ marginTop: -72, marginLeft: -38 }}
             src="/PortraitureGenre.png"
-            alt="Potraiture Title"
+            alt="Portraiture Title"
             width={415}
             height={80}
-            className="object-contain"
+            className="object-contain -mt-[72px] -ml-[38px]"
           />
         </div>
 
-        {/* Main image carousel */}
-        <div
-          className="relative flex justify-start items-center  w-full w-[1200px] h-[720px]"
-          style={{ marginLeft: 48, marginTop: 44 }}
-        >
-          {/* Previous button */}
-          <button onClick={prevImage} className="z-10 mr-4 bg-#F5F1EAE0  p-2"style={{marginBottom: 302}}>
+        {/* Centered Image and Arrows */}
+        <div className="flex justify-center items-center flex-1">
+          {/* Left Arrow */}
+          <button onClick={prevImage} className="p-2 mr-4">
             <Image
               src="/petarrow1.png"
               alt="Previous"
@@ -86,9 +67,9 @@ export default function FashionPortfolio() {
             />
           </button>
 
-          {/* Main image */}
+          {/* Main Image */}
           <div
-            style={{ width: 610, height: 488, marginBottom: 369 }}
+            style={{ width: 488, height: 563 ,marginBottom :197}}
             className="relative flex justify-center items-center"
           >
             <Image
@@ -100,10 +81,8 @@ export default function FashionPortfolio() {
             />
           </div>
 
-          {/* Next button */}
-          <button
-            onClick={nextImage}
-            className="z-10 ml-4 bg-#F5F1EAE0 rounded-full p-2"style={{marginBottom:302}}>
+          {/* Right Arrow */}
+          <button onClick={nextImage} className="p-2 ml-4">
             <Image
               src="/petarrow2.png"
               alt="Next"
@@ -115,15 +94,15 @@ export default function FashionPortfolio() {
         </div>
       </div>
 
-      {/* Thumbnail list */}
-      <div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-20 px-6 pt-4 overflow-y-auto scrollbar-hide relative z-20 -mt-20 items-center">
+      {/* Right Thumbnail Section */}
+      <div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-20 px-6 pt-4 overflow-y-auto scrollbar-hide -mt-20 items-center">
         {petImages.map((img, idx) => {
           const { width, height } = getThumbNailImageSize(img.orientation);
           return (
             <div
               key={img.id}
               onClick={() => selectImage(idx)}
-              className="cursor-pointer border-2 border-transparent  transition "
+              className="cursor-pointer border-2 border-transparent transition"
               style={{ width, height }}
             >
               <Image

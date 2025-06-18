@@ -61,20 +61,20 @@ export default function PreandPostWedding() {
       <div className="flex-1 flex flex-col items-start">
         {/* Title image */}
         <div className="mb-6">
-          <Image
-            style={{ marginTop: -72, marginLeft: -38 }}
-            src="/pre_postGenre.png"
-            alt="preandpost Title"
-            width={415}
-            height={80}
-            className="object-contain"
-          />
-        </div>
+        <Image
+          style={{ marginTop: -120, marginLeft: -48 }}
+          src="/Pre_PostGenre.png"
+          alt="preandpost Title"
+          width={415}
+          height={80}
+          className="object-contain"
+         />
+      </div>
 
         {/* Main image carousel */}
         <div
           className="relative flex justify-start items-center  w-full w-[1200px] h-[720px]"
-          style={{ marginLeft: 48, marginTop: 44 }}
+          style={{ marginLeft: 48, marginTop: 55 }}
         >
           {/* Previous button */}
           <button onClick={prevImage} className="z-10 mr-4 bg-#F5F1EAE0  p-2"style={{marginBottom: 302}}>

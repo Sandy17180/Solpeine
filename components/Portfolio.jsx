@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const petImages = [
+const PortfolioImages = [
   {
     id: 1,
     image: "/Portfolio_Genre.jpg",
@@ -30,18 +30,18 @@ export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % petImages.length);
+    setCurrentIndex((prev) => (prev + 1) % PortfolioImages.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev === 0 ? petImages.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? PortfolioImages.length - 1 : prev - 1));
   };
 
   const selectImage = (index) => {
     setCurrentIndex(index);
   };
 
-  const currentImage = petImages[currentIndex];
+  const currentImage = PortfolioImages[currentIndex];
 
   const getThumbNailImageSize = (orientation) => {
     return orientation === "portrait"
@@ -73,7 +73,7 @@ export default function Portfolio() {
         {/* Main image carousel */}
         <div
           className="relative flex justify-start items-center  w-full w-[1200px] h-[720px]"
-          style={{ marginLeft: 72, marginTop: 44 }}
+          style={{ marginLeft: 60, marginTop: 117, marginRight: 60 }}
         >
           {/* Previous button */}
           <button onClick={prevImage} className="z-10 mr-4 bg-#F5F1EAE0  p-2"style={{marginBottom: 302}}>
@@ -117,7 +117,7 @@ export default function Portfolio() {
 
       {/* Thumbnail list */}
       <div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-10 px-6 pt-4 overflow-y-auto scrollbar-hide relative z-20 -mt-20 items-center">
-        {petImages.map((img, idx) => {
+        {PortfolioImages.map((img, idx) => {
           const { width, height } = getThumbNailImageSize(img.orientation);
           return (
             <div
