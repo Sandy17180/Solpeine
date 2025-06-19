@@ -122,8 +122,8 @@ export default function ContactPage() {
   const errorBorder = "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
 
   return (
-    <div className={`w-full flex relative left-10 top-0 ${lato.className}`}>
-      <div className="w-2/5 px-8 pt-4 pb-[75px] relative z-10">
+    <div className={`w-full flex relative left-10 top-0 ${lato.className} `}>
+      <div className="w-3/7 pl-8 pr-4 pt-4 pb-[75px] relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent">
         <Image src="/connect.svg" height={32} width={554} alt="contact" />
         <p className="mb-6 mt-12 text-[#3a3a3ae6] font-semibold text-lg leading-7 tracking-wide">
           For general questions and inquiries please fill out the contact form.
@@ -195,7 +195,7 @@ export default function ContactPage() {
               className={`${inputBase} ${
                 invalidFields.city ? errorBorder : normalBorder
               } flex-1`}
-               title="Please enter your city (at least 2 characters, letters only)"
+              title="Please enter your city (at least 2 characters, letters only)"
             />
             <input
               name="date"
@@ -216,7 +216,7 @@ export default function ContactPage() {
           <div className="flex flex-col relative h-56">
             <textarea
               name="message"
-              placeholder="Please enter details of your requirements (max 500 characters) *"
+              placeholder="Please enter details of your requirements in 500 characters *"
               value={formData.message}
               onChange={handleChange}
               required
@@ -261,6 +261,7 @@ export default function ContactPage() {
         </Link>
       </div>
 
+      {/* right side */}
       <div className="w-3/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
         <div
