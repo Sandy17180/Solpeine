@@ -4,18 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 
 function TestimonialCard({ name, quote, fontClass, profile }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const preview = quote.slice(0, 200);
-  const isLong = quote.length > 200;
+  // const [isExpanded, setIsExpanded] = useState(false);
+  // const preview = quote.slice(0, 200);
+  // const isLong = quote.length > 200;
 
-  const toggleExpansion = () => {
-    if (isLong) {
-      setIsExpanded((prev) => !prev);
-    }
-  };
+  // const toggleExpansion = () => {
+  //   if (isLong) {
+  //     setIsExpanded((prev) => !prev);
+  //   }
+  // };
 
   return (
-    <div className="bg-gradient-to-b from-[#BFB4B4] to-[#F7F7F7] shadow-[0_6px_23.5px_0_rgba(0,0,0,0.25)] rounded-3xl px-[51px] py-8 flex flex-col items-center mx-auto transition-all duration-300 ease-in-out max-w-[400px] border-[#433A3A] border-4 gap-4">
+    <div className="bg-[#f3e6e3] shadow-[6px_0_25.44px_0_rgba(0,0,0,0.14)] rounded-3xl border-[#f3e6e3] border-2 px-8 py-5 flex flex-col items-start transition-all duration-300 ease-in-out w-[587px] h-[333px] justify-center gap-5">
       {/* Quote Icon */}
       <div className="w-full flex justify-start">
         <Image
@@ -29,30 +29,17 @@ function TestimonialCard({ name, quote, fontClass, profile }) {
 
       {/* Content */}
       <div
-        className={`flex flex-col items-center justify-between ${
-          isExpanded ? "gap-8" : "gap-20"
-        } transition-all duration-300 ease-in-out`}
+        className={`flex flex-col justify-between gap-8 transition-all duration-300 ease-in-out`}
       >
         {/* Quote Text */}
-        <div
-          className="flex flex-col items-center cursor-pointer"
-          onClick={toggleExpansion}
+        <p
+          className={`self-stretch text-lg text-[#433a3a] ${fontClass} tracking-wider font-medium leading-6`}
         >
-          <p
-            className={`text-center text-lg text-[#433a3a] ${fontClass} tracking-wider font-medium leading-6`}
-          >
-            "{isExpanded ? quote : preview + "..."}"
-          </p>
-
-          {!isExpanded && isLong && (
-            <span className="text-[#433a3a] text-lg tracking-wider font-bold leading-6 underline mt-6">
-              see more
-            </span>
-          )}
-        </div>
+          "{quote}"
+        </p>
 
         {/* Name and Profile */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-start gap-[10px]">
           <p
             className={`text-xl! font-bold! text-[#433a3a] ${fontClass} leading-6 tracking-wider`}
           >

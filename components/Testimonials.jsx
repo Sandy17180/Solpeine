@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { Lato } from "next/font/google";
 import { testimonials } from "@/data/testimonials";
@@ -9,21 +8,36 @@ import { useState } from "react";
 const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
 export default function Testimonials() {
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [positions, setPositions] = useState([0, 1, 2]);
+  const positionStyles = [
+    "translate-x-[-250px] scale-80 z-10 opacity-90",
+    "translate-x-0 scale-90 z-20 opacity-95",
+    "translate-x-[250px] scale-100 z-30 opacity-100",
+  ];
 
-  // const handleLoadMore = () => {
-  //   setVisibleCount((prevCount) => prevCount + 3);
-  // };
+  const handleCardClick = (clickedIndex) => {
+    setPositions((prev) => {
+      const newPositions = [...prev];
+      const clickedCardPosition = newPositions[clickedIndex];
 
-  // const isMoreToShow = visibleCount < testimonials.length;
+      const updated = newPositions.map((pos, i) => {
+        if (i === clickedIndex) return 2;
+        if (pos === 2) return 1;
+        if (pos === 1) return 0;
+        return 0;
+      });
+
+      return updated;
+    });
+  };
 
   return (
-    <div className="py-[72px] bg-[#FAF4EF]">
-      <div className="text-center mb-12">
+    <div className="py-[72px] overflow-x-hidden">
+      <div className="text-center mb-14">
         <div className="flex justify-center mb-20">
           <Image
             src="/testimonial.png"
-            alt="ECG line under heading"
+            alt="Heading ECG Line"
             width={480}
             height={115}
             className="h-[115px] w-auto"
@@ -31,30 +45,24 @@ export default function Testimonials() {
         </div>
       </div>
 
-      
-      <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto items-stretch">
-        {testimonials.slice(0, visibleCount).map((t, index) => (
-          <TestimonialCard
-            key={index}
-            name={t.name}
-            quote={t.quote}
-            fontClass={lato.className}
-            profile={t.profile}
-          />
+      <div className="relative flex justify-center items-center min-h-[360px] max-w-7xl mx-auto gap-10">
+        {testimonials.map((testimonial, i) => (
+          <div
+            key={i}
+            onClick={() => handleCardClick(i)}
+            className={`absolute transition-all duration-500 ease-in-out cursor-pointer ${
+              positionStyles[positions[i]]
+            }`}
+          >
+            <TestimonialCard
+              name={testimonial.name}
+              quote={testimonial.quote}
+              profile={testimonial.profile}
+              fontClass={lato.className}
+            />
+          </div>
         ))}
       </div>
-
-      {/* Optional Load More Button */}
-      {/* {isMoreToShow && (
-        <div className="text-center mt-[72px]">
-          <button
-            onClick={handleLoadMore}
-            className="bg-[#D94A27] text-white px-6 py-2 rounded-full text-sm shadow-[0_6px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.3)] duration-300 cursor-pointer"
-          >
-            View more testimonials
-          </button>
-        </div>
-      )} */}
     </div>
   );
 }
