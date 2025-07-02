@@ -55,8 +55,8 @@ export default function ContactPage() {
       case "lastName":
         return value.trim().length >= 2 && nameRegex.test(value.trim());
 
-      case "email":
-        return /\S+@\S+\.\S+/.test(value.trim());
+        case "email":
+          return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim());
 
       case "phone":
         return /^\d{10}$/.test(value);
