@@ -51,7 +51,7 @@ export default function FeaturedPosts() {
                     }}
                     className={`relative shadow-md overflow-hidden ${
                       isEven
-                        ? "md:h-[526px] h-[161px] md:left-0 left-[calc(100%-90%)]"
+                        ? "md:h-[526px] h-[161px]"
                         : "md:h-[956px] h-[273px]"
                     } md:w-[604px] w-[176px]`}
                   >
