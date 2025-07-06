@@ -1,60 +1,84 @@
 "use client";
 
-import logo from "@/public/logo.svg";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Lobster_Two } from "next/font/google";
-import { Sawarabi_Mincho } from "next/font/google";
+import logo from "@/public/logo.svg";
+import { Lobster_Two, Sawarabi_Mincho } from "next/font/google";
+import { Menu, X } from "lucide-react";
 
 const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
 const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 
 const navLinks = [
-  {
-    label: "Workfolio",
-    href: "/workfolio",
-  },
-  {
-    label: "Reflair",
-    href: "/reflair",
-  },
+  { label: "Workfolio", href: "/workfolio" },
+  { label: "Reflair", href: "/reflair" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <header className="backdrop-blur w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] px-11 bg-[#f5f1ea]/70">
-      <div className="grid grid-cols-2 lg:grid-cols-3 items-center relative h-[94px]">
-        {/* logo */}
-        <div className="">
-          <Link href={"/"}>
-            <Image src={logo} alt="Logo" width={193} height={78} />
+    <header className="backdrop-blur w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] bg-[#f5f1ea]/70">
+      <div className="flex items-center md:justify-between px-[10px] lg:px-11 md:h-[94px] h-[59px]">
+        {/* Hamburger Icon for Mobile */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden focus:outline-none z-50"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+        {/* Logo */}
+        <div>
+          <Link href="/">
+            <Image
+              src={logo}
+              alt="Logo"
+              width={193}
+              height={78}
+              className="w-[120px] sm:w-[150px] md:w-[193px] h-auto"
+              priority
+            />
           </Link>
-          <p className={`text-[#3a3a3a] text-xs ${sawarabi.className}`}>
+          <p className={`text-[#3a3a3a] md:text-xs text-[10px] ${sawarabi.className}`}>
             Sculpted in light, frame by frame
           </p>
         </div>
-        <div></div>
-        {/* links */}
-        <div className="justify-end items-center hidden lg:flex">
-          <nav className="flex gap-8 font-[400] relative">
-            {navLinks.map((link, index) => {
-              return (
-                <div key={link.label} className="relative">
-                  <button>
-                    <Link
-                      href={link.href}
-                      className={`text-[#d94a27] font-medium hover:text-[#3a3a3a] ${lobster.className} text-[22px]`}
-                    >
-                      {link.label}
-                    </Link>
-                  </button>
-                </div>
-              );
-            })}
-          </nav>
-        </div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-8 items-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className={`text-[#d94a27] hover:text-[#3a3a3a] ${lobster.className} text-[22px] font-medium`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      {/* Mobile Dropdown */}
+      <div
+        className={`lg:hidden fixed top-[58px] left-0 w-full bg-[#f5f1ea]/95 backdrop-blur-md transition-all duration-500 ease-in-out ${
+          isOpen ? "translate-y-0" : "-translate-y-[500px]"
+        }`}
+      >
+        <nav className="flex flex-col items-center py-6 gap-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className={`text-[#d94a27] hover:text-[#3a3a3a] ${lobster.className} text-xl`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );

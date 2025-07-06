@@ -53,7 +53,7 @@ const HeroCarousel = () => {
 
   return (
     <div
-      className="relative w-full h-[720px] overflow-hidden"
+      className="relative w-full md:h-[720px] h-[209px] overflow-hidden"
       onMouseEnter={stopSlide}
       onMouseLeave={startSlide}
     >
@@ -75,26 +75,26 @@ const HeroCarousel = () => {
       {/* Arrows */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-[42px] transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
+        className="absolute top-1/2 md:left-[42px] left-2 transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer md:w-[60px] md:h-[60px] h-6 w-6 flex items-center justify-center"
         aria-label="Previous Slide"
       >
         <Image src={arrowLeft} alt="arrow left"/>
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-[42px] transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
+        className="absolute top-1/2 md:right-[42px] right-2 transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer md:w-[60px] md:h-[60px] h-6 w-6 flex items-center justify-center"
         aria-label="Next Slide"
       >
         <Image src={arrowRight} alt="arrow right"/>
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-[86px] left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+      <div className="absolute md:bottom-[86px] bottom-[7px] left-1/2 transform -translate-x-1/2 flex md:gap-2 gap-[6px] z-20">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-[17px] h-[17px] rounded-full transition-colors ${
+            className={`md:w-[17px] md:h-[17px] w-[10px] h-[10px] rounded-full transition-colors ${
               index === currentIndex
                 ? "bg-white border-[1px] shadow-[0_0_6px_rgba(255,255,255,0.5)]"
                 : "bg-white/50"
