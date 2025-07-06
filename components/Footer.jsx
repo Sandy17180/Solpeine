@@ -50,16 +50,24 @@ const socials = [
 
 const Footer = () => {
   return (
-    <footer className={` text-[#3a3a3a] pb-6 pt-8 ${lato.className}`}>
+    <footer
+      className={` text-[#3a3a3a] md:pb-6 md:pt-8 ${lato.className} md:px-0 px-[10px] pb-2`}
+    >
       <div
         className={`max-w-7xl mx-auto flex items-center justify-center gap-16 `}
       >
         {/* Brand */}
         <div>
           <Link href={"/"}>
-            <Image src={logo} alt="Logo" width={193} height={98} />
+            <Image
+              src={logo}
+              alt="Logo"
+              width={193}
+              height={98}
+              className="w-[103px] sm:w-[120px] md:w-[193px] h-auto"
+            />
           </Link>
-          <p className="text-xs text-[#3a3a3a] font-normal">
+          <p className="md:text-xs text-[10px] text-[#3a3a3a] font-normal">
             Sculpted in light, frame by frame
           </p>
         </div>
@@ -78,6 +86,7 @@ const Footer = () => {
                   alt={social.alt}
                   width={32}
                   height={32}
+                  className="w-[20px] md:w-[32px] h-auto"
                 />
               </div>
             </Link>
@@ -85,19 +94,19 @@ const Footer = () => {
         </div>
       </div>
       {/* location and view count */}
-      <div className="text-center text-sm flex items-center justify-around mt-3.5">
+      <div className="text-center md:text-sm text-[10px] flex items-center md:justify-around justify-between mt-3.5">
         <div className="flex items-center gap-1.5">
           <Image src={location} alt="location" width={28} height={28} />
-          <p className="text-sm text-[#3a3a3a]">Based in Bengaluru</p>
+          <p className="text-[#3a3a3a]">Based in Bengaluru</p>
         </div>
         <div className="flex items-center gap-1 justify-center ext-[#3a3a3a]">
           {<VisitorCounter />} views
         </div>
       </div>
       {/* Copyright section*/}
-      <div className="text-center text-[#3a3a3a] text-xs space-x-9 flex justify-center items-center mt-3.5">
+      <div className="text-center text-[#3a3a3a] text-xs space-x-9 md:flex justify-center items-center mt-3.5 hidden">
         <p>&copy; {new Date().getFullYear()} Solpeine</p>
-        
+
         {/* <Link href="/terms" className="hover:text-gray-800">
           Terms of Service
         </Link>

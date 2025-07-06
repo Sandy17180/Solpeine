@@ -10,9 +10,9 @@ const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 export default function Testimonials() {
   const [positions, setPositions] = useState([0, 1, 2]);
   const positionStyles = [
-    "translate-x-[-250px] scale-80 z-10 opacity-90",
+    "md:translate-x-[-250px] translate-x-[-50px] scale-80 z-10 opacity-90",
     "translate-x-0 scale-90 z-20 opacity-95",
-    "translate-x-[250px] scale-100 z-30 opacity-100",
+    "md:translate-x-[250px] translate-x-[50px] scale-100 z-30 opacity-100",
   ];
 
   const handleCardClick = (clickedIndex) => {
@@ -32,20 +32,20 @@ export default function Testimonials() {
   };
 
   return (
-    <div className="py-[72px] overflow-x-hidden">
-      <div className="text-center mb-14">
-        <div className="flex justify-center mb-20">
+    <div className="md:py-[72px] py-[16px] overflow-x-hidden">
+      <div className="text-center md:mb-14">
+        <div className="flex justify-center md:mb-20 md-[10px]">
           <Image
             src="/testimonial.png"
             alt="Heading ECG Line"
             width={480}
             height={115}
-            className="h-[115px] w-auto"
+            className="h-[60px] md:h-[115px] w-auto"
           />
         </div>
       </div>
 
-      <div className="relative flex justify-center items-center min-h-[360px] max-w-7xl mx-auto gap-10">
+      <div className="relative flex justify-center items-center md:min-h-[360px] min-h-[236px] md:max-w-7xl max-w-3xl md:mx-auto mx-[15px] mr-[50px] gap-10">
         {testimonials.map((testimonial, i) => (
           <div
             key={i}

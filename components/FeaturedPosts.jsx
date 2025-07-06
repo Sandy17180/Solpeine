@@ -14,17 +14,17 @@ const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 export default function FeaturedPosts() {
   return (
     <>
-      <section className="relative max-w-7xl mx-auto px-4 pt-16 pb-64 bg-[#F5F1EA]">
+      <section className="relative max-w-7xl mx-auto md:px-4 px-5 md:pt-16 md:pb-64 pb-16 bg-[#F5F1EA]">
         <h2
-          className={`text-3xl text-center mb-20 text-[#D94A27] relative ${taprom.className}`}
+          className={`text-3xl text-center md:mb-20 mb-[10px] text-[#D94A27] relative ${taprom.className} md:px-0 px-12`}
         >
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center md:mt-4">
             <Image
               src="/FeaturedPosts.png"
               alt="ECG line under heading"
               width={480}
               height={115}
-              className="h-[115px] w-auto"
+              className="text-orange-500 md:w-[480px] md:h-[115px] h-[85px] md:mb-0 mb-1"
             />
           </div>
         </h2>
@@ -50,8 +50,10 @@ export default function FeaturedPosts() {
                       transformOrigin: isEven ? "left" : "right",
                     }}
                     className={`relative shadow-md overflow-hidden ${
-                      isEven ? "h-[526px]" : "h-[956px]"
-                    } w-[604px]`}
+                      isEven
+                        ? "md:h-[526px] h-[161px] md:left-0 left-[calc(100%-90%)]"
+                        : "md:h-[956px] h-[273px]"
+                    } md:w-[604px] w-[176px]`}
                   >
                     <Image
                       src={post.image}
@@ -63,7 +65,7 @@ export default function FeaturedPosts() {
 
                   {/* Caption */}
                   <div
-                    className={`absolute bottom-[-48px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center text-base italic px-6 py-3 rounded-2xl shadow-2xl w-[574px] h-[86px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato.className} font-normal text-xl z-5 cursor-default`}
+                    className={`absolute md:bottom-[-48px] bottom-[-10px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center md:text-base text-[10px] italic px-6 py-3 md:rounded-2xl rounded-lg md:shadow-2xl shadow-xl md:w-[574px] w-[167px] md:h-[86px] h-[31px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato.className} font-normal text-xl z-5 cursor-default`}
                   >
                     {post.caption}
                   </div>
@@ -71,18 +73,26 @@ export default function FeaturedPosts() {
                   {/* Arrow */}
                   {index < featuredPosts.length - 1 && (
                     <div
-                      className={`absolute bottom-0 translate-y-full ${
+                      className={`absolute bottom-0 translate-y-full z-0 ${
                         isEven
-                          ? "left-[calc(100%-575px)] w-[620px] h-[650px]"
-                          : "right-[calc(100%-270px)] w-[316px] h-[410px]"
-                      } z-0`}
+                          ? "left-[calc(100%-80%)] md:left-[calc(100%-575px)]"
+                          : "right-[calc(100%-50%)] md:right-[calc(100%-280px)]"
+                      }`}
                     >
-                      <Image
-                        src={isEven ? "/arrowOdd.svg" : "/arrowEven.svg"}
-                        alt="Decorative path"
-                        width={isEven ? 620 : 316}
-                        height={isEven ? 650 : 312}
-                      />
+                      <div
+                        className={`relative ${
+                          isEven
+                            ? "w-[180px] h-[190px] md:w-[620px] md:h-[650px]"
+                            : "w-[140px] h-[100px] md:w-[316px] md:h-[302px]"
+                        }`}
+                      >
+                        <Image
+                          src={isEven ? "/arrowOdd.svg" : "/arrowEven.svg"}
+                          alt="Decorative path"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
