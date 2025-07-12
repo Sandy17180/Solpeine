@@ -10,7 +10,7 @@ export default function WorkfolioPage() {
   
 
   return (
-    <div className="grid grid-cols-3 gap-[62px] px-20 py-[62px] w-full">
+    <div className="grid md:grid-cols-3 lg:gap-[62px] gap-x-[10px] gap-y-[27px] lg:px-20 px-3.5 lg:py-[62px] py-[10px] w-full grid-cols-2">
       {genres.map((genre, index) => {
         const row = Math.floor(index / 3);
         const col = index % 3;
@@ -38,7 +38,7 @@ export default function WorkfolioPage() {
             key={genre}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={`relative overflow-hidden h-[295px] w-[425px] shadow-md transition-all duration-300 flex items-center justify-center group
+            className={`relative overflow-hidden lg:h-[295px] lg:w-[425px] w-auto h-[131px] shadow-md transition-all duration-300 flex items-center justify-center group
               ${hoveredIndex === index ? "scale-110 z-10" : ""}
               ${shiftClass}`}
           >
@@ -62,14 +62,13 @@ export default function WorkfolioPage() {
                   alt={`${genre} caption`}
                   width={416}
                   height={80}
-                  className="object-none"
+                  className="object-none md:w-[416px] md:h-[80px] h-[45px] w-[180px] mb-0"
                 />
               </div>
             </Link>
           </div>
         );
       })}
-      
 
     </div>
   );

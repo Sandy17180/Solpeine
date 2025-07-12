@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import SuccessModal from "@/components/SuccessModal";
 
-
 const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export default function ContactPage() {
@@ -23,7 +22,6 @@ export default function ContactPage() {
   const [wordCount, setWordCount] = useState(0);
   const [invalidFields, setInvalidFields] = useState({});
   const [errorMessages, setErrorMessages] = useState({});
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,35 +89,58 @@ export default function ContactPage() {
     return local.toISOString().split("T")[0];
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const hasErrors = validateAllFields();
-    if (hasErrors) return;
-    
-    console.log("Form submitted:", formData);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const hasErrors = validateAllFields();
+  if (hasErrors) return;
+  const endpoint = "/api/submit";
 
-    // Reset form
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      city: "",
-      date: "",
-      message: "",
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    setWordCount(0);
-    setInvalidFields({});
-    setShowSuccess(true);
 
-    setTimeout(() => setShowSuccess(false), 5000);
-  };
+    if (res.ok) {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        city: "",
+        date: "",
+        message: "",
+      });
+      setWordCount(0);
+      setInvalidFields({});
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 5000);
+    } else {
+      setErrorMessages({
+        general:
+          "There was an error submitting your form. Please try again later.",
+      });
+      console.error("Error submitting form:", res.statusText);
+    }
+  } catch (error) {
+    setErrorMessages({
+      general:
+        "There was an error submitting your form. Please try again later.",
+    });
+    console.error("Error submitting form:", error);
+    setShowSuccess(false);
+  }
+};
 
   const inputBase =
     "p-[10px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2";
   const normalBorder =
     "border-[#C2B6B6] focus:ring-[#d94a27] focus:border-[#d94a27] focus:border-1";
-  const errorBorder = "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
+  const errorBorder =
+    "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
 
   return (
     <div className={`w-full flex relative left-10 top-0 ${lato.className} `}>

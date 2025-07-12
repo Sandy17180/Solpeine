@@ -51,10 +51,10 @@ const socials = [
 const Footer = () => {
   return (
     <footer
-      className={` text-[#3a3a3a] md:pb-6 md:pt-8 ${lato.className} md:px-0 px-[10px] pb-2`}
+      className={` text-[#3a3a3a] md:pb-6 md:pt-8 ${lato.className} md:px-0 px-[15px] pb-2`}
     >
       <div
-        className={`max-w-7xl mx-auto flex items-center justify-center gap-16 `}
+        className={`max-w-7xl lg:mx-auto mx-0 flex items-center justify-center gap-18 lg:gap-16 `}
       >
         {/* Brand */}
         <div>
@@ -96,7 +96,13 @@ const Footer = () => {
       {/* location and view count */}
       <div className="text-center md:text-sm text-[10px] flex items-center md:justify-around justify-between mt-3.5">
         <div className="flex items-center gap-1.5">
-          <Image src={location} alt="location" width={28} height={28} />
+          <Image
+            src={location}
+            alt="location"
+            width={28}
+            height={28}
+            className="w-[16px] md:w-[28px] h-auto"
+          />
           <p className="text-[#3a3a3a]">Based in Bengaluru</p>
         </div>
         <div className="flex items-center gap-1 justify-center ext-[#3a3a3a]">
