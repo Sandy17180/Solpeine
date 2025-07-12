@@ -42,7 +42,9 @@ const Header = () => {
               priority
             />
           </Link>
-          <p className={`text-[#3a3a3a] md:text-xs text-[10px] ${sawarabi.className}`}>
+          <p
+            className={`text-[#3a3a3a] md:text-xs text-[10px] ${sawarabi.className}`}
+          >
             Sculpted in light, frame by frame
           </p>
         </div>
@@ -63,11 +65,11 @@ const Header = () => {
 
       {/* Mobile Dropdown */}
       <div
-        className={`lg:hidden fixed top-[58px] left-0 w-full bg-[#f5f1ea]/95 backdrop-blur-md transition-all duration-500 ease-in-out ${
-          isOpen ? "translate-y-0" : "-translate-y-[500px]"
+        className={`lg:hidden fixed top-[58px] left-0 w-[120px] bg-[#f5f1ea]/95 backdrop-blur-md transition-all duration-500 ease-in-out ${
+          isOpen ? "-translate-x-0" : "-translate-x-[500px]"
         }`}
       >
-        <nav className="flex flex-col items-center py-6 gap-6">
+        <nav className="md:hidden flex flex-col items-start px-4 py-6 gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.label}
