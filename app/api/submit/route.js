@@ -2,7 +2,7 @@ export async function POST(req) {
   try {
     const data = await req.json();
     const scriptURL =
-      process.env.SHEET_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxZZacOove3X7XoHkSZkBVWUdMnoQFi5TQ8FryYJkySVSpspLcgoL3Thvkne_9v6pxp/exec";
+      process.env.SHEET_SCRIPT_URL;
     const response = await fetch(scriptURL, {
       method: "POST",
       body: JSON.stringify(data),
