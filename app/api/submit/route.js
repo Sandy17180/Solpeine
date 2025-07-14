@@ -1,8 +1,7 @@
 export async function POST(req) {
   try {
     const data = await req.json();
-    const scriptURL =
-      process.env.SHEET_SCRIPT_URL;
+    const scriptURL = process.env.SHEET_SCRIPT_URL;
     const response = await fetch(scriptURL, {
       method: "POST",
       body: JSON.stringify(data),
