@@ -22,15 +22,18 @@ export const genreImages = {
   pet: "/Pet.jpg",
 };
 
-export const genreCaption = {
-  portraiture: "/portraiture.svg",
-  fashion: "/fashion.svg",
-  product: "/product.svg",
-  lifestyle: "/lifeStyle.svg",
-  portfolio: "/portfolio.svg",
-  pre_and_post_wedding: "/pre-and-post-wedding.svg",
-  events: "/events.svg",
-  headshots: "/headshots.svg",
-  pet: "/pet.svg",
-};
+export const genreCaption = [
+  "Portraiture",
+  "Fashion",
+  "Product",
+  "Lifestyle",
+  "Portfolio",
+  "Pre and Post Wedding",
+  "Events",
+  "Headshots",
+  "Pet",
+];
+
+
+
 

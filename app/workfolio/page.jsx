@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { genres, genreImages, genreCaption } from "@/data/genres";
+import { Taprom } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
+
+const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 
 export default function WorkfolioPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -43,7 +46,6 @@ export default function WorkfolioPage() {
               ${shiftClass}`}
           >
             <Link
-            
               href={`/workfolio/${genre}`}
               className="h-full w-full flex items-center justify-center bg-black"
             >
@@ -56,14 +58,27 @@ export default function WorkfolioPage() {
 
               <div className="absolute inset-0 transition duration-300" />
 
-              <div className="absolute w-full h-auto flex items-center justify-center backdrop-blur group-hover:opacity-0 transition-all duration-500">
-                <Image
-                  src={genreCaption[genre]}
-                  alt={`${genre} caption`}
-                  width={416}
-                  height={80}
-                  className="object-none md:w-[416px] md:h-[80px] h-[45px] w-[180px] mb-0"
-                />
+              <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-0">
+                <div className="backdrop-blur-md bg-[#00000022] px-4 md:pt-1 md:py-0 py-1 w-full flex items-center justify-center">
+                  <div className="relative flex flex-col items-center">
+                    <p
+                      className={`${taprom.className} lg:text-[38px] md:text-[30px] text-[20px] text-white lg:leading-[50px] md:leading-[40px] leading-[25px] items-center text-center md:max-w-[200px] max-w-[100px] `}
+                    >
+                      {genreCaption[index] ||
+                        genre.charAt(0).toUpperCase() + genre.slice(1)}
+                    </p>
+                    {/* Underline with attached SVG */}
+                    <div className="relative flex items-end lg:-mt-8 md:-mt-6 -mt-3">
+                      <Image
+                        src="/cameraline.svg"
+                        alt="decor"
+                        width={340}
+                        height={40}
+                        className="md:ml-1 ml-3 text-white md:w-[340px] md:h-[40px] "
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </Link>
           </div>
