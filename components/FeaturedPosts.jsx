@@ -24,7 +24,7 @@ export default function FeaturedPosts() {
               alt="ECG line under heading"
               width={480}
               height={115}
-              className="text-orange-500 md:w-[480px] md:h-[115px] h-[85px] md:mb-0 mb-1"
+              className="text-orange-500 md:w-[480px] md:h-[115px] h-[60px] md:mb-0 mb-1"
             />
           </div>
         </h2>
