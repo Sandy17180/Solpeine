@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { genres, genreImages, genreCaption } from "@/data/genres";
 import { Taprom } from "next/font/google";
+import cameraline from "@/public/cameraLine.svg";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -68,13 +69,13 @@ export default function WorkfolioPage() {
                         genre.charAt(0).toUpperCase() + genre.slice(1)}
                     </p>
                     {/* Underline with attached SVG */}
-                    <div className="relative flex items-end lg:-mt-8 md:-mt-6 -mt-3">
+                    <div className="relative flex items-end md:-mt-6 -mt-1.5">
                       <Image
-                        src="/cameraline.svg"
+                        src={cameraline}
                         alt="decor"
                         width={340}
                         height={40}
-                        className="md:ml-1 ml-3 text-white md:w-[340px] md:h-[40px] "
+                        className="md:ml-4 ml-2 text-white md:w-[340px] md:h-[40px] "
                       />
                     </div>
                   </div>
