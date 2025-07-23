@@ -9,16 +9,92 @@ const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 const Page = () => {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
-      {/* Background split */}
-      <div className="absolute inset-0 flex z-0">
-        <div className="w-2/3 bg-[#F5F1EA]" />
-        <div className="w-1/3 bg-[#D94A27]" />
+    <div className="relative w-full flex flex-col">
+      {/* Top Half: Background split + Profile Image */}
+      <div className="relative h-[350px] w-full overflow-hidden md:hidden">
+        <div className="absolute inset-0 flex w-full h-full">
+          <div className="w-1/2 bg-[#F5F1EA]" />
+          <div className="w-1/2 bg-[#D94A27]" />
+        </div>
+        <div className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6">
+          <Image
+            src="/sandeep_profile.jpg"
+            alt="Profile"
+            width={250}
+            height={251}
+            className="w-[250px] h-[251px] object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      {/* Bottom Half: Text and Details */}
+      <div className="relative w-full flex items-start justify-center px-4 pt-6 pb-9 md:hidden">
+        <div className="max-w-3xl text-center">
+          <Image
+            src="/name.svg"
+            alt="name"
+            width={350}
+            height={100}
+            className="mx-auto mb-4 max-w-full"
+            loading="lazy"
+          />
+
+          <p
+            className={`${taprom.className} lg:text-lg text-base text-[#D94A27] tracking-[0.15em] mb-4`}
+          >
+            Your friendly neighborhood photographer
+          </p>
+
+          <div
+            className={`${lato.className} text-sm leading-relaxed text-gray-700 space-y-2 px-8 text-justify`}
+          >
+            <p>
+              What began as a simple summer pastime at the age of eight — a gift
+              from my grandfather in the form of a film camera — quickly
+              revealed my innate love for capturing landscapes.
+            </p>
+            <p>
+              Years later, with a basic DSLR, I rekindled that spark, falling
+              deeply in love with candid moments and portraiture.
+            </p>
+            <p>
+              I am drawn to clients who are equally passionate about the craft
+              and who appreciate the beauty of capturing the essence of the
+              moment.
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-col items-end">
+            <Image
+              src="/signature.svg"
+              width={86}
+              height={53}
+              alt="signature"
+              loading="lazy"
+            />
+            <Link
+              href="https://www.instagram.com/sandeepsai_fotofusion/"
+              target="_blank"
+              className="flex items-center gap-2"
+            >
+              <Image
+                src={instagramLogo}
+                width={20}
+                height={20}
+                alt="instagram"
+                loading="lazy"
+              />
+              <p className="lg:text-sm text-xs text-gray-800">
+                @sandeepsai_fotofusion
+              </p>
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-center h-full">
-        <div className="grid grid-cols-2 max-w-[1440px] w-full px-12 gap-20 py-20">
+      <div className="relative z-10 lg:flex items-center justify-center h-full hidden">
+        <div className="lg:grid lg:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-12 gap-20 py-20">
           {/* Text Section */}
           <div className="flex flex-col justify-between max-w-xl">
             <div>
@@ -30,14 +106,14 @@ const Page = () => {
                 loading="lazy"
               />
               <p
-                className={`${taprom.className} text-2xl text-[#D94A27] mt-4 mb-6 tracking-[0.15em]`}
+                className={`${taprom.className} lg:text-2xl text-base text-[#D94A27] my-6 lg:mt-4 lg:mb-6 tracking-[0.15em]`}
               >
                 Your friendly neighborhood photographer
               </p>
             </div>
 
             <div
-              className={`${lato.className} mt-1 space-y-4 text-lg leading-relaxed tracking-wider`}
+              className={`${lato.className} mt-1 space-y-4 lg:text-lg text-[11px] leading-relaxed tracking-wider`}
             >
               <p>
                 What began as a simple summer pastime at the age of eight — a
@@ -63,7 +139,7 @@ const Page = () => {
                 <Image
                   src="/signature.svg"
                   width={216}
-                  height={100}
+                  height={53}
                   alt="signature"
                   loading="lazy"
                 />
@@ -78,16 +154,21 @@ const Page = () => {
                     height={32}
                     alt="instagram"
                     loading="lazy"
+                    className="lg:w-8 lg:h-8 w-5 h-5"
                   />
-                  <p className="text-base">@sandeepsai_fotofusion</p>
+                  <p className="lg:text-base text-xs">@sandeepsai_fotofusion</p>
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Image Section */}
+          <div className="md:absolute inset-0 md:flex -z-20 hidden">
+            <div className="w-3/4 bg-[#F5F1EA]" />
+            <div className="w-1/3 h-full bg-[#D94A27]" />
+          </div>
           <div className="translate-x-20 translate-y-20">
-            <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden flex justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
+            <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
               <Image
                 src="/sandeep_profile.jpg"
                 width={437}
