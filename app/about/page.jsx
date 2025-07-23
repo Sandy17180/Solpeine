@@ -64,7 +64,7 @@ const Page = () => {
             </p>
           </div>
 
-          <div className="mt-6 flex flex-col items-end">
+          <div className="mt-6 flex flex-col items-end mr-8">
             <Image
               src="/signature.svg"
               width={86}
