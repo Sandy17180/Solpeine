@@ -53,8 +53,10 @@ export default function ContactPage() {
       case "lastName":
         return value.trim().length >= 2 && nameRegex.test(value.trim());
 
-        case "email":
-          return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim());
+      case "email":
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+          value.trim()
+        );
 
       case "phone":
         return /^\d{10}$/.test(value);
@@ -89,69 +91,80 @@ export default function ContactPage() {
     return local.toISOString().split("T")[0];
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const hasErrors = validateAllFields();
-  if (hasErrors) return;
-  const endpoint = "/api/submit";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const hasErrors = validateAllFields();
+    if (hasErrors) return;
+    const endpoint = "/api/submit";
 
-  try {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (res.ok) {
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        city: "",
-        date: "",
-        message: "",
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      setWordCount(0);
-      setInvalidFields({});
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 5000);
-    } else {
+
+      if (res.ok) {
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          city: "",
+          date: "",
+          message: "",
+        });
+        setWordCount(0);
+        setInvalidFields({});
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 5000);
+      } else {
+        setErrorMessages({
+          general:
+            "There was an error submitting your form. Please try again later.",
+        });
+        console.error("Error submitting form:", res.statusText);
+      }
+    } catch (error) {
       setErrorMessages({
         general:
           "There was an error submitting your form. Please try again later.",
       });
-      console.error("Error submitting form:", res.statusText);
+      console.error("Error submitting form:", error);
+      setShowSuccess(false);
     }
-  } catch (error) {
-    setErrorMessages({
-      general:
-        "There was an error submitting your form. Please try again later.",
-    });
-    console.error("Error submitting form:", error);
-    setShowSuccess(false);
-  }
-};
+  };
 
   const inputBase =
-    "p-[10px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2";
-  const normalBorder =
-    "border-[#C2B6B6] focus:ring-[#d94a27] focus:border-[#d94a27] focus:border-1";
+    "md:p-[10px] px-[4px] py-[2px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white md:text-base text-[11px] md:w-auto w-1/2 placeholder:text-[#433a3a] focus:outline-none focus:ring-2";
+  const normalBorder = "border-[#C2B6B6] focus:ring-[#d94a27] focus:ring-1";
   const errorBorder =
     "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
 
   return (
-    <div className={`w-full flex relative left-10 top-0 ${lato.className} `}>
-      <div className="w-3/7 pl-8 pr-4 pt-4 pb-[75px] relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent">
-        <Image src="/connect.svg" height={32} width={554} alt="contact" />
-        <p className="mb-6 mt-12 text-[#3a3a3ae6] font-semibold text-lg leading-7 tracking-wide">
+    <div
+      className={`w-full flex md:flex-row flex-col relative top-0 ${lato.className} `}
+    >
+      {/* left side */}
+      <div className="md:w-3/7 w-full md:px-0 px-8 md:pl-8 md:pr-4 pt-4 md:pb-[75px] pb-0 relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent overflow-hidden">
+    <div className="flex items-center justify-center">
+        <Image
+          src="/connect.svg"
+          alt="contact"
+          width={554}
+          height={32}
+          className="md:w-[554px] w-[200px]"
+        />
+    </div>
+
+        <p className="md:mb-6 my-3 md:mt-12 text-[#3a3a3ae6] font-semibold md:text-lg text-[11px] leading-7 tracking-wide text-center">
           For general questions and inquiries please fill out the contact form.
         </p>
 
         <form className="grid gap-4" onSubmit={handleSubmit} noValidate>
-          <div className="flex flex-col md:flex-row gap-5">
+          <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="firstName"
               type="text"
@@ -178,7 +191,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-5">
+          <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="email"
               type="email"
@@ -205,7 +218,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-5">
+          <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="city"
               type="text"
@@ -234,19 +247,19 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          <div className="flex flex-col relative h-56">
+          <div className="flex flex-col relative">
             <textarea
               name="message"
               placeholder="Please enter details of your requirements in 500 characters *"
               value={formData.message}
               onChange={handleChange}
               required
-              className={`${inputBase} ${
+              className={`p-[10px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2 ${
                 invalidFields.message ? errorBorder : normalBorder
-              } pb-4 h-56 resize-none z-10 leading-6 text-sm font-sans`}
+              } md:h-56 h-36 pb-4 resize-none z-10 leading-6 text-sm font-sans`}
               title="Please enter your message (at least 1 character, max 500 characters)"
             />
-            <div className="absolute bottom-0 right-4 text-sm z-20">
+            <div className="absolute bottom-0 right-4 md:text-sm text-[11px] z-20">
               <span
                 className={wordCount > 500 ? "text-red-500" : "text-gray-500"}
               >
@@ -257,18 +270,18 @@ const handleSubmit = async (e) => {
 
           <button
             type="submit"
-            className="bg-[#d94a27] hover:bg-[#d93327] mt-14 text-white py-3 rounded-md cursor-pointer transition duration-300 ease-in-out"
+            className="bg-[#d94a27] hover:bg-[#d93327] md:mt-14 text-white md:py-3 px-[18px] py-[9px] md:rounded-md cursor-pointer transition duration-300 ease-in-out mx-26 md:mx-0 rounded-4xl text-xs md:text-base flex items-center justify-center"
           >
             Submit Inquiry
           </button>
 
-          <div className="flex items-center justify-center text-sm text-[#957e7e]">
+          <div className="flex items-center justify-center md:text-sm text-[9px] -mt-4 text-[#957e7e]">
             <p>Typically responds within 24 hrs</p>
           </div>
         </form>
 
         <Link
-          className="mt-6 flex items-center space-x-2"
+          className="md:mt-6 mt-4 flex items-center justify-center space-x-2 md:justify-start"
           href="https://wa.me/919036021726"
           target="_blank"
         >
@@ -283,10 +296,10 @@ const handleSubmit = async (e) => {
       </div>
 
       {/* right side */}
-      <div className="w-3/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
+      <div className="md:w-3/5 h-[300px] md:h-auto w-full relative md:overflow-hidden">
+        <div className="absolute inset-0 md:bg-gradient-to-r bg-gradient-to-b from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
         <div
-          className="w-full h-full bg-cover bg-left bg-no-repeat scale-180 z-0"
+          className="w-full h-full bg-cover bg-left bg-no-repeat md:scale-150 scale-100 z-0"
           style={{ backgroundImage: "url('/image7.jpg')" }}
         />
       </div>
