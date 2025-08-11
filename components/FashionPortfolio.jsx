@@ -117,11 +117,11 @@ export default function FashionPortfolio() {
         </div>
 
         {/* Main image carousel */}
-        <div className="relative flex justify-start items-center w-full md:h-[720px] md:mt-[117px] md:mr-[60px]">
+        <div className="relative flex md:justify-start justify-center items-center w-full md:h-[720px] md:mt-[117px] md:mr-[60px] md:pt-0 pt-6">
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
           >
             <Image
               src="/petarrow1.png"
@@ -136,7 +136,7 @@ export default function FashionPortfolio() {
           <div
             className={`relative flex justify-center items-center ${
               isMobile
-                ? "w-[200px] h-[307px]"
+                ? "w-[210px] h-[307px]"
                 : "md:w-[610px] md:h-[488px] md:mb-[369px]"
             }`}
           >
@@ -152,7 +152,7 @@ export default function FashionPortfolio() {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
           >
             <Image
               src="/petarrow2.png"
@@ -180,7 +180,10 @@ export default function FashionPortfolio() {
           relative z-20
           md:-mt-20
           items-center
-          justify-center"
+          justify-center
+          md:py-0
+          py-10
+          "
       >
         {fashionImages.map((img, idx) => {
           const { width, height } = getThumbNailImageSize(
