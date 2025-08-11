@@ -90,28 +90,21 @@ export default function FashionPortfolio() {
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
-      <div className="md:flex-1 flex flex-col items-start">
+      <div className="md:flex-1 flex flex-col items-center">
         {/* Title image */}
-        <div className="md:mb-6 md:-mt-[72px] mt-5 ml-[90px] md:-ml-[38px]">
-          {/* <Image
-            src="/FashionGenre.png"
-            alt="Fashion Title"
-            width={415}
-            height={80}
-            className="object-contain md:-mt-[72px] -mt-16 md:-ml-[38px] md:w-[415px] md:h-[80px] w-[800px]"
-          /> */}
+        <div className="md:mb-8 md:-mt-[72px] mt-5 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
           <p
-            className={`${taprom.className} lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] items-center text-center md:max-w-[200px] max-w-[100px] tracking-[6.08px]`}
+            className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
           >
             Fashion
           </p>
-          <div className="relative flex items-end -mt-[30px]">
+          <div className="relative flex -mt-[30px] md:justify-start justify-center w-full">
             <Image
               src={cameraline}
               alt="decor"
               width={260}
               height={40}
-              className="md:ml-4 ml-0 mt-4 md:mt-0 text-[#d94a27] md:w-[260px] md:h-[40px] w-[150px]"
+              className="md:ml-8 mt-4 md:mt-0 text-[#d94a27] md:w-[260px] w-[200px] object-contain"
             />
           </div>
         </div>
