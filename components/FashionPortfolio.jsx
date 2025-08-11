@@ -199,7 +199,7 @@ export default function FashionPortfolio() {
                 alt={`Thumbnail ${idx + 1}`}
                 width={width}
                 height={height}
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           );
