@@ -36,7 +36,7 @@ export default function GenrePage() {
       case "pet":
         return <PetPortfolio />;
       case "fashion":
-         return <FashionPortfolio />;
+         return <FashionPortfolio />; //done
       case "portraiture":
          return <PortraiturePortfolio />;
       case "headshots":
