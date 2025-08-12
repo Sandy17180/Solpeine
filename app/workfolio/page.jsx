@@ -11,7 +11,6 @@ const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 
 export default function WorkfolioPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  
 
   return (
     <div className="grid md:grid-cols-3 lg:gap-[62px] gap-x-[10px] gap-y-[27px] lg:px-20 px-3.5 lg:py-[62px] py-[10px] w-full grid-cols-2">
@@ -29,12 +28,17 @@ export default function WorkfolioPage() {
           row === hoveredRow &&
           hoveredIndex !== index
         ) {
-          if (hoveredCol === 0 && col === 1) shiftClass = "translate-x-3";
-          else if (hoveredCol === 0 && col === 2) shiftClass = "translate-x-6";
-          else if (hoveredCol === 1 && col === 0) shiftClass = "-translate-x-3";
-          else if (hoveredCol === 1 && col === 2) shiftClass = "translate-x-3";
-          else if (hoveredCol === 2 && col === 0) shiftClass = "-translate-x-6";
-          else if (hoveredCol === 2 && col === 1) shiftClass = "-translate-x-3";
+          if (hoveredCol === 0 && col === 1) shiftClass = "lg:translate-x-3";
+          else if (hoveredCol === 0 && col === 2)
+            shiftClass = "lg:translate-x-6";
+          else if (hoveredCol === 1 && col === 0)
+            shiftClass = "lg:-translate-x-3";
+          else if (hoveredCol === 1 && col === 2)
+            shiftClass = "lg:translate-x-3";
+          else if (hoveredCol === 2 && col === 0)
+            shiftClass = "lg:-translate-x-6";
+          else if (hoveredCol === 2 && col === 1)
+            shiftClass = "lg:-translate-x-3";
         }
 
         return (
@@ -43,8 +47,9 @@ export default function WorkfolioPage() {
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             className={`relative overflow-hidden lg:h-[295px] lg:w-[425px] w-auto h-[131px] shadow-md transition-all duration-300 flex items-center justify-center group
-              ${hoveredIndex === index ? "scale-110 z-10" : ""}
-              ${shiftClass}`}
+  ${hoveredIndex === index ? "lg:scale-110 lg:z-10" : ""}
+  ${hoveredIndex !== null ? shiftClass && "lg:" + shiftClass : ""}
+`}
           >
             <Link
               href={`/workfolio/${genre}`}
@@ -85,7 +90,6 @@ export default function WorkfolioPage() {
           </div>
         );
       })}
-
     </div>
   );
 }
