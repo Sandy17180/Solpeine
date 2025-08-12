@@ -92,7 +92,7 @@ export default function FashionPortfolio() {
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
       <div className="md:flex-1 flex flex-col items-center">
         {/* Title image */}
-        <div className="md:mb-8 md:-mt-[72px] mt-5 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
+        <div className="md:mb-8 md:-mt-[65px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
           <p
             className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
           >
