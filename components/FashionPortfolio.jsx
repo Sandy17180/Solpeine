@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Taprom } from "next/font/google";
 import cameraline from "@/public/cameraline-colored.svg";
+import ThumbnailCarousel from "./ThumbnailCarousel";
 
 const fashionImages = [
   {
@@ -74,8 +75,8 @@ export default function FashionPortfolio() {
   const getMainImageSize = (orientation, isMobile) => {
     if (isMobile) {
       return orientation === "portrait"
-        ? { width: 200, height: 307 }
-        : { width: 307, height: 200 };
+        ? { width: 200, height: 400 }
+        : { width: 400, height: 200 };
     }
 
     return orientation === "portrait"
@@ -127,10 +128,8 @@ export default function FashionPortfolio() {
 
           {/* Main image */}
           <div
-            className={`relative flex justify-center items-center ${
-              isMobile
-                ? "w-[210px] h-[307px]"
-                : "md:w-[610px] md:h-[488px] md:mb-[369px]"
+            className={`relative flex justify-center items-center py-10 ${
+              isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
             }`}
           >
             <Image
@@ -159,48 +158,13 @@ export default function FashionPortfolio() {
       </div>
 
       {/* Thumbnail list */}
-      <div
-        className="
-          md:w-[398px] w-auto
-          md:h-[1022px] h-full
-          md:bg-[#F1D5CAA8]
-          flex flex-row md:flex-col
-          gap-4
-          md:pl-10 md:pt-4
-          md:overflow-y-auto md:overflow-x-hidden
-          overflow-x-auto overflow-y-hidden
-          scrollbar-hide
-          relative z-20
-          md:-mt-20
-          items-center
-          justify-center
-          md:py-0
-          py-20
-          "
-      >
-        {fashionImages.map((img, idx) => {
-          const { width, height } = getThumbNailImageSize(
-            img.orientation,
-            isMobile
-          );
-          return (
-            <div
-              key={img.id}
-              onClick={() => selectImage(idx)}
-              className="cursor-pointer border-2 border-transparent transition flex-shrink-0"
-              style={{ width: `${width}px`, height: `${height}px` }}
-            >
-              <Image
-                src={img.image}
-                alt={`Thumbnail ${idx + 1}`}
-                width={width}
-                height={height}
-                className="object-contain"
-              />
-            </div>
-          );
-        })}
-      </div>
+      <ThumbnailCarousel
+        images={fashionImages}
+        currentIndex={currentIndex}
+        onSelect={setCurrentIndex}
+        isMobile={isMobile}
+        loop={true} // enable looping
+      />
     </div>
   );
 }

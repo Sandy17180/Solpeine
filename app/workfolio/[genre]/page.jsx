@@ -34,21 +34,21 @@ export default function GenrePage() {
   const renderContent = () => {
     switch (genre) {
       case "pet":
-        return <PetPortfolio />;
+        return <PetPortfolio />; //almost done
       case "fashion":
          return <FashionPortfolio />; //done
       case "portraiture":
-         return <PortraiturePortfolio />;
+         return <PortraiturePortfolio />; //done
       case "headshots":
-          return <HeadshotPortfolio/>
+          return <HeadshotPortfolio/> //done
       case "portfolio":
-          return <Portfolio/>
+          return <Portfolio/> //done
       case "lifestyle":
-        return <LifestyleGenre/>
+        return <LifestyleGenre/> //halfway done
       case "pre_and_post_wedding":
-        return <PreandPostWedding/>
+        return <PreandPostWedding/> //almost done
       case "product":
-        return <ProductGenre/>
+        return <ProductGenre/> //almost done
       case "events":
         return <Events/>
       default:
