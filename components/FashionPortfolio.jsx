@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Taprom } from "next/font/google";
 import cameraline from "@/public/cameraline-colored.svg";
+import ThumbnailCarousel from "./ThumbnailCarousel";
 
 const fashionImages = [
   {
@@ -74,8 +75,8 @@ export default function FashionPortfolio() {
   const getMainImageSize = (orientation, isMobile) => {
     if (isMobile) {
       return orientation === "portrait"
-        ? { width: 200, height: 307 }
-        : { width: 307, height: 200 };
+        ? { width: 200, height: 400 }
+        : { width: 400, height: 200 };
     }
 
     return orientation === "portrait"
@@ -90,9 +91,9 @@ export default function FashionPortfolio() {
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
-      <div className="md:flex-1 flex flex-col items-center">
+      <div className="md:flex-1 flex flex-col items-center justify-center">
         {/* Title image */}
-        <div className="md:mb-8 md:-mt-[65px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
+        <div className="md:mb-8 md:-mt-[60px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
           <p
             className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
           >
@@ -110,7 +111,7 @@ export default function FashionPortfolio() {
         </div>
 
         {/* Main image carousel */}
-        <div className="relative flex md:justify-start justify-center items-center w-full md:h-[720px] md:mt-[117px] md:mr-[60px] md:pt-0 pt-6">
+        <div className="relative flex md:justify-start justify-center items-center w-full md:h-[720px] md:mt-[200px] md:mr-[60px] md:pt-0 pt-6">
           {/* Previous button */}
           <button
             onClick={prevImage}
@@ -127,10 +128,8 @@ export default function FashionPortfolio() {
 
           {/* Main image */}
           <div
-            className={`relative flex justify-center items-center ${
-              isMobile
-                ? "w-[210px] h-[307px]"
-                : "md:w-[610px] md:h-[488px] md:mb-[369px]"
+            className={`relative flex justify-center items-center py-10 ${
+              isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
             }`}
           >
             <Image
@@ -159,48 +158,13 @@ export default function FashionPortfolio() {
       </div>
 
       {/* Thumbnail list */}
-      <div
-        className="
-          md:w-[398px] w-auto
-          md:h-[1022px] h-full
-          md:bg-[#F1D5CAA8]
-          flex flex-row md:flex-col
-          gap-4
-          md:pl-10 md:pt-4
-          md:overflow-y-auto md:overflow-x-hidden
-          overflow-x-auto overflow-y-hidden
-          scrollbar-hide
-          relative z-20
-          md:-mt-20
-          items-center
-          justify-center
-          md:py-0
-          py-10
-          "
-      >
-        {fashionImages.map((img, idx) => {
-          const { width, height } = getThumbNailImageSize(
-            img.orientation,
-            isMobile
-          );
-          return (
-            <div
-              key={img.id}
-              onClick={() => selectImage(idx)}
-              className="cursor-pointer border-2 border-transparent transition flex-shrink-0"
-              style={{ width: `${width}px`, height: `${height}px` }}
-            >
-              <Image
-                src={img.image}
-                alt={`Thumbnail ${idx + 1}`}
-                width={width}
-                height={height}
-                className="object-contain"
-              />
-            </div>
-          );
-        })}
-      </div>
+      <ThumbnailCarousel
+        images={fashionImages}
+        currentIndex={currentIndex}
+        onSelect={setCurrentIndex}
+        isMobile={isMobile}
+        loop={true} // enable looping
+      />
     </div>
   );
 }

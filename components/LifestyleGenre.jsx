@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { Taprom } from "next/font/google";
+import cameraline from "@/public/cameraline-colored.svg";
+import ThumbnailCarousel from "./ThumbnailCarousel";
 
 const LifestyleImages = [
   {
@@ -11,7 +14,7 @@ const LifestyleImages = [
   },
   {
     id: 2,
-    image: "/LifestyleGenre.jpg",
+    image: "/PortraitureImage.jpg",
     orientation: "portrait",
   },
   {
@@ -21,76 +24,109 @@ const LifestyleImages = [
   },
   {
     id: 4,
-    image: "/LifestyleGenre.jpg",
+    image: "/PortraitureImage.jpg",
     orientation: "portrait",
   },
 ];
 
-export default function LifestyleGenre() {
+const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
+
+export default function FashionPortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // check on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % LifestyleImages.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev === 0 ? LifestyleImages.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? LifestyleImages.length - 1 : prev - 1
+    );
   };
 
   const selectImage = (index) => {
     setCurrentIndex(index);
   };
 
-  const currentImage = LifestyleImages[currentIndex];
 
-  const getThumbNailImageSize = (orientation) => {
+  const getThumbNailImageSize = (orientation, isMobile) => {
+    if (isMobile) {
+      return orientation === "portrait"
+        ? { width: 100, height: 250 }
+        : { width: 250, height: 100 };
+    }
     return orientation === "portrait"
       ? { width: 280, height: 350 }
       : { width: 350, height: 280 };
   };
 
-  const getMainImageSize=(orientation)=>{
+  const getMainImageSize = (orientation, isMobile) => {
+    if (isMobile) {
+      return orientation === "portrait"
+        ? { width: 200, height: 400 }
+        : { width: 400, height: 200 };
+    }
     return orientation === "portrait"
       ? { width: 488, height: 610 }
       : { width: 610, height: 488 };
   };
-  const {width,height} = getMainImageSize(currentImage.orientation);
+  const currentImage = LifestyleImages[currentIndex];
+  const { width, height } = getMainImageSize(
+    currentImage.orientation,
+    isMobile
+  );
 
   return (
-    <div className="flex min-h-screen bg-#F5F1EAE0 text-black px-10 py-8">
-      <div className="flex-1 flex flex-col items-start">
+    <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
+      <div className="md:flex-1 flex flex-col items-center justify-center">
         {/* Title image */}
-        <div className="mb-6">
-          <Image
-            style={{ marginTop: -72, marginLeft: -38 }}
-            src="/LifestyleGenre.png"
-            alt="Lifestyle Title"
-            width={415}
-            height={80}
-            className="object-contain"
-          />
+        <div className="md:mb-8 md:-mt-[60px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
+          <p
+            className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
+          >
+            Lifestyle
+          </p>
+          <div className="relative flex -mt-[30px] md:justify-start justify-center w-full">
+            <Image
+              src={cameraline}
+              alt="decor"
+              width={260}
+              height={40}
+              className="md:ml-8 mt-4 md:mt-0 text-[#d94a27] md:w-[260px] w-[200px] object-contain"
+            />
+          </div>
         </div>
 
         {/* Main image carousel */}
-        <div
-          className="relative flex justify-start items-center  w-full w-[1200px] h-[720px]"
-          style={{ marginLeft: 48, marginTop: 44 ,marginTop: 117, marginRight: 60 }}
-        >
+        <div className="relative flex md:justify-start justify-center items-center w-full md:h-[720px] md:mt-[200px] md:mr-[60px] md:pt-0 pt-6">
           {/* Previous button */}
-          <button onClick={prevImage} className="z-10 mr-4 bg-#F5F1EAE0  p-2"style={{marginBottom: 302}}>
+          <button
+            onClick={prevImage}
+            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+          >
             <Image
               src="/petarrow1.png"
               alt="Previous"
-              width={60}
-              height={60}
+              width={isMobile ? 40 : 60}
+              height={isMobile ? 40 : 60}
               className="object-contain"
             />
           </button>
 
           {/* Main image */}
           <div
-            style={{ width: 610, height: 488, marginBottom: 369 }}
-            className="relative flex justify-center items-center"
+            className={`relative flex justify-center items-center py-10 ${
+              isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
+            }`}
           >
             <Image
               src={currentImage.image}
@@ -104,12 +140,13 @@ export default function LifestyleGenre() {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 ml-4 bg-#F5F1EAE0 rounded-full p-2"style={{marginBottom:302}}>
+            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+          >
             <Image
               src="/petarrow2.png"
               alt="Next"
-              width={60}
-              height={60}
+              width={isMobile ? 40 : 60}
+              height={isMobile ? 40 : 60}
               className="object-contain"
             />
           </button>
@@ -117,27 +154,13 @@ export default function LifestyleGenre() {
       </div>
 
       {/* Thumbnail list */}
-<div className="w-[398px] h-[1022px] bg-[#F1D5CAA8] flex flex-col gap-4 px-6 pt-4 overflow-y-auto scrollbar-hide relative z-20 -mt-20 items-center">
-        {LifestyleImages.map((img, idx) => {
-          const { width, height } = getThumbNailImageSize(img.orientation);
-          return (
-            <div
-              key={img.id}
-              onClick={() => selectImage(idx)}
-              className="cursor-pointer border-2 border-transparent  "
-              style={{ width, height }}
-            >
-              <Image
-                src={img.image}
-                alt={`Thumbnail ${idx + 1}`}
-                width={width}
-                height={height}
-                className="shadow object-contain"
-              />
-            </div>
-          );
-        })}
-      </div>
+      <ThumbnailCarousel
+        images={LifestyleImages}
+        currentIndex={currentIndex}
+        onSelect={setCurrentIndex}
+        isMobile={isMobile}
+        loop={true} // enable looping
+      />
     </div>
   );
 }
