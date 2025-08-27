@@ -99,7 +99,7 @@ export default function PortraiturePortfolio() {
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
           >
             <Image
               src="/petarrow1.png"
@@ -112,7 +112,7 @@ export default function PortraiturePortfolio() {
 
           {/* Main image */}
           <div
-            className={`relative flex justify-center items-center py-10 ${
+            className={`relative flex justify-center items-center md:py-0 py-10 ${
               isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
             }`}
           >
@@ -128,7 +128,7 @@ export default function PortraiturePortfolio() {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px]"
+            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
           >
             <Image
               src="/petarrow2.png"

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Lato } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion"; // ✅ animation library
 import SuccessModal from "@/components/SuccessModal";
 
 const lato = Lato({ subsets: ["latin"], weight: "400" });
@@ -25,7 +26,6 @@ export default function ContactPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     let newValue = value;
 
     if (name === "message") {
@@ -39,7 +39,6 @@ export default function ContactPage() {
 
     setFormData((prev) => ({ ...prev, [name]: newValue }));
 
-    // Remove red border when valid again
     if (isValidField(name, newValue)) {
       setInvalidFields((prev) => ({ ...prev, [name]: false }));
     }
@@ -47,29 +46,22 @@ export default function ContactPage() {
 
   const isValidField = (name, value) => {
     const nameRegex = /^[A-Za-z\s]+$/;
-
     switch (name) {
       case "firstName":
       case "lastName":
         return value.trim().length >= 2 && nameRegex.test(value.trim());
-
       case "email":
         return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
           value.trim()
         );
-
       case "phone":
         return /^\d{10}$/.test(value);
-
       case "city":
         return value.trim().length >= 2 && nameRegex.test(value.trim());
-
       case "date":
         return value.trim() !== "" && !isNaN(new Date(value).getTime());
-
       case "message":
         return value.trim() !== "" && value.length <= 500;
-
       default:
         return true;
     }
@@ -77,7 +69,6 @@ export default function ContactPage() {
 
   const validateAllFields = () => {
     const newInvalids = {};
-    const newErrors = {};
     Object.entries(formData).forEach(([field, value]) => {
       newInvalids[field] = !isValidField(field, value);
     });
@@ -95,15 +86,12 @@ export default function ContactPage() {
     e.preventDefault();
     const hasErrors = validateAllFields();
     if (hasErrors) return;
-    const endpoint = "/api/submit";
 
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch("/api/submit", {
         method: "POST",
         body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (res.ok) {
@@ -122,15 +110,13 @@ export default function ContactPage() {
         setTimeout(() => setShowSuccess(false), 5000);
       } else {
         setErrorMessages({
-          general:
-            "There was an error submitting your form. Please try again later.",
+          general: "Error submitting form. Please try again later.",
         });
-        console.error("Error submitting form:", res.statusText);
+        console.error("Error:", res.statusText);
       }
     } catch (error) {
       setErrorMessages({
-        general:
-          "There was an error submitting your form. Please try again later.",
+        general: "Error submitting form. Please try again later.",
       });
       console.error("Error submitting form:", error);
       setShowSuccess(false);
@@ -144,26 +130,35 @@ export default function ContactPage() {
     "border-red-500 border-2 focus:ring-red-500 focus:border-red-500";
 
   return (
-    <div
-      className={`w-full flex md:flex-row flex-col relative top-0 ${lato.className} `}
+    <motion.div
+      className={`w-full flex md:flex-row flex-col relative top-0 ${lato.className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      {/* left side */}
-      <div className="md:w-3/7 w-full md:px-0 px-8 md:pl-8 md:pr-4 pt-4 md:pb-[75px] pb-0 relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent overflow-hidden">
-    <div className="flex items-center justify-center">
-        <Image
-          src="/connect.svg"
-          alt="contact"
-          width={554}
-          height={32}
-          className="md:w-[554px] w-[200px]"
-        />
-    </div>
+      {/* left side (form) */}
+      <motion.div
+        className="md:w-3/7 w-full md:px-0 px-8 md:pl-8 md:pr-4 pt-4 md:pb-[75px] pb-0 relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent overflow-hidden"
+        initial={{ x: -80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="flex items-center justify-center">
+          <Image
+            src="/connect.svg"
+            alt="contact"
+            width={554}
+            height={32}
+            className="md:w-[554px] w-[200px]"
+          />
+        </div>
 
         <p className="md:mb-6 my-3 md:mt-12 text-[#3a3a3ae6] font-semibold md:text-lg text-[11px] leading-7 tracking-wide text-center">
           For general questions and inquiries please fill out the contact form.
         </p>
 
         <form className="grid gap-4" onSubmit={handleSubmit} noValidate>
+          {/* First & Last Name */}
           <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="firstName"
@@ -181,54 +176,63 @@ export default function ContactPage() {
               name="lastName"
               type="text"
               placeholder="Last name *"
-              required
               value={formData.lastName}
               onChange={handleChange}
               className={`${inputBase} ${
                 invalidFields.lastName ? errorBorder : normalBorder
               } flex-1`}
+              required
               title="Please enter your last name (at least 2 characters, letters only)"
             />
           </div>
 
+          {/* Email & Phone */}
           <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="email"
               type="email"
               placeholder="Email address *"
-              required
               value={formData.email}
               onChange={handleChange}
               className={`${inputBase} ${
                 invalidFields.email ? errorBorder : normalBorder
               } flex-1`}
+              required
               title="Please enter a valid email in the format: username@example.com"
             />
             <input
               name="phone"
-              required
-              type="number"
+              type="text"
+              inputMode="numeric"
               placeholder="Phone number *"
               value={formData.phone}
-              onChange={handleChange}
+              onChange={(e) => {
+                const cleaned = e.target.value.replace(/\D/g, "").slice(0, 10);
+                setFormData((prev) => ({ ...prev, phone: cleaned }));
+                if (/^\d{10}$/.test(cleaned)) {
+                  setInvalidFields((prev) => ({ ...prev, phone: false }));
+                }
+              }}
               className={`${inputBase} ${
                 invalidFields.phone ? errorBorder : normalBorder
               } flex-1`}
+              required
               title="Please enter a valid 10 digit phone number"
             />
           </div>
 
+          {/* City & Date */}
           <div className="flex flex-row md:gap-5 gap-4">
             <input
               name="city"
               type="text"
               placeholder="City *"
-              required
               value={formData.city}
               onChange={handleChange}
               className={`${inputBase} ${
                 invalidFields.city ? errorBorder : normalBorder
               } flex-1`}
+              required
               title="Please enter your city (at least 2 characters, letters only)"
             />
             <input
@@ -239,25 +243,27 @@ export default function ContactPage() {
               onKeyDown={(e) => e.preventDefault()}
               min={getLocalDate()}
               value={formData.date}
-              required
               onChange={handleChange}
               className={`${inputBase} ${
                 invalidFields.date ? errorBorder : normalBorder
               } flex-1`}
+              required
+              title="Please select a valid date"
             />
           </div>
 
+          {/* Message */}
           <div className="flex flex-col relative">
             <textarea
               name="message"
               placeholder="Please enter details of your requirements in 500 characters *"
               value={formData.message}
               onChange={handleChange}
-              required
-              className={`p-[10px] border rounded-[4px] leading-7 tracking-wider transition duration-200 ease-in-out bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2 ${
+              className={`p-[10px] border rounded-[4px] bg-white text-base w-auto placeholder:text-[#433a3a] focus:outline-none focus:ring-2 ${
                 invalidFields.message ? errorBorder : normalBorder
-              } md:h-56 h-36 pb-4 resize-none z-10 leading-6 text-sm font-sans`}
-              title="Please enter your message (at least 1 character, max 500 characters)"
+              } md:h-56 h-36 pb-4 resize-none z-10 text-sm font-sans`}
+              required
+              title="Please enter your message (max 500 characters)"
             />
             <div className="absolute bottom-0 right-4 md:text-sm text-[11px] z-20">
               <span
@@ -268,12 +274,14 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <button
+          <motion.button
             type="submit"
             className="bg-[#d94a27] hover:bg-[#d93327] md:mt-14 text-white md:py-3 px-[18px] py-[9px] md:rounded-md cursor-pointer transition duration-300 ease-in-out mx-26 md:mx-0 rounded-4xl text-xs md:text-base flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Submit Inquiry
-          </button>
+          </motion.button>
 
           <div className="flex items-center justify-center md:text-sm text-[9px] -mt-4 text-[#957e7e]">
             <p>Typically responds within 24 hrs</p>
@@ -285,25 +293,26 @@ export default function ContactPage() {
           href="https://wa.me/919036021726"
           target="_blank"
         >
-          <Image
-            src="/whatsapp.svg"
-            height={32}
-            width={32}
-            alt="whatsapp logo"
-          />
+          <Image src="/whatsapp.svg" height={32} width={32} alt="whatsapp" />
           <span className="text-lg">Reach us on WhatsApp!</span>
         </Link>
-      </div>
+      </motion.div>
 
-      {/* right side */}
-      <div className="md:w-3/5 h-[300px] md:h-auto w-full relative md:overflow-hidden">
+      {/* right side (image) */}
+      <motion.div
+        className="md:w-3/5 h-[300px] md:h-auto w-full relative md:overflow-hidden"
+        initial={{ x: 80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="absolute inset-0 md:bg-gradient-to-r bg-gradient-to-b from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
         <div
           className="w-full h-full bg-cover bg-left bg-no-repeat md:scale-150 scale-100 z-0"
           style={{ backgroundImage: "url('/image7.jpg')" }}
         />
-      </div>
+      </motion.div>
+
       <SuccessModal show={showSuccess} onClose={() => setShowSuccess(false)} />
-    </div>
+    </motion.div>
   );
 }
