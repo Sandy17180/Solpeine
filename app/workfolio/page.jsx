@@ -6,14 +6,43 @@ import { Taprom } from "next/font/google";
 import cameraline from "@/public/cameraLine.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
+
+// Animation variants for staggered fade-in
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12, // delay between each card
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function WorkfolioPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="grid md:grid-cols-3 lg:gap-[62px] gap-x-[10px] gap-y-[27px] lg:px-20 px-3.5 lg:py-[62px] py-[10px] w-full grid-cols-2">
+    <motion.div
+      className="grid md:grid-cols-3 lg:gap-[62px] gap-x-[10px] gap-y-[27px] lg:px-20 px-3.5 lg:py-[62px] py-[10px] w-full grid-cols-2"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       {genres.map((genre, index) => {
         const row = Math.floor(index / 3);
         const col = index % 3;
@@ -22,7 +51,6 @@ export default function WorkfolioPage() {
         const hoveredCol = hoveredIndex !== null ? hoveredIndex % 3 : null;
 
         let shiftClass = "";
-
         if (
           hoveredIndex !== null &&
           row === hoveredRow &&
@@ -42,14 +70,15 @@ export default function WorkfolioPage() {
         }
 
         return (
-          <div
+          <motion.div
             key={genre}
+            variants={cardVariants}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             className={`relative overflow-hidden lg:h-[295px] lg:w-[425px] w-auto h-[131px] shadow-md transition-all duration-300 flex items-center justify-center group
-  ${hoveredIndex === index ? "lg:scale-110 lg:z-10" : ""}
-  ${hoveredIndex !== null ? shiftClass && "lg:" + shiftClass : ""}
-`}
+              ${hoveredIndex === index ? "lg:scale-110 lg:z-10" : ""}
+              ${hoveredIndex !== null ? shiftClass : ""}
+            `}
           >
             <Link
               href={`/workfolio/${genre}`}
@@ -62,8 +91,7 @@ export default function WorkfolioPage() {
                 className="object-contain transition duration-300"
               />
 
-              <div className="absolute inset-0 transition duration-300" />
-
+              {/* Overlay Caption */}
               <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-0">
                 <div className="backdrop-blur-md bg-[#00000022] px-4 md:pt-1 md:py-0 py-1 w-full flex items-center justify-center">
                   <div className="relative flex flex-col items-center">
@@ -80,16 +108,16 @@ export default function WorkfolioPage() {
                         alt="decor"
                         width={340}
                         height={40}
-                        className="md:ml-4 ml-2 text-white md:w-[340px] md:h-[40px] "
+                        className="md:ml-4 ml-2 text-white md:w-[340px] md:h-[40px]"
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </Link>
-          </div>
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 }

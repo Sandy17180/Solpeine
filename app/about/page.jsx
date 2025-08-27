@@ -1,22 +1,51 @@
+"use client";
+
 import React from "react";
 import { Taprom, Lato } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import instagramLogo from "@/social/instagramLogo.svg";
 
 const taprom = Taprom({ subsets: ["latin"], weight: "400" });
 const lato = Lato({ subsets: ["latin"], weight: "400" });
 
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 1 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
 const Page = () => {
   return (
     <div className="relative w-full flex flex-col">
-      {/* Top Half: Background split + Profile Image */}
+      {/* Top Half: Background split + Profile Image (Mobile) */}
       <div className="relative h-[350px] w-full overflow-hidden md:hidden">
         <div className="absolute inset-0 flex w-full h-full">
           <div className="w-1/2 bg-[#F5F1EA]" />
           <div className="w-1/2 bg-[#D94A27]" />
         </div>
-        <div className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6"
+        >
           <Image
             src="/sandeep_profile.jpg"
             alt="Profile"
@@ -25,46 +54,60 @@ const Page = () => {
             className="w-[250px] h-[251px] object-cover"
             loading="lazy"
           />
-        </div>
+        </motion.div>
       </div>
-      {/* Bottom Half: Text and Details */}
-      <div className="relative w-full flex items-start justify-center px-4 pt-6 pb-9 md:hidden">
-        <div className="max-w-3xl text-center">
-          <Image
-            src="/name.svg"
-            alt="name"
-            width={350}
-            height={100}
-            className="mx-auto mb-4 max-w-full"
-            loading="lazy"
-          />
 
-          <p
+      {/* Bottom Half: Text and Details (Mobile) */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        className="relative w-full flex items-start justify-center px-4 pt-6 pb-9 md:hidden"
+      >
+        <div className="max-w-3xl text-center">
+          <motion.div variants={fadeInUp}>
+            <Image
+              src="/name.svg"
+              alt="name"
+              width={350}
+              height={100}
+              className="mx-auto mb-4 max-w-full"
+              loading="lazy"
+            />
+          </motion.div>
+
+          <motion.p
+            variants={fadeInUp}
             className={`${taprom.className} lg:text-lg text-base text-[#D94A27] tracking-[0.15em] mb-4`}
           >
             Your friendly neighborhood photographer
-          </p>
+          </motion.p>
 
-          <div
+          <motion.div
+            variants={staggerContainer}
             className={`${lato.className} text-sm leading-relaxed text-gray-700 space-y-2 px-8 text-justify`}
           >
-            <p>
+            <motion.p variants={fadeInUp}>
               What began as a simple summer pastime at the age of eight — a gift
               from my grandfather in the form of a film camera — quickly
               revealed my innate love for capturing landscapes.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeInUp}>
               Years later, with a basic DSLR, I rekindled that spark, falling
               deeply in love with candid moments and portraiture.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeInUp}>
               I am drawn to clients who are equally passionate about the craft
               and who appreciate the beauty of capturing the essence of the
               moment.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <div className="mt-6 flex flex-col items-end mr-8">
+          <motion.div
+            variants={fadeIn}
+            className="mt-6 flex flex-col items-end mr-8"
+          >
             <Image
               src="/signature.svg"
               width={86}
@@ -88,16 +131,22 @@ const Page = () => {
                 @sandeepsai_fotofusion
               </p>
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Content */}
+      {/* Content (Desktop) */}
       <div className="relative z-10 lg:flex items-center justify-center h-full hidden">
-        <div className="lg:grid lg:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-12 gap-20 py-20">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="lg:grid lg:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-12 gap-20 py-20"
+        >
           {/* Text Section */}
           <div className="flex flex-col justify-between max-w-xl">
-            <div>
+            <motion.div variants={fadeInUp}>
               <Image
                 src="/name.svg"
                 width={800}
@@ -110,31 +159,32 @@ const Page = () => {
               >
                 Your friendly neighborhood photographer
               </p>
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
+              variants={staggerContainer}
               className={`${lato.className} mt-1 space-y-4 lg:text-lg text-[11px] leading-relaxed tracking-wider`}
             >
-              <p>
+              <motion.p variants={fadeInUp}>
                 What began as a simple summer pastime at the age of eight — a
                 gift from my grandfather in the form of a film camera — quickly
                 revealed my innate love for capturing landscapes. Life
                 eventually led me down the familiar paths of education and
                 responsibilities, placing my passion on hold but never
                 extinguishing it.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p variants={fadeInUp}>
                 Years later, with a basic DSLR, I rekindled that spark, falling
                 deeply in love with candid moments and portraiture.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p variants={fadeInUp}>
                 I am drawn to clients who are equally passionate about the craft
                 and who appreciate the beauty of capturing the essence of the
                 moment.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            <div className="flex justify-end mt-10">
+            <motion.div variants={fadeIn} className="flex justify-end mt-10">
               <div className="flex flex-col items-center">
                 <Image
                   src="/signature.svg"
@@ -159,7 +209,7 @@ const Page = () => {
                   <p className="lg:text-base text-xs">@sandeepsai_fotofusion</p>
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Image Section */}
@@ -167,7 +217,10 @@ const Page = () => {
             <div className="w-3/4 bg-[#F5F1EA]" />
             <div className="w-1/3 h-full bg-[#D94A27]" />
           </div>
-          <div className="translate-x-20 translate-y-20">
+          <motion.div
+            variants={fadeInUp}
+            className="translate-x-20 translate-y-20"
+          >
             <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
               <Image
                 src="/sandeep_profile.jpg"
@@ -187,8 +240,8 @@ const Page = () => {
                 loading="lazy"
               />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
