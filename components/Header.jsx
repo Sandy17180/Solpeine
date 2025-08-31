@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header className="backdrop-blur w-full sticky top-0 left-0 z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] bg-[#f5f1ea]/70">
-      <div className="flex items-center md:justify-between px-[10px] lg:px-11 md:h-[94px] h-[59px]">
+      <div className="flex items-center md:justify-between px-[10px] lg:px-11 md:h-[94px] h-[70px]">
         {/* Hamburger Icon for Mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
