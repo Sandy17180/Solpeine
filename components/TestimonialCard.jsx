@@ -15,7 +15,7 @@ function TestimonialCard({ name, quote, fontClass, profile }) {
   // };
 
   return (
-    <div className="bg-[#f3e6e3] shadow-[6px_0_25.44px_0_rgba(0,0,0,0.14)] rounded-3xl border-[#f3e6e3] md:border-2 md:px-8 md:py-5 py-2 px-4 flex flex-col items-start transition-all duration-300 ease-in-out md:w-[587px] md:h-[333px] w-[303px] h-[167px] justify-center md:gap-5">
+    <div className="bg-[#f3e6e3] shadow-[6px_0_25.44px_0_rgba(0,0,0,0.14)] rounded-3xl border-[#f3e6e3] md:border-2 md:px-8 md:py-5 py-2 px-4 flex flex-col items-start transition-all duration-300 ease-in-out md:w-[600px] md:h-[333px] w-[303px] h-[167px] justify-center md:gap-5">
       {/* Quote Icon */}
       <div className="w-full flex justify-start">
         <Image

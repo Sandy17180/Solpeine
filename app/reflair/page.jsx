@@ -33,7 +33,7 @@ const PhotoGallery = () => {
           key={photo.id}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ amount: 0.3 }}
           transition={{ duration: 0.5, delay: index * 0.05 }}
           className="w-full break-inside-avoid overflow-hidden"
         >

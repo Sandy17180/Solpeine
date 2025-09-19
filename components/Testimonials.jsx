@@ -4,6 +4,7 @@ import { Lato } from "next/font/google";
 import { testimonials } from "@/data/testimonials";
 import TestimonialCard from "./TestimonialCard";
 import { useState } from "react";
+import Link from "next/link";
 
 const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
@@ -45,8 +46,8 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="relative flex justify-center items-center md:min-h-[360px] min-h-[236px] md:max-w-7xl max-w-3xl md:mx-auto mx-[15px] mr-[50px] gap-10">
-        {testimonials.map((testimonial, i) => (
+      <div className="relative flex justify-center items-center md:min-h-[400px] min-h-[236px] md:max-w-7xl max-w-3xl md:mx-auto mx-[15px] mr-[50px] gap-10">
+        {testimonials.slice(0, 3).map((testimonial, i) => (
           <div
             key={i}
             onClick={() => handleCardClick(i)}
@@ -63,6 +64,12 @@ export default function Testimonials() {
           </div>
         ))}
       </div>
+
+      <Link href="/testimonials" className="block">
+        <button className="mt-4 sm:mt-6 md:mt-12 px-6 sm:px-8 lg:px-10 py-2.5 border-2 border-[#d94a27] hover:border-[#9e3c23] text-sm sm:text-base lg:text-lg text-white bg-[#d94a27] hover:bg-[#9e3c23] transition duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-xl hover:shadow-black/70 rounded-sm mx-auto block cursor-pointer">
+          View More..
+        </button>
+      </Link>
     </div>
   );
 }
