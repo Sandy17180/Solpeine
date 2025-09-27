@@ -44,16 +44,16 @@ const AdvancedCameraReel = ({
   }, [clientImages]);
 
   return (
-    <div className="w-full overflow-hidden py-12 px-12">
+    <div className="w-full overflow-hidden py-8 px-4 sm:px-6 md:px-12">
       <div
         className="relative"
         onMouseEnter={() => pauseOnHover && setIsPaused(true)}
         onMouseLeave={() => pauseOnHover && setIsPaused(false)}
       >
         {/* Film perforations top */}
-        <div className="absolute top-0 left-0 right-0 h-6 bg-black flex items-center z-10 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-4 sm:h-5 md:h-6 bg-black flex items-center z-10 overflow-hidden">
           <motion.div
-            className="flex space-x-3"
+            className="flex space-x-2 sm:space-x-3"
             animate={{ x: isPaused ? undefined : [0, -reelWidth] }}
             transition={{
               x: {
@@ -67,17 +67,17 @@ const AdvancedCameraReel = ({
             {Array.from({ length: 200 }).map((_, i) => (
               <div
                 key={i}
-                className="w-4 h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
+                className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
               ></div>
             ))}
           </motion.div>
         </div>
 
         {/* Main film container */}
-        <div className="relative bg-black py-6 overflow-hidden">
+        <div className="relative bg-black py-4 sm:py-6 overflow-hidden">
           <motion.div
             ref={reelRef}
-            className="flex items-center gap-2 px-6"
+            className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6"
             animate={{ x: isPaused ? undefined : [0, -reelWidth] }}
             transition={{
               x: {
@@ -94,7 +94,12 @@ const AdvancedCameraReel = ({
                 className="flex-shrink-0 relative group cursor-pointer"
               >
                 <div className="bg-white rounded-lg shadow-xl transform group-hover:scale-105 transition-transform duration-300">
-                  <div className="w-32 h-32 relative overflow-hidden rounded-md">
+                  <div
+                    className="
+                w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40
+                relative overflow-hidden rounded-md
+              "
+                  >
                     <img
                       src={image}
                       alt={`Client ${(index % clientImages.length) + 1}`}
@@ -108,10 +113,10 @@ const AdvancedCameraReel = ({
         </div>
 
         {/* Film perforations bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-6 bg-black flex items-center z-10 overflow-hidden">
+        <div className="absolute bottom-0 left-0 right-0 h-4 sm:h-5 md:h-6 bg-black flex items-center z-10 overflow-hidden">
           <motion.div
-            className="flex space-x-3"
-            animate={{ x: isPaused ? undefined : [0,-reelWidth] }}
+            className="flex space-x-2 sm:space-x-3"
+            animate={{ x: isPaused ? undefined : [0, -reelWidth] }}
             transition={{
               x: {
                 repeat: Infinity,
@@ -124,19 +129,21 @@ const AdvancedCameraReel = ({
             {Array.from({ length: 200 }).map((_, i) => (
               <div
                 key={i}
-                className="w-4 h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
+                className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
               ></div>
             ))}
           </motion.div>
         </div>
 
         {/* Shadow effects */}
-        <div className="absolute left-0 top-6 bottom-6 w-20 bg-gradient-to-r from-gray-900 to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute right-0 top-6 bottom-6 w-20 bg-gradient-to-l from-gray-900 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute left-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-gray-900 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute right-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-gray-900 to-transparent z-20 pointer-events-none"></div>
       </div>
 
       {pauseOnHover && (
-        <p className="">Hover to pause</p>
+        <p className="text-center text-xs sm:text-sm mt-2 text-gray-600">
+          Hover to pause
+        </p>
       )}
     </div>
   );

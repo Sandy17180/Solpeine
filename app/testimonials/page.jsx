@@ -12,12 +12,9 @@ const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
 const Column = ({ items, reverse = false, duration = 80 }) => {
   const controls = useAnimation();
+  const [isMobile, setIsMobile] = React.useState(false);
 
-  const handleMouseEnter = () => {
-    controls.stop(); // pause animation
-  };
-
-  const handleMouseLeave = () => {
+  const startAnimation = () => {
     controls.start({
       y: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
       transition: {
@@ -30,16 +27,22 @@ const Column = ({ items, reverse = false, duration = 80 }) => {
   };
 
   React.useEffect(() => {
-    // start animation on mount
-    handleMouseLeave();
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    startAnimation(); // always start animation
+
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
     <motion.div
       className="flex flex-col gap-6"
       animate={controls}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      // only attach hover handlers if not mobile
+      onMouseEnter={!isMobile ? () => controls.stop() : undefined}
+      onMouseLeave={!isMobile ? startAnimation : undefined}
     >
       {[...items, ...items].map((testimonial, i) => (
         <div key={`${testimonial.name}-${i}`} className="flex-shrink-0">
@@ -55,11 +58,31 @@ const Column = ({ items, reverse = false, duration = 80 }) => {
   );
 };
 
+
+// utility function: chunk array into n groups
+const chunkArray = (arr, n) => {
+  return Array.from({ length: n }, (_, i) =>
+    arr.filter((_, idx) => idx % n === i)
+  );
+};
+
 const Page = () => {
-  // Split testimonials into 3 columns
-  const column1 = testimonials.filter((_, i) => i % 3 === 0);
-  const column2 = testimonials.filter((_, i) => i % 3 === 1);
-  const column3 = testimonials.filter((_, i) => i % 3 === 2);
+  // dynamically decide number of columns based on screen size
+  const [columns, setColumns] = React.useState(3);
+
+  React.useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth < 768) setColumns(1); // mobile
+      else if (window.innerWidth < 1280) setColumns(2); // tablet
+      else setColumns(3); // desktop
+    };
+
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
+  }, []);
+
+  const columnData = chunkArray(testimonials, columns);
 
   return (
     <>
@@ -70,7 +93,7 @@ const Page = () => {
           alt="contact"
           width={480}
           height={115}
-          className="md:w-[480px] w-[115px]"
+          className="md:w-[480px] w-[240px]"
         />
       </div>
 
@@ -79,22 +102,17 @@ const Page = () => {
         <div className="pointer-events-none absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#F5F1EA] to-transparent z-10" />
 
         {/* Scrolling Testimonials */}
-        <div className="flex grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 xl:px-12 md:px-6 h-full px-4">
-          {/* Column 1 - Down */}
-          <div className="overflow-hidden">
-            <Column items={column1} />
-          </div>
-
-          {/* Column 2 - Up */}
-          <div className="overflow-hidden">
-            <Column items={column2} reverse />
-          </div>
-
-          {/* Column 3 - Down */}
-          <div className="overflow-hidden">
-            <Column items={column3} />
-          </div>
+        <div
+          className={`grid gap-6 px-4 md:px-6 xl:px-12 
+          grid-cols-1 md:grid-cols-2 xl:grid-cols-3 h-full`}
+        >
+          {columnData.map((col, i) => (
+            <div className="overflow-hidden" key={i}>
+              <Column items={col} reverse={i % 2 === 1} />
+            </div>
+          ))}
         </div>
+
         {/* Gradient Bottom */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F5F1EA] to-transparent z-10" />
       </div>
@@ -106,15 +124,11 @@ const Page = () => {
           alt="clients"
           width={480}
           height={115}
-          className="md:w-[480px] w-[115px]"
+          className="md:w-[480px] w-[240px]"
         />
       </div>
-      <div className="">
-        {/* Enhanced version */}
-        <AdvancedCameraReel
-          speed={25}
-          pauseOnHover={false}
-        />
+      <div>
+        <AdvancedCameraReel speed={25} pauseOnHover={false} />
       </div>
     </>
   );
