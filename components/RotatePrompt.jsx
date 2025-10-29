@@ -8,13 +8,42 @@ const RotatePrompt = () => {
   useEffect(() => {
     const check = () => {
       try {
-        const isMobile = window.innerWidth <= 768;
+        // Robust phone detection (exclude tablets): prefer UA mobile flag, fall back to touch-capability + viewport
+        const ua = navigator.userAgent || "";
+
+        // Tablet detection: Android without 'Mobile', explicit iPad, iPadOS (MacIntel + touch), or common 'Tablet' tokens
+        const isAndroidTablet = /Android/i.test(ua) && !/Mobile/i.test(ua);
+        const isIpadUA = /iPad/i.test(ua);
+        const isIpadOS =
+          navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1; // iPadOS in newer Safari
+        const tabletTokens = /Tablet|PlayBook|Silk/i.test(ua);
+        const isTablet =
+          isAndroidTablet || isIpadUA || isIpadOS || tabletTokens;
+
+        // Mobile UA detection (phones). We exclude tablets above.
+        const mobileUa =
+          /Mobi|Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua) ||
+          (navigator.userAgentData && navigator.userAgentData.mobile);
+
+        const isTouch =
+          !!("ontouchstart" in window) ||
+          navigator.maxTouchPoints > 0 ||
+          navigator.msMaxTouchPoints > 0;
+
+        // treat as phone if UA says mobile (and NOT tablet) OR it's touch-capable and viewport is reasonably narrow (and NOT tablet)
+        const isMobile =
+          (mobileUa && !isTablet) ||
+          (isTouch && window.innerWidth <= 1220 && !isTablet);
+
+        // show when device is in landscape (so user should rotate back to portrait)
         const isLandscape =
           window.matchMedia &&
           window.matchMedia("(orientation: landscape)").matches;
+
         const dismissed = sessionStorage.getItem("rotate_prompt_dismissed");
         setShow(Boolean(isMobile && isLandscape && !dismissed));
-      } catch {
+      } catch (err) {
+        // fail closed
         setShow(false);
       }
     };
@@ -24,9 +53,8 @@ const RotatePrompt = () => {
     window.addEventListener("resize", check);
     window.addEventListener("orientationchange", check);
 
-    const mq = window.matchMedia(
-      "(orientation: landscape) and (max-width: 768px)"
-    );
+    // listen to orientation changes (no strict max-width here — detection above covers phone sizes)
+    const mq = window.matchMedia("(orientation: landscape)");
     if (mq?.addEventListener) mq.addEventListener("change", check);
     else if (mq?.addListener) mq.addListener(check);
 
@@ -55,7 +83,9 @@ const RotatePrompt = () => {
       <div
         role="dialog"
         aria-modal="true"
-        className="relative z-10 max-w-sm w-full bg-white rounded-lg shadow-lg p-6 text-center"
+        aria-label="Rotate screen dialog"
+        className="relative z-10 w-full bg-white rounded-lg shadow-lg p-6 text-center"
+        style={{ maxWidth: "min(92vw,460px)" }}
       >
         <div className="flex flex-col items-center gap-4">
           {/* Updated SVG animation */}
