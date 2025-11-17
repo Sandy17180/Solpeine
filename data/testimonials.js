@@ -90,6 +90,12 @@ export const testimonials = [
     profile: "Logistics Coordinator",
   },
   {
+    name: "Alice Smith",
+    quote:
+      "I’ve worked with many teams over the years, but this collaboration stood out from the beginning. They not only listened to my ideas but also expanded on them in ways I would never have thought of myself. Every meeting felt purposeful and productive without ever being stressful. By the end, I walked away with results that felt both professional which is something rare to find.",
+    profile: "Marketing Manager",
+  },
+  {
     name: "Harper Young",
     quote:
       "What impressed me was the way they treated the project as if it were their own. They brought passion and commitment to every step, and it showed in the results. I never once felt like just another client—this felt like a true collaboration. That sense of care made the final product all the more meaningful.",
