@@ -6,7 +6,7 @@ export const testimonials = [
     profile: "Marketing Manager",
   },
   {
-    name: "Daniel Kim",
+    name: "Daniel Smith",
     quote:
       "What impressed me the most was their ability to take something complex and make it feel approachable. They were confident but never overbearing, guiding me in exactly the right moments. Their creativity shone through in small details, and I found myself enjoying the process much more than expected. The final delivery was beyond my expectations.",
     profile: "Product Designer",
