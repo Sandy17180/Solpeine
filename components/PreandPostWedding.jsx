@@ -6,7 +6,7 @@ import { Taprom } from "next/font/google";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
-const preandpostImages = [
+const initialPreAndPostImages = [
   {
     id: 1,
     image: "/LifestyleGenre.jpg",
@@ -33,7 +33,7 @@ const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 
 export default function FashionPortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [preAndPostImages, setPreAndPostImages] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -44,19 +44,18 @@ export default function FashionPortfolio() {
   }, []);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % preandpostImages.length);
+    setCurrentIndex((prev) => (prev + 1) % preAndPostImages.length);
   };
 
   const prevImage = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? preandpostImages.length - 1 : prev - 1
+      prev === 0 ? preAndPostImages.length - 1 : prev - 1
     );
   };
 
   const selectImage = (index) => {
     setCurrentIndex(index);
   };
-
 
   const getThumbNailImageSize = (orientation, isMobile) => {
     if (isMobile) {
@@ -79,11 +78,43 @@ export default function FashionPortfolio() {
       ? { width: 488, height: 610 }
       : { width: 610, height: 488 };
   };
-  const currentImage = preandpostImages[currentIndex];
+  const currentImage =
+    preAndPostImages[currentIndex] || initialPreAndPostImages[0];
   const { width, height } = getMainImageSize(
     currentImage.orientation,
     isMobile
   );
+
+  // Fetch images for this genre from the runtime API so dashboard uploads appear automatically
+
+  useEffect(() => {
+    let mounted = true;
+
+    (async () => {
+      try {
+        const res = await fetch("/api/genre-images?genre=pre_and_post_wedding");
+        if (!res.ok) throw new Error("Cloudinary request failed");
+        const data = await res.json();
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          const normalized = data.map((it, i) => ({
+            id: it.id || i + 1,
+            image: it.image,
+            orientation:
+              it.orientation ||
+              (it.height >= it.width ? "portrait" : "landscape"),
+          }));
+          setPreAndPostImages(normalized);
+          return; // USE CLOUDINARY + STOP
+        }
+        // If Cloudinary is empty → fallback
+        if (mounted) setPreAndPostImages(initialPreAndPostImages);
+      } catch (err) {
+        // Cloudinary failed → fallback
+        if (mounted) setPreAndPostImages(initialPreAndPostImages);
+      }
+    })();
+    return () => (mounted = false);
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
@@ -111,7 +142,9 @@ export default function FashionPortfolio() {
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
+            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70 
+             rounded-full duration-150 hover:cursor-pointer"
           >
             <Image
               src="/petarrow1.png"
@@ -140,7 +173,9 @@ export default function FashionPortfolio() {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
+            className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70
+             rounded-full duration-150 hover:cursor-pointer"
           >
             <Image
               src="/petarrow2.png"
@@ -155,7 +190,7 @@ export default function FashionPortfolio() {
 
       {/* Thumbnail list */}
       <ThumbnailCarousel
-        images={preandpostImages}
+        images={preAndPostImages}
         currentIndex={currentIndex}
         onSelect={setCurrentIndex}
         isMobile={isMobile}

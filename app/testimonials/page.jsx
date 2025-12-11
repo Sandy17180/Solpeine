@@ -7,10 +7,11 @@ import { motion, useAnimation } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import AdvancedCameraReel from "@/components/Client";
+import { useState, useEffect } from "react";
 
 const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
-const Column = ({ items, reverse = false, duration = 80 }) => {
+const Column = ({ items, reverse = false, duration = 120 }) => {
   const controls = useAnimation();
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -58,7 +59,6 @@ const Column = ({ items, reverse = false, duration = 80 }) => {
   );
 };
 
-
 // utility function: chunk array into n groups
 const chunkArray = (arr, n) => {
   return Array.from({ length: n }, (_, i) =>
@@ -67,6 +67,18 @@ const chunkArray = (arr, n) => {
 };
 
 const Page = () => {
+  const [logos, setLogos] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/logo")
+      .then((res) => res.json())
+      .then((data) => {
+        const logoUrls = data.map((logo) => logo.image);
+        setLogos(logoUrls);
+      })
+      .catch((err) => console.error("Failed to fetch logos:", err));
+  }, []);
+
   // dynamically decide number of columns based on screen size
   const [columns, setColumns] = React.useState(3);
 
@@ -128,7 +140,7 @@ const Page = () => {
         />
       </div>
       <div>
-        <AdvancedCameraReel speed={25} pauseOnHover={false} />
+        <AdvancedCameraReel images={logos} speed={50} pauseOnHover={false} />
       </div>
     </>
   );

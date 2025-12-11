@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import RotatePrompt from "@/components/RotatePrompt";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import NavigationLoader from "@/components/NavigationLoader";
 
 const lobster = Lobster_Two({
   variable: "--font-lobster",
@@ -96,7 +97,7 @@ export default function RootLayout({ children }) {
 
         {/* Main landmark for accessibility and SEO */}
         <main id="content" role="main">
-          {children}
+          <NavigationLoader>{children}</NavigationLoader>
         </main>
 
         <Footer />

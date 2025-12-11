@@ -1,15 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function ThumbnailCarousel({
   images,
-  currentIndex,
   onSelect,
   isMobile = false,
-  loop = false,
-  horizontal = false, // new prop for horizontal looping
   thumbnailSize = {
     portrait: { width: 280, height: 350 },
     landscape: { width: 350, height: 280 },
@@ -17,81 +14,122 @@ export default function ThumbnailCarousel({
 }) {
   const containerRef = useRef(null);
 
-  // Optional loop effect
-  useEffect(() => {
-    if (!loop) return;
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      if (horizontal) {
-        if (
-          container.scrollLeft + container.clientWidth >=
-          container.scrollWidth
-        ) {
-          container.scrollLeft = 0; // loop back to start
-        }
-      } else {
-        if (
-          container.scrollTop + container.clientHeight >=
-          container.scrollHeight
-        ) {
-          container.scrollTop = 0; // loop back to top
-        }
-      }
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [loop, horizontal]);
+  // Triple dataset to enable seamless infinite scrolling
+  const infiniteImages = [...images, ...images, ...images];
 
   const getThumbnailSize = (orientation) => {
     const size =
       orientation === "portrait"
         ? thumbnailSize.portrait
         : thumbnailSize.landscape;
+
     if (isMobile) {
       return { width: size.width / 2, height: size.height / 2 };
     }
+
     return size;
   };
 
-  const displayImages = loop ? [...images, ...images] : images;
+  // Detect scroll direction from rendered layout
+  const detectScrollDirection = (container) => {
+    const direction =
+      window.getComputedStyle(container).flexDirection === "row"
+        ? "horizontal"
+        : "vertical";
+    return direction;
+  };
+
+  // Scroll to the middle section (smooth infinite loop)
+  const scrollToMiddle = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const direction = detectScrollDirection(container);
+
+    if (direction === "horizontal") {
+      const third = container.scrollWidth / 3;
+      container.scrollLeft = third;
+    } else {
+      const third = container.scrollHeight / 3;
+      container.scrollTop = third;
+    }
+  };
+
+  // Infinite Loop Logic
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Start at middle of 3× dataset
+    requestAnimationFrame(scrollToMiddle);
+
+    const direction = detectScrollDirection(container);
+
+    const handleScroll = () => {
+      const third =
+        direction === "horizontal"
+          ? container.scrollWidth / 3
+          : container.scrollHeight / 3;
+
+      const pos =
+        direction === "horizontal" ? container.scrollLeft : container.scrollTop;
+
+      // Only teleport after leaving 20% - 180% range of the middle block
+      if (pos < third * 0.2 || pos > third * 1.8) {
+        const offset = pos % third; // preserve exact position inside block
+        const newPos = third + offset; // teleport to middle block
+
+        if (direction === "horizontal") {
+          container.scrollLeft = newPos;
+        } else {
+          container.scrollTop = newPos;
+        }
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   return (
     <div
       ref={containerRef}
       className={`
-    md:w-[398px] w-auto
-    md:h-[1022px] h-full
-    md:bg-[#F1D5CAA8]
-    flex
-    flex-row md:flex-col
-    md:gap-6 gap-2
-    md:pl-10 md:pt-6
-    md:overflow-y-auto md:overflow-x-hidden
-    overflow-x-auto overflow-y-hidden
-    scrollbar-hide
-    relative z-20
-    md:-mt-20
-    items-center justify-start
-    md:py-0 py-10 md:px-6
-  `}
+        md:w-[398px] w-auto
+        md:h-[1022px] h-full
+        bg-[#F1D5CAA8]
+        flex
+        flex-row md:flex-col
+        md:gap-6 gap-2
+        md:pl-10 md:pt-6
+        md:overflow-y-auto md:overflow-x-hidden
+        overflow-x-auto overflow-y-hidden
+        scrollbar-hide
+        relative z-20
+        md:-mt-20
+        items-center justify-start
+        md:py-0 py-10 md:px-6
+      `}
     >
-      {displayImages.map((img, idx) => {
-        const { width, height } = getThumbnailSize(img.orientation);
+      {infiniteImages.map((img, idx) => {
+        const size = getThumbnailSize(img.orientation);
+
         return (
           <div
             key={idx}
             onClick={() => onSelect(idx % images.length)}
             className="cursor-pointer border-2 border-transparent transition flex-shrink-0 flex"
-            style={{ width: `${width}px`, height: `${height}px` }}
+            style={{
+              width: `${size.width}px`,
+              height: `${size.height}px`,
+            }}
           >
             <Image
               src={img.image}
-              alt={`Thumbnail ${idx + 1}`}
-              width={width}
-              height={height}
+              alt={`Thumbnail ${idx}`}
+              width={size.width}
+              height={size.height}
               className="object-contain"
             />
           </div>
@@ -236,7 +274,3 @@ export default function ThumbnailCarousel({
 //     </div>
 //   );
 // }
-
-
-
-

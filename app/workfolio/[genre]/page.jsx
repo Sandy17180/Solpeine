@@ -10,9 +10,9 @@ import Portfolio from "@/components/Portfolio";
 import LifestyleGenre from "@/components/LifestyleGenre";
 import PreandPostWedding from "@/components/PreandPostWedding";
 import Events from "@/components/Events";
+import ProductGenre from "@/components/ProductGenre";
 
 import Link from "next/link";
-import ProductGenre from "@/components/ProductGenre";
 
 export default function GenrePage() {
   const params = useParams();

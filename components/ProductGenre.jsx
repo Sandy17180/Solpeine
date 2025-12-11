@@ -6,7 +6,7 @@ import { Taprom } from "next/font/google";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
-const ProductImages = [
+const initialProductImages = [
   {
     id: 1,
     image: "/ProductGenre.jpeg",
@@ -34,6 +34,7 @@ const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 export default function FashionPortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [productImages, setProductImages] = useState([]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -43,12 +44,12 @@ export default function FashionPortfolio() {
   }, []);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % ProductImages.length);
+    setCurrentIndex((prev) => (prev + 1) % productImages.length);
   };
 
   const prevImage = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? ProductImages.length - 1 : prev - 1
+      prev === 0 ? productImages.length - 1 : prev - 1
     );
   };
 
@@ -79,13 +80,43 @@ export default function FashionPortfolio() {
       : { width: 610, height: 488 };
   };
 
-  const currentImage = ProductImages[currentIndex];
+  const currentImage = productImages[currentIndex] || initialProductImages[0];
 
   const { width, height } = getMainImageSize(
     currentImage.orientation,
-
     isMobile
   );
+
+  // Fetch images for this genre from the runtime API so dashboard uploads appear automatically
+
+  useEffect(() => {
+    let mounted = true;
+
+    (async () => {
+      try {
+        const res = await fetch("/api/genre-images?genre=product");
+        if (!res.ok) throw new Error("Cloudinary request failed");
+        const data = await res.json();
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          const normalized = data.map((it, i) => ({
+            id: it.id || i + 1,
+            image: it.image,
+            orientation:
+              it.orientation ||
+              (it.height >= it.width ? "portrait" : "landscape"),
+          }));
+          setProductImages(normalized);
+          return; // USE CLOUDINARY + STOP
+        }
+        // If Cloudinary is empty → fallback
+        if (mounted) setProductImages(initialProductImages);
+      } catch (err) {
+        // Cloudinary failed → fallback
+        if (mounted) setProductImages(initialProductImages);
+      }
+    })();
+    return () => (mounted = false);
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
@@ -113,7 +144,9 @@ export default function FashionPortfolio() {
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 md:mr-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
+            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70 
+             rounded-full duration-150 hover:cursor-pointer"
           >
             <Image
               src="/petarrow1.png"
@@ -142,7 +175,9 @@ export default function FashionPortfolio() {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 md:ml-4 bg-#F5F1EAE0 p-2 md:mb-[302px] hover:cursor-pointer"
+            className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70
+             rounded-full duration-150 hover:cursor-pointer"
           >
             <Image
               src="/petarrow2.png"
@@ -157,7 +192,7 @@ export default function FashionPortfolio() {
 
       {/* Thumbnail list */}
       <ThumbnailCarousel
-        images={ProductImages}
+        images={productImages}
         currentIndex={currentIndex}
         onSelect={setCurrentIndex}
         isMobile={isMobile}

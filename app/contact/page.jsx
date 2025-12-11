@@ -308,7 +308,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 md:bg-gradient-to-r bg-gradient-to-b from-[#f5f1ea] via-[#f5f1ea]/10 to-transparent z-10" />
         <div
           className="w-full h-full bg-cover bg-left bg-no-repeat md:scale-150 scale-100 z-0"
-          style={{ backgroundImage: "url('/image7.jpg')" }}
+          style={{ backgroundImage: "url('/api/contact-image')" }}
         />
       </motion.div>
 

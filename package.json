@@ -6,15 +6,20 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:dry": "node -r dotenv/config scripts/upload-to-cloudinary.js",
+    "migrate:upload": "node -r dotenv/config scripts/upload-to-cloudinary.js --upload"
   },
   "dependencies": {
+    "@cloudinary/url-gen": "^1.22.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "framer-motion": "^12.10.5",
+    "cloudinary": "^2.8.0",
+    "dotenv": "^17.2.3",
+    "framer-motion": "^12.23.25",
     "lucide-react": "^0.509.0",
     "next": "15.2.4",
     "postcss": "^8.5.3",

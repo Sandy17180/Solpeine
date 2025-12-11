@@ -47,7 +47,7 @@ const Page = () => {
           className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6"
         >
           <Image
-            src="/sandeep_profile.jpg"
+            src="/api/profile-image"
             alt="Profile"
             width={250}
             height={251}
@@ -223,7 +223,7 @@ const Page = () => {
           >
             <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
               <Image
-                src="/sandeep_profile.jpg"
+                src="/api/profile-image"
                 width={437}
                 height={635}
                 alt="Profile"
