@@ -6,7 +6,7 @@ export const testimonials = [
     profile: "Marketing Manager",
   },
   {
-    name: "Daniel Kim",
+    name: "Daniel Smith",
     quote:
       "What impressed me the most was their ability to take something complex and make it feel approachable. They were confident but never overbearing, guiding me in exactly the right moments. Their creativity shone through in small details, and I found myself enjoying the process much more than expected. The final delivery was beyond my expectations.",
     profile: "Product Designer",
@@ -88,6 +88,12 @@ export const testimonials = [
     quote:
       "I appreciated how they managed both the big picture and the tiny details. They never lost sight of the overall vision but also made sure nothing slipped through the cracks. Their calm presence was a constant source of reassurance. By the time it was done, I knew we had created something lasting and valuable.",
     profile: "Logistics Coordinator",
+  },
+  {
+    name: "Alice Smith",
+    quote:
+      "I’ve worked with many teams over the years, but this collaboration stood out from the beginning. They not only listened to my ideas but also expanded on them in ways I would never have thought of myself. Every meeting felt purposeful and productive without ever being stressful. By the end, I walked away with results that felt both professional which is something rare to find.",
+    profile: "Marketing Manager",
   },
   {
     name: "Harper Young",
