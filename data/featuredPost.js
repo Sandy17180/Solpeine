@@ -3,7 +3,7 @@ export async function getFeaturedPosts() {
   try {
     const res = await fetch(
       `${
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+        process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_DEPLOYED_URL || "http://localhost:3000"
       }/api/featured-posts`,
       {
         next: { revalidate: 3600 }, // Revalidate every hour
