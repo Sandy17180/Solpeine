@@ -3,6 +3,21 @@ import path from "path";
 
 const VALID_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 
+// Simple in-memory cache: { key: { data, expiresAt } }
+const cache = {};
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+function getCached(key) {
+  const entry = cache[key];
+  if (entry && entry.expiresAt > Date.now()) return entry.data;
+  delete cache[key];
+  return null;
+}
+
+function setCached(key, data) {
+  cache[key] = { data, expiresAt: Date.now() + CACHE_TTL_MS };
+}
+
 function parseNameToAltCaption(name) {
   let alt = name.replace(/[-_]/g, " ").trim();
   let caption = "";
@@ -38,26 +53,26 @@ async function listCloudinaryReflair(cloud, apiKey, apiSecret) {
   const tryPrefixes = ["solpiene/reflair", "solpiene", ""];
   const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
 
-  for (const p of tryPrefixes) {
+  // --- PARALLEL: try all prefixes at once ---
+  const prefixPromises = tryPrefixes.map((p) => {
     const prefixParam = p
       ? `?prefix=${encodeURIComponent(p)}&max_results=500`
       : "?max_results=500";
     const url = `https://api.cloudinary.com/v1_1/${cloud}/resources/image/list${prefixParam}`;
 
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${basic}`,
-      },
-    });
-    if (!res.ok) {
-      // try next prefix
-      continue;
-    }
-    const body = await res.json();
+    return fetch(url, {
+      headers: { Authorization: `Basic ${basic}` },
+    })
+      .then((res) => (res.ok ? res.json() : { resources: [] }))
+      .catch(() => ({ resources: [] }));
+  });
+
+  const results = await Promise.all(prefixPromises);
+
+  for (const body of results) {
     const resources = body.resources || [];
 
-    // Filter resources to those likely part of the reflair set. We include resources
-    // whose folder ends with 'reflair' or whose public_id contains '/reflair/' or 'reflair'.
+    // Filter resources to those likely part of the reflair set.
     const filtered = resources.filter((r) => {
       const pid = r.public_id || "";
       const folder = r.folder || "";
@@ -72,7 +87,6 @@ async function listCloudinaryReflair(cloud, apiKey, apiSecret) {
     if (filtered.length > 0) {
       return filtered.map((r, i) => {
         const publicId = r.public_id || "";
-        // Derive the name part after any folder to parse caption
         const parts = publicId.split("/");
         const nameWithPossibleCaption = parts
           .slice(parts.indexOf("reflair") + 1)
@@ -88,12 +102,9 @@ async function listCloudinaryReflair(cloud, apiKey, apiSecret) {
         return { id: i + 1, src, alt, caption };
       });
     }
-    // otherwise try next prefix
   }
 
-  // If nothing matched, return empty array so caller can fallback to local
-  // As a fallback, try Cloudinary Search API with a few expressions to locate
-  // resources that may be uploaded at root or tagged differently.
+  // --- FALLBACK to Search API ---
   const searchExpressions = [
     `folder:solpiene/reflair`,
     `folder:solpiene`,
@@ -150,6 +161,18 @@ export async function GET(request) {
     const url = new URL(request.url);
     const debug = url.searchParams.get("debug");
 
+    // Check cache first (if not debug mode)
+    if (debug !== "1") {
+      const cacheKey = "reflair-list";
+      const cached = getCached(cacheKey);
+      if (cached) {
+        return new Response(JSON.stringify(cached), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
+
     // If debug mode requested, return raw Cloudinary listing (no filtering)
     if (debug === "1") {
       if (!cloud || !apiKey || !apiSecret) {
@@ -201,6 +224,7 @@ export async function GET(request) {
         const images = await listCloudinaryReflair(cloud, apiKey, apiSecret);
         // If Cloudinary returned results, use them. Otherwise fall back to local files.
         if (images && images.length > 0) {
+          setCached("reflair-list", images);
           return new Response(JSON.stringify(images), {
             status: 200,
             headers: { "Content-Type": "application/json" },
@@ -221,6 +245,7 @@ export async function GET(request) {
     // Fallback: read from public/reflair/
     try {
       const local = await listLocalReflair();
+      setCached("reflair-list", local);
       return new Response(JSON.stringify(local), {
         status: 200,
         headers: { "Content-Type": "application/json" },

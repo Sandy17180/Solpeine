@@ -1,6 +1,21 @@
 // Server API to return hero carousel images.
 // Prefers Cloudinary (if env vars set) and falls back to local `public` images.
 
+// Simple in-memory cache: { key: { data, expiresAt } }
+const cache = {};
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+function getCached(key) {
+  const entry = cache[key];
+  if (entry && entry.expiresAt > Date.now()) return entry.data;
+  delete cache[key];
+  return null;
+}
+
+function setCached(key, data) {
+  cache[key] = { data, expiresAt: Date.now() + CACHE_TTL_MS };
+}
+
 const FALLBACK = [
   "/image6.jpg",
   "/image9.jpg",
@@ -26,6 +41,10 @@ function buildCloudUrl(cloud, publicId) {
 }
 
 async function listFromCloudinary(cloud, apiKey, apiSecret) {
+  const cacheKey = `hero-images-${cloud}`;
+  const cached = getCached(cacheKey);
+  if (cached) return cached;
+
   const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
 
   const url = `https://api.cloudinary.com/v1_1/${cloud}/resources/image?type=upload&max_results=500`;
@@ -39,14 +58,20 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
   const body = await res.json();
   const resources = body.resources || [];
 
-  // Filter by asset_folder
+  // Filter by asset_folder, folder, or public_id
   const filtered = resources.filter((r) => {
-    const folder = (r.asset_folder || "").toLowerCase();
-    return folder.includes("landingpage/heroimages");
+    const assetFolder = (r.asset_folder || "").toLowerCase();
+    const folder = (r.folder || "").toLowerCase();
+    const publicId = (r.public_id || "").toLowerCase();
+    return (
+      assetFolder.includes("landingpage/heroimages") ||
+      folder.includes("landingpage/heroimages") ||
+      publicId.includes("landingpage/heroimages")
+    );
   });
 
   // Map results
-  return filtered.map((r, i) => {
+  const result = filtered.map((r, i) => {
     const publicId = r.public_id;
     const filename = publicId.split("/").pop();
     return {
@@ -55,8 +80,10 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
       alt: parseNameToAlt(filename),
     };
   });
-}
 
+  setCached(cacheKey, result);
+  return result;
+}
 
 export async function GET(request) {
   try {
@@ -70,32 +97,56 @@ export async function GET(request) {
     // Debug mode: return raw Cloudinary resource listing for inspection
     if (debug === "1") {
       if (!cloud || !apiKey || !apiSecret) {
-        return new Response(JSON.stringify({ error: "Cloudinary credentials not configured" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({ error: "Cloudinary credentials not configured" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
       try {
         const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
         const listUrl = `https://api.cloudinary.com/v1_1/${cloud}/resources/image?max_results=500&type=upload`;
-        const res = await fetch(listUrl, { headers: { Authorization: `Basic ${basic}` } });
+        const res = await fetch(listUrl, {
+          headers: { Authorization: `Basic ${basic}` },
+        });
         if (!res.ok) {
           const text = await res.text();
-          return new Response(JSON.stringify({ error: "Cloudinary API error", status: res.status, body: text }), {
-            status: 502,
-            headers: { "Content-Type": "application/json" },
-          });
+          return new Response(
+            JSON.stringify({
+              error: "Cloudinary API error",
+              status: res.status,
+              body: text,
+            }),
+            {
+              status: 502,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
         }
         const body = await res.json();
-        return new Response(JSON.stringify({ resources: body.resources || [], count: (body.resources || []).length }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({
+            resources: body.resources || [],
+            count: (body.resources || []).length,
+          }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       } catch (err) {
-        return new Response(JSON.stringify({ error: "Cloudinary fetch failed", message: err.message || String(err) }), {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({
+            error: "Cloudinary fetch failed",
+            message: err.message || String(err),
+          }),
+          {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
     }
 
@@ -103,16 +154,28 @@ export async function GET(request) {
       try {
         const list = await listFromCloudinary(cloud, apiKey, apiSecret);
         if (list && list.length > 0) {
-          return new Response(JSON.stringify(list), { status: 200, headers: { "Content-Type": "application/json" } });
+          return new Response(JSON.stringify(list), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
         }
       } catch (err) {
-        console.error("hero images Cloudinary list failed:", err?.message || err);
+        console.error(
+          "hero images Cloudinary list failed:",
+          err?.message || err
+        );
       }
     }
 
     // Fallback to local public images
-    return new Response(JSON.stringify(FALLBACK), { status: 200, headers: { "Content-Type": "application/json" } });
+    return new Response(JSON.stringify(FALLBACK), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: { "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ error: String(err) }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
