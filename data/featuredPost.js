@@ -1,4 +1,4 @@
-// Fetch featured posts from the API (no stale cache)
+// Fetch featured posts from the API with ISR (Incremental Static Revalidation)
 export async function getFeaturedPosts() {
   try {
     const res = await fetch(
@@ -6,7 +6,7 @@ export async function getFeaturedPosts() {
         process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
       }/api/featured-posts`,
       {
-        cache: "no-store", // ⬅️ Always fetch fresh data (important)
+        next: { revalidate: 3600 }, // Revalidate every hour
       }
     );
 
