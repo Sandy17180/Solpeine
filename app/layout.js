@@ -29,12 +29,17 @@ export const metadata = {
   description: "Photography portfolio and workfolio",
   // Set NEXT_PUBLIC_SITE_URL in your environment for correct canonical and OG URLs
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      process.env.NEXT_PUBLIC_DEPLOYED_URL ||
+      "http://localhost:3000"
   ),
   openGraph: {
     title: "Solpeine",
     description: "Photography portfolio and workfolio",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      process.env.NEXT_PUBLIC_DEPLOYED_URL ||
+      "http://localhost:3000",
     siteName: "Solpeine",
     images: ["/og-image.jpg"],
     locale: "en_US",
