@@ -48,7 +48,9 @@ export default function LoadingScreen() {
 
   // Dynamic header
   let header = "Loading";
-  if (pathname === "/workfolio") {
+  if (pathname === "/") {
+    header = "Loading Solpiene";
+  } else if (pathname === "/workfolio") {
     header = "Loading Workfolio";
   } else if (pathname?.startsWith("/workfolio/")) {
     const genre = pathname.split("/").filter(Boolean)[1] || "";
@@ -120,7 +122,7 @@ export default function LoadingScreen() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center select-none">
       {/* Header */}
-      <div className="mb-6 text-3xl font-semibold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+      <div className="text-3xl font-semibold h-12 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
         {header}
       </div>
       {/* Phrase animation container */}
@@ -143,7 +145,7 @@ export default function LoadingScreen() {
         >
           <span
             className={
-              `text-3xl sm:text-4xl font-semibold whitespace-nowrap bg-gradient-to-r ${gradient} bg-clip-text text-transparent drop-shadow-lg ` +
+              `text-3xl sm:text-4xl font-semibold whitespace-nowrap bg-gradient-to-r ${gradient} bg-clip-text text-transparent drop-shadow-lg` +
               lobster.className
             }
           >

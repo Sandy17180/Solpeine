@@ -4,11 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.svg";
-import { Lobster_Two, Sawarabi_Mincho } from "next/font/google";
+import { lobster, sawarabi } from "@/lib/fonts";
 import { Menu, X } from "lucide-react";
-
-const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
-const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
 
 const navLinks = [
   { label: "Workfolio", href: "/workfolio" },

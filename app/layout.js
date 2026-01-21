@@ -1,5 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { Lobster_Two } from "next/font/google";
 import SocialButtons from "@/components/SocialButtons";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,22 +5,14 @@ import RotatePrompt from "@/components/RotatePrompt";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import NavigationLoader from "@/components/NavigationLoader";
-
-const lobster = Lobster_Two({
-  variable: "--font-lobster",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import {
+  geistSans,
+  geistMono,
+  lobster,
+  lato,
+  taprom,
+  sawarabi,
+} from "@/lib/fonts";
 
 export const metadata = {
   title: "Solpeine",
@@ -66,7 +56,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F5F1EA] overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lobster.variable} ${lato.variable} ${taprom.variable} ${sawarabi.variable} antialiased bg-[#F5F1EA] overflow-x-hidden`}
       >
         {/* Accessible skip link */}
         <a

@@ -3,8 +3,6 @@ import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 
-
-
 const HeroCarousel = ({ images }) => {
   const settings = {
     dots: true,
@@ -25,9 +23,10 @@ const HeroCarousel = ({ images }) => {
             <Image
               src={image.src}
               alt={image.alt || `Slide ${index + 1}`}
-              layout="fill"
-              objectFit="none"
+              fill
+              style={{ objectFit: "cover" }}
               priority={index === 0}
+              sizes="100vw"
             />
           </div>
         ))}

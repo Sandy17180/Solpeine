@@ -1,12 +1,10 @@
 "use client";
 import Image from "next/image";
-import { Lato } from "next/font/google";
 import { testimonials } from "@/data/testimonials";
 import TestimonialCard from "./TestimonialCard";
 import { useState } from "react";
 import Link from "next/link";
-
-const lato = Lato({ subsets: ["latin"], weight: ["400"] });
+import { lato } from "@/lib/fonts";
 
 export default function Testimonials() {
   const [positions, setPositions] = useState([0, 1, 2]);
@@ -41,6 +39,7 @@ export default function Testimonials() {
             alt="Heading ECG Line"
             width={480}
             height={115}
+            priority
             className="h-[60px] md:h-[115px] w-auto"
           />
         </div>

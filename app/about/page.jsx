@@ -89,8 +89,8 @@ const Page = () => {
             className={`${lato.className} text-sm leading-relaxed text-gray-700 space-y-2 px-8 text-justify`}
           >
             <motion.p variants={fadeInUp}>
-              What began as a simple summer pastime at the age of eight — a gift
-              from my grandfather in the form of a film camera — quickly
+              What began as a simple summer pastime at the age of eight - a gift
+              from my grandfather in the form of a film camera - quickly
               revealed my innate love for capturing landscapes.
             </motion.p>
             <motion.p variants={fadeInUp}>
@@ -166,8 +166,8 @@ const Page = () => {
               className={`${lato.className} mt-1 space-y-4 lg:text-lg text-[11px] leading-relaxed tracking-wider`}
             >
               <motion.p variants={fadeInUp}>
-                What began as a simple summer pastime at the age of eight — a
-                gift from my grandfather in the form of a film camera — quickly
+                What began as a simple summer pastime at the age of eight - a
+                gift from my grandfather in the form of a film camera - quickly
                 revealed my innate love for capturing landscapes. Life
                 eventually led me down the familiar paths of education and
                 responsibilities, placing my passion on hold but never

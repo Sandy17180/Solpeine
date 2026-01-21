@@ -1,11 +1,7 @@
 import Image from "next/image";
-import { Taprom, Sawarabi_Mincho, Lato } from "next/font/google";
 import { getFeaturedPosts } from "@/data/featuredPost";
 import FeaturedPostsClient from "@/components/FeaturedPostsClient";
-
-const sawarabi = Sawarabi_Mincho({ subsets: ["latin"], weight: ["400"] });
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
-const lato = Lato({ subsets: ["latin"], weight: ["400"] });
+import { sawarabi, taprom, lato } from "@/lib/fonts";
 
 export default async function FeaturedPosts() {
   const featuredPosts = await getFeaturedPosts();
@@ -22,12 +18,16 @@ export default async function FeaturedPosts() {
               alt="ECG line under heading"
               width={480}
               height={115}
+              priority
               className="text-orange-500 md:w-[480px] md:h-[115px] h-[60px] md:mb-0 mb-1"
             />
           </div>
         </h2>
 
-        <FeaturedPostsClient posts={featuredPosts} fonts={{ lato, taprom, sawarabi }} />
+        <FeaturedPostsClient
+          posts={featuredPosts}
+          fonts={{ lato, taprom, sawarabi }}
+        />
       </section>
     </>
   );

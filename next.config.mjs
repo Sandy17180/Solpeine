@@ -1,8 +1,12 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Allow Cloudinary-hosted images. We keep hostname fixed and allow any
-    // Cloudinary path under it (this works even if you set a cloud name via env).
     remotePatterns: [
       {
         protocol: "https",
@@ -14,4 +18,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

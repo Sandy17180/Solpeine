@@ -15,10 +15,10 @@ export default function NavigationLoader({ children }) {
       setIsLoading(true);
       // ensure previous timer cleared
       if (timerRef.current) clearTimeout(timerRef.current);
-      // Keep loader visible long enough so each phrase is readable (~5s)
+      // Keep loader visible long enough so each phrase is readable (~4s)
       timerRef.current = setTimeout(() => {
         setIsLoading(false);
-      }, 5200);
+      }, 4000);
     }
     prevPathRef.current = pathname;
 
