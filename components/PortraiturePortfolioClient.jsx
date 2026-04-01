@@ -78,6 +78,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
               alt="decor"
               width={260}
               height={40}
+              style={{ width: "auto", height: "auto" }}
               className="md:ml-8 mt-4 md:mt-0 w-[200px] md:w-[260px] object-contain"
             />
           </div>
@@ -110,6 +111,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
               alt={`Portraiture ${currentIndex + 1}`}
               width={width}
               height={height}
+              style={{ width: "auto", height: "auto" }}
               className="object-contain"
             />
           </div>

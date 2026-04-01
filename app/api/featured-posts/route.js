@@ -42,12 +42,33 @@ export async function GET() {
           });
 
           if (list.resources.length === 0) {
-            console.error("No files found in folder:", folder);
+            console.warn("No files found in Cloudinary folder:", folder, ". Falling back to local image.");
+            
+            // Get genre name from folder path
+            const genre = folder.split("/").pop();
+            
+            // Map folder names to local filenames
+            const localMap = {
+              portrait: "/Portrait.jpg",
+              fashion: "/Fashion.jpg",
+              product: "/Product.jpeg",
+              lifestyle: "/Lifestyle.jpg",
+              portfolio: "/Portfolio.jpg",
+              prewedding: "/Pre-Wedding.jpg",
+              event: "/Event.jpg",
+              headshot: "/Headshot.jpg",
+              pet: "/Pet.jpg",
+            };
+
+            const localImage = localMap[genre] || "";
+            const caption = captions[genre] || "Featured post";
+
             return {
               id: index + 1,
-              image: "",
-              caption: "Featured post",
+              image: localImage,
+              caption,
               publicId: folder,
+              isFallback: true,
             };
           }
 
@@ -67,16 +88,35 @@ export async function GET() {
           };
         } catch (err) {
           console.error(`Error reading folder ${folder}:`, err);
+          
+          const genre = folder.split("/").pop();
+          const localMap = {
+            portrait: "/Portrait.jpg",
+            fashion: "/Fashion.jpg",
+            product: "/Product.jpeg",
+            lifestyle: "/Lifestyle.jpg",
+            portfolio: "/Portfolio.jpg",
+            prewedding: "/Pre-Wedding.jpg",
+            event: "/Event.jpg",
+            headshot: "/Headshot.jpg",
+            pet: "/Pet.jpg",
+          };
+
+          const localImage = localMap[genre] || "";
+          const caption = captions[genre] || "Featured post";
+
           return {
             id: index + 1,
-            image: "",
-            caption: "Featured post",
+            image: localImage,
+            caption,
             publicId: folder,
+            isFallback: true,
           };
         }
       })
     );
 
+    console.log(posts);
     return Response.json(posts, {
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

@@ -1,15 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { genres, genreImages, genreCaption } from "@/data/genres";
-import { Taprom } from "next/font/google";
+import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraLine.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
-
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
+import React, { useState, useMemo } from "react";
 
 // Animation variants
 const containerVariants = {
@@ -64,8 +61,9 @@ const GenreCard = React.memo(
             src={genreImages[genre]}
             alt={genre}
             fill
-            loading="lazy"
-            className="object-contain transition duration-300"
+            priority={index < 3}
+            sizes="(max-width: 768px) 50vw, 33vw"
+            className="object-contain transition duration-300 rounded-b-2xl"
           />
 
           {/* Caption */}
@@ -91,8 +89,8 @@ const GenreCard = React.memo(
                     alt="decor"
                     width={260}
                     height={30}
-                    loading="lazy"
-                    className="sm:w-[300px] md:w-[340px]"
+                    style={{ width: "auto", height: "auto" }}
+                    className="sm:w-[300px] md:w-[340px] lg:w-[380px] "
                   />
                 </div>
               </div>

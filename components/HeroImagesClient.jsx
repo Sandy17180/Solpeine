@@ -14,7 +14,7 @@ const HeroImagesClient = ({ initialImages }) => {
   const startSlide = () => {
     slideInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
-    }, 5000);
+    }, 3000);
   };
 
   const stopSlide = () => {
@@ -45,9 +45,12 @@ const HeroImagesClient = ({ initialImages }) => {
       className="relative w-full md:h-[720px] h-[209px] overflow-hidden"
       onMouseEnter={stopSlide}
       onMouseLeave={startSlide}
+      priority={true}
+      fetchPriority="high"
+      
     >
       {/* All Slides - rendered absolutely */}
-      <div className="relative w-full h-full pb-auto">
+      <div className="relative w-full h-full pb-auto hover:cursor-pointer">
         {images.map((photo, index) => (
           <Image
             key={photo.id || index}
@@ -69,14 +72,14 @@ const HeroImagesClient = ({ initialImages }) => {
         className="absolute top-1/2 md:left-[42px] left-2 transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer md:w-[60px] md:h-[60px] h-6 w-6 flex items-center justify-center"
         aria-label="Previous Slide"
       >
-        <Image src={arrowLeft} alt="arrow left" />
+        <Image src={arrowLeft} alt="arrow left" priority aria-label="Previous Slide"/>
       </button>
       <button
         onClick={handleNext}
         className="absolute top-1/2 md:right-[42px] right-2 transform -translate-y-1/2 bg-white/40 text-white p-2 rounded-full hover:bg-white/60 z-20 cursor-pointer md:w-[60px] md:h-[60px] h-6 w-6 flex items-center justify-center"
         aria-label="Next Slide"
       >
-        <Image src={arrowRight} alt="arrow right" />
+        <Image src={arrowRight} alt="arrow right" priority aria-label="Next Slide"/>
       </button>
 
       {/* Dots */}
@@ -87,8 +90,8 @@ const HeroImagesClient = ({ initialImages }) => {
             onClick={() => goToSlide(index)}
             className={`md:w-[17px] md:h-[17px] w-[10px] h-[10px] rounded-full transition-colors ${
               index === currentIndex
-                ? "bg-white border-[1px] shadow-[0_0_6px_rgba(255,255,255,0.5)]"
-                : "bg-white/50"
+                ? "bg-white/80 border-[1px] shadow-[0_0_6px_rgba(255,255,255,0.5)]"
+                : "bg-white/20"
             }`}
           />
         ))}
