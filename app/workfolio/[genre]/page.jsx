@@ -1,57 +1,46 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import { genres } from "@/data/genres";
 import PetPortfolio from "@/components/PetPortfolioServer";
 import FashionPortfolio from "@/components/FashionPortfolioServer";
 import PortraiturePortfolio from "@/components/PortraiturePortfolioServer";
 import HeadshotPortfolio from "@/components/HeadshotPortfolioServer";
 import Portfolio from "@/components/PortfolioServer";
-import LifestyleGenre from "@/components/LifestyleGenre";
-import PreandPostWedding from "@/components/PreandPostWedding";
-import Events from "@/components/Events";
-import ProductGenre from "@/components/ProductGenre";
+import LifestyleGenre from "@/components/LifestyleGenreServer";
+import PreandPostWedding from "@/components/PreandPostWeddingServer";
+import Events from "@/components/EventsServer";
+import ProductGenre from "@/components/ProductGenreServer";
 
-import Link from "next/link";
+export async function generateStaticParams() {
+  return genres.map((genre) => ({
+    genre: genre,
+  }));
+}
 
-export default function GenrePage() {
-  const params = useParams();
-  const genre = params.genre?.toLowerCase();
-
-  // const isValidGenre = genres.includes(genre);
-
-  // // if (!isValidGenre) {
-  // //   return (
-  // //     <div className="p-10 text-center">
-
-  // //       <Link href="/workfolio" className="text-blue-500 underline mt-4 block">
-
-  // //       </Link>
-  // //     </div>
-  // //   );
-  // // }
+export default async function GenrePage({ params }) {
+  const { genre: rawGenre } = await params;
+  const genre = rawGenre?.toLowerCase();
 
   const renderContent = () => {
     switch (genre) {
       case "pet":
-        return <PetPortfolio />; //almost done
+        return <PetPortfolio />;
       case "fashion":
-        return <FashionPortfolio />; //done
+        return <FashionPortfolio />;
       case "portraiture":
-        return <PortraiturePortfolio />; //done
+        return <PortraiturePortfolio />;
       case "headshots":
-        return <HeadshotPortfolio />; //done
+        return <HeadshotPortfolio />;
       case "portfolio":
-        return <Portfolio />; //done
+        return <Portfolio />;
       case "lifestyle":
-        return <LifestyleGenre />; //halfway done
+        return <LifestyleGenre />;
       case "pre_and_post_wedding":
-        return <PreandPostWedding />; //almost done
+        return <PreandPostWedding />;
       case "product":
-        return <ProductGenre />; //almost done
+        return <ProductGenre />;
       case "events":
         return <Events />;
       default:
+        return null;
     }
   };
 

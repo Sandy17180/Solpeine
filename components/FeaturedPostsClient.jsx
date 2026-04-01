@@ -18,7 +18,7 @@ export default function FeaturedPostsClient({ posts, fonts }) {
               isEven ? "justify-start" : "justify-end"
             } relative`}
           >
-            <div className="flex flex-col items-center relative group transition-transform duration-500 ease-in-out">
+            <div className="flex flex-col items-center relative group transition-transform duration-500 ease-in-out hover:cursor-pointer">
               {/* Image with directional expansion */}
               <motion.div
                 initial={{ scale: 1 }}

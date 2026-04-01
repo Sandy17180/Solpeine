@@ -2,39 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Taprom } from "next/font/google";
+import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
-const initialEventsImages = [
-  {
-    id: 1,
-    image: "/EventGenre.jpg",
-    orientation: "landscape",
-  },
-  {
-    id: 2,
-    image: "/EventGenre.jpg",
-    orientation: "portrait",
-  },
-  {
-    id: 3,
-    image: "/EventGenre.jpg",
-    orientation: "landscape",
-  },
-  {
-    id: 4,
-    image: "/EventGenre.jpg",
-    orientation: "portrait",
-  },
-];
-
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
-
-export default function EventsPortfolio() {
+export default function LifestyleGenreClient({ initialImages }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [eventsImages, setEventsImages] = useState([]);
+  const lifestyleImages = initialImages;
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize(); // check on mount
@@ -43,28 +19,19 @@ export default function EventsPortfolio() {
   }, []);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1 >= eventsImages.length ? 0 : prev + 1));
+    setCurrentIndex((prev) =>
+      prev + 1 >= lifestyleImages.length ? 0 : prev + 1
+    );
   };
 
   const prevImage = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? eventsImages.length - 1 : prev - 1
+      prev === 0 ? lifestyleImages.length - 1 : prev - 1
     );
   };
 
   const selectImage = (index) => {
     setCurrentIndex(index);
-  };
-
-  const getThumbNailImageSize = (orientation, isMobile) => {
-    if (isMobile) {
-      return orientation === "portrait"
-        ? { width: 100, height: 150 }
-        : { width: 150, height: 100 };
-    }
-    return orientation === "portrait"
-      ? { width: 280, height: 350 }
-      : { width: 350, height: 280 };
   };
 
   const getMainImageSize = (orientation, isMobile) => {
@@ -73,49 +40,17 @@ export default function EventsPortfolio() {
         ? { width: 200, height: 400 }
         : { width: 400, height: 200 };
     }
-
     return orientation === "portrait"
       ? { width: 488, height: 610 }
       : { width: 610, height: 488 };
   };
-
-  const currentImage = eventsImages[currentIndex] || initialEventsImages[0];
-
+  
+  const currentImage = lifestyleImages[currentIndex];
   const { width, height } = getMainImageSize(
     currentImage.orientation,
     isMobile
   );
 
-  // Fetch images for this genre from the runtime API so dashboard uploads appear automatically
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const res = await fetch("/api/genre-images?genre=events");
-        if (!res.ok) throw new Error("Cloudinary request failed");
-        const data = await res.json();
-        if (mounted && Array.isArray(data) && data.length > 0) {
-          const normalized = data.map((it, i) => ({
-            id: it.id || i + 1,
-            image: it.image,
-            orientation:
-              it.orientation ||
-              (it.height >= it.width ? "portrait" : "landscape"),
-          }));
-          setEventsImages(normalized);
-          return; // USE CLOUDINARY + STOP
-        }
-        // If Cloudinary is empty → fallback
-        if (mounted) setEventsImages(initialEventsImages);
-      } catch (err) {
-        // Cloudinary failed → fallback
-        if (mounted) setEventsImages(initialEventsImages);
-      }
-    })();
-
-    return () => (mounted = false);
-  }, []);
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
@@ -125,7 +60,7 @@ export default function EventsPortfolio() {
           <p
             className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
           >
-            Events
+            Lifestyle
           </p>
           <div className="relative flex -mt-[30px] md:justify-start justify-center w-full">
             <Image
@@ -133,6 +68,7 @@ export default function EventsPortfolio() {
               alt="decor"
               width={260}
               height={40}
+              style={{ width: "auto", height: "auto" }}
               className="md:ml-8 mt-4 md:mt-0 text-[#d94a27] md:w-[260px] w-[200px] object-contain"
             />
           </div>
@@ -143,7 +79,9 @@ export default function EventsPortfolio() {
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150 hover:cursor-pointer"
+            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70 
+             rounded-full duration-150"
           >
             <Image
               src="/petarrow1.png"
@@ -162,17 +100,20 @@ export default function EventsPortfolio() {
           >
             <Image
               src={currentImage.image}
-              alt={`Pet ${currentIndex + 1}`}
+              alt={`Lifestyle ${currentIndex + 1}`}
               width={width}
               height={height}
-              className="object-contain "
+              style={{ width: "auto", height: "auto" }}
+              className="object-contain"
             />
           </div>
 
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150 hover:cursor-pointer"
+            className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 md:mb-[302px]
+             hover:opacity-80 transition active:scale-90 active:opacity-70
+             rounded-full duration-150"
           >
             <Image
               src="/petarrow2.png"
@@ -187,7 +128,7 @@ export default function EventsPortfolio() {
 
       {/* Thumbnail list */}
       <ThumbnailCarousel
-        images={eventsImages}
+        images={lifestyleImages}
         currentIndex={currentIndex}
         onSelect={setCurrentIndex}
         isMobile={isMobile}

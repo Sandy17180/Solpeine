@@ -74,6 +74,7 @@ export default function PetPortfolioClient({ initialImages }) {
               alt="decor"
               width={260}
               height={50}
+              style={{ width: "auto", height: "auto" }}
               className="md:ml-8 mt-4 md:mt-0 text-[#d94a27] md:w-[160px] w-[160px] object-contain"
             />
           </div>
@@ -105,6 +106,7 @@ export default function PetPortfolioClient({ initialImages }) {
               alt={`Pet ${currentIndex + 1}`}
               width={width}
               height={height}
+              style={{ width: "auto", height: "auto" }}
               className="object-contain"
             />
           </div>

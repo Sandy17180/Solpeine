@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
 const AdvancedCameraReel = ({
@@ -65,7 +65,7 @@ const AdvancedCameraReel = ({
                   },
                 }}
               >
-                {Array.from({ length: 200 }).map((_, i) => (
+                {Array.from({ length: 50 }).map((_, i) => (
                   <div
                     key={i}
                     className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
@@ -114,10 +114,12 @@ const AdvancedCameraReel = ({
                         relative overflow-hidden rounded-md
                       "
                       >
-                        <img
+                        <Image
                           src={image}
                           alt={`Client ${(index % clientImages.length) + 1}`}
-                          className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
+                          fill
+                          sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, (max-width: 1024px) 128px, 160px"
+                          className="object-cover transition-all duration-300 group-hover:brightness-110"
                         />
                       </div>
                     </div>
@@ -144,7 +146,7 @@ const AdvancedCameraReel = ({
                   },
                 }}
               >
-                {Array.from({ length: 200 }).map((_, i) => (
+                {Array.from({ length: 50 }).map((_, i) => (
                   <div
                     key={i}
                     className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"

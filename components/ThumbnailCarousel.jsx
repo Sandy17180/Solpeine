@@ -130,6 +130,7 @@ export default function ThumbnailCarousel({
               alt={`Thumbnail ${idx}`}
               width={size.width}
               height={size.height}
+              style={{ width: "auto", height: "auto" }}
               className="object-contain"
             />
           </div>

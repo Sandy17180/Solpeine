@@ -2,39 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Taprom } from "next/font/google";
+import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
-const initialPreAndPostImages = [
-  {
-    id: 1,
-    image: "/LifestyleGenre.jpg",
-    orientation: "landscape",
-  },
-  {
-    id: 2,
-    image: "/pre_and_post_weddingGenre.jpg",
-    orientation: "portrait",
-  },
-  {
-    id: 3,
-    image: "/LifestyleGenre.jpg",
-    orientation: "landscape",
-  },
-  {
-    id: 4,
-    image: "/pre_and_post_weddingGenre.jpg",
-    orientation: "portrait",
-  },
-];
-
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
-
-export default function FashionPortfolio() {
+export default function PreandPostWeddingClient({ initialImages }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [preAndPostImages, setPreAndPostImages] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
+  const preAndPostImages = initialImages;
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -57,17 +32,6 @@ export default function FashionPortfolio() {
     setCurrentIndex(index);
   };
 
-  const getThumbNailImageSize = (orientation, isMobile) => {
-    if (isMobile) {
-      return orientation === "portrait"
-        ? { width: 100, height: 150 }
-        : { width: 150, height: 100 };
-    }
-    return orientation === "portrait"
-      ? { width: 280, height: 350 }
-      : { width: 350, height: 280 };
-  };
-
   const getMainImageSize = (orientation, isMobile) => {
     if (isMobile) {
       return orientation === "portrait"
@@ -78,43 +42,12 @@ export default function FashionPortfolio() {
       ? { width: 488, height: 610 }
       : { width: 610, height: 488 };
   };
-  const currentImage =
-    preAndPostImages[currentIndex] || initialPreAndPostImages[0];
+  
+  const currentImage = preAndPostImages[currentIndex];
   const { width, height } = getMainImageSize(
     currentImage.orientation,
     isMobile
   );
-
-  // Fetch images for this genre from the runtime API so dashboard uploads appear automatically
-
-  useEffect(() => {
-    let mounted = true;
-
-    (async () => {
-      try {
-        const res = await fetch("/api/genre-images?genre=pre_and_post_wedding");
-        if (!res.ok) throw new Error("Cloudinary request failed");
-        const data = await res.json();
-        if (mounted && Array.isArray(data) && data.length > 0) {
-          const normalized = data.map((it, i) => ({
-            id: it.id || i + 1,
-            image: it.image,
-            orientation:
-              it.orientation ||
-              (it.height >= it.width ? "portrait" : "landscape"),
-          }));
-          setPreAndPostImages(normalized);
-          return; // USE CLOUDINARY + STOP
-        }
-        // If Cloudinary is empty → fallback
-        if (mounted) setPreAndPostImages(initialPreAndPostImages);
-      } catch (err) {
-        // Cloudinary failed → fallback
-        if (mounted) setPreAndPostImages(initialPreAndPostImages);
-      }
-    })();
-    return () => (mounted = false);
-  }, []);
 
   return (
     <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
@@ -130,9 +63,10 @@ export default function FashionPortfolio() {
             <Image
               src={cameraline}
               alt="decor"
-              width={550}
+              width={260}
               height={40}
-              className="md:ml-8 mt-2 md:mt-0 text-[#d94a27] md:w-[550px] w-[370px] object-contain"
+              style={{ width: "auto", height: "auto" }}
+              className="md:ml-8 mt-4 md:mt-0 w-[200px] md:w-[260px] object-contain"
             />
           </div>
         </div>
@@ -163,10 +97,11 @@ export default function FashionPortfolio() {
           >
             <Image
               src={currentImage.image}
-              alt={`Pet ${currentIndex + 1}`}
+              alt={`Wedding ${currentIndex + 1}`}
               width={width}
               height={height}
-              className="object-contain "
+              style={{ width: "auto", height: "auto" }}
+              className="object-contain"
             />
           </div>
 
