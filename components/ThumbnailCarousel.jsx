@@ -5,6 +5,7 @@ import Image from "next/image";
 
 export default function ThumbnailCarousel({
   images,
+  currentIndex,
   onSelect,
   isMobile = false,
   thumbnailSize = {
@@ -119,7 +120,11 @@ export default function ThumbnailCarousel({
           <div
             key={idx}
             onClick={() => onSelect(idx % images.length)}
-            className="cursor-pointer border-2 border-transparent transition flex-shrink-0 flex"
+            className={`cursor-pointer border-4 transition-all duration-300 flex-shrink-0 flex ${
+              currentIndex === idx % images.length
+                ? "border-[#d94a27] scale-105 z-10 shadow-lg"
+                : "border-transparent opacity-70 hover:opacity-100"
+            }`}
             style={{
               width: `${size.width}px`,
               height: `${size.height}px`,
