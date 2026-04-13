@@ -89,7 +89,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
           {/* Previous button */}
           <button
             onClick={prevImage}
-            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
+            className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
           >
             <Image
               src="/petarrow1.png"
@@ -103,7 +103,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
           {/* Main image */}
           <div
             className={`relative flex justify-center items-center md:py-0 py-10 ${
-              isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
+              isMobile ? "w-full h-full" : "md:w-full md:h-full"
             }`}
           >
             <Image
@@ -119,7 +119,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
           {/* Next button */}
           <button
             onClick={nextImage}
-            className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
+            className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
           >
             <Image
               src="/petarrow2.png"
@@ -137,7 +137,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
         <ThumbnailCarousel
           images={portraitImages}
           currentIndex={currentIndex}
-          onSelectImage={selectImage}
+          onSelect={selectImage}
           getSize={(orientation) =>
             getThumbNailImageSize(orientation, isMobile)
           }
