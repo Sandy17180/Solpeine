@@ -6,6 +6,11 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "dbgmbutwa",
+    NEXT_PUBLIC_SITE_URL: "https://www.solpeine.com",
+    NEXT_PUBLIC_DEPLOYED_URL: "https://www.solpeine.com",
+  },
   devIndicators: false, 
   images: {
     remotePatterns: [
