@@ -14,7 +14,22 @@ const AdvancedCameraReel = ({
   const [reelWidth, setReelWidth] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const clientImages = images.length > 0 ? images : [];
+  const DEFAULT_FALLBACK_IMAGES = [
+    "/Portrait.jpg",
+    "/Fashion.jpg",
+    "/Girl.jpg",
+    "/Katie.jpeg",
+    "/man.png",
+    "/man_standing.jpg",
+    "/Headshot.jpg",
+    "/fashionPortrait.jpg",
+    "/image8.jpg",
+    "/image9.jpg",
+    "/image10.jpg",
+    "/image11.jpg",
+  ];
+
+  const clientImages = images && images.length > 0 ? images : DEFAULT_FALLBACK_IMAGES;
   const duplicatedImages =
     clientImages.length > 0
       ? [

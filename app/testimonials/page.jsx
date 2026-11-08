@@ -104,6 +104,7 @@ const Page = () => {
           width={480}
           height={115}
           className="md:w-[480px] w-[240px]"
+          unoptimized
         />
       </div>
 
@@ -135,6 +136,7 @@ const Page = () => {
           width={480}
           height={115}
           className="md:w-[480px] w-[240px]"
+          unoptimized
         />
       </div>
       <div>

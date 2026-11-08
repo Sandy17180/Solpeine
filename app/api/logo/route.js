@@ -1,4 +1,17 @@
-const FALLBACK = [];
+const FALLBACK = [
+  { id: 1, image: "/Portrait.jpg", alt: "Client 1" },
+  { id: 2, image: "/Fashion.jpg", alt: "Client 2" },
+  { id: 3, image: "/Girl.jpg", alt: "Client 3" },
+  { id: 4, image: "/Katie.jpeg", alt: "Client 4" },
+  { id: 5, image: "/man.png", alt: "Client 5" },
+  { id: 6, image: "/man_standing.jpg", alt: "Client 6" },
+  { id: 7, image: "/Headshot.jpg", alt: "Client 7" },
+  { id: 8, image: "/fashionPortrait.jpg", alt: "Client 8" },
+  { id: 9, image: "/image8.jpg", alt: "Client 9" },
+  { id: 10, image: "/image9.jpg", alt: "Client 10" },
+  { id: 11, image: "/image10.jpg", alt: "Client 11" },
+  { id: 12, image: "/image11.jpg", alt: "Client 12" },
+];
 
 function parseNameToAlt(name) {
   const n = String(name || "");

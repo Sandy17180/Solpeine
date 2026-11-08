@@ -34,7 +34,7 @@ const Page = () => {
   return (
     <div className="relative w-full flex flex-col">
       {/* Top Half: Background split + Profile Image (Mobile) */}
-      <div className="relative h-[350px] w-full overflow-hidden md:hidden">
+      <div className="relative min-h-[420px] w-full overflow-hidden md:hidden py-6">
         <div className="absolute inset-0 flex w-full h-full">
           <div className="w-1/2 bg-[#F5F1EA]" />
           <div className="w-1/2 bg-[#D94A27]" />
@@ -44,14 +44,14 @@ const Page = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6"
+          className="relative z-10 w-[210px] aspect-[9/16] mx-auto shadow-[5px_5px_0px_rgba(255,255,255)] bg-[#F5F1EA] overflow-hidden"
         >
           <Image
             src={profileSrc}
             alt="Profile"
-            width={250}
-            height={251}
-            className="w-[250px] h-[251px] object-cover"
+            width={210}
+            height={373}
+            className="w-full h-full object-contain"
             onError={() => setProfileSrc("/sandeep_profile.jpg")}
             loading="lazy"
           />
@@ -224,20 +224,20 @@ const Page = () => {
           </div>
           <motion.div
             variants={fadeInUp}
-            className="translate-x-20 translate-y-20"
+            className="flex flex-col items-center justify-center"
           >
-            <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
+            <div className="w-full max-w-[420px] aspect-[9/16] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)] bg-[#F5F1EA]">
               <Image
                 src={profileSrc}
-                width={437}
-                height={635}
+                width={420}
+                height={747}
                 alt="Profile"
-                className="object-cover translate-x-20 translate-y-32 scale-200"
+                className="w-full h-full object-contain"
                 onError={() => setProfileSrc("/sandeep_profile.jpg")}
-                loading="lazy"
+                priority
               />
             </div>
-            <div className="h-[60px] w-[600px] -translate-y-2 translate-x-28">
+            <div className="w-full max-w-[466px] -translate-y-2 translate-x-4">
               <Image
                 src="/cameraLine.svg"
                 width={466}
