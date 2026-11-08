@@ -24,7 +24,7 @@ async function getHeroImages() {
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL ||
       process.env.NEXT_PUBLIC_DEPLOYED_URL ||
-      "http://localhost:3000";
+      "https://www.solpeine.com";
 
     const res = await fetch(`${baseUrl}/api/hero-images`, {
       next: { revalidate: 300 }, // Cache for 5 minutes

@@ -1,16 +1,51 @@
 import { v2 as cloudinary } from "cloudinary";
 import captions from "@/data/featuredPostCaptions.json";
 
+const localMap = {
+  portrait: "/Portrait.jpg",
+  fashion: "/Fashion.jpg",
+  product: "/Product.jpeg",
+  lifestyle: "/Lifestyle.jpg",
+  portfolio: "/Portfolio.jpg",
+  prewedding: "/Pre-Wedding.jpg",
+  event: "/Event.jpg",
+  headshot: "/Headshot.jpg",
+  pet: "/Pet.jpg",
+};
+
+const genres = [
+  "portrait",
+  "fashion",
+  "product",
+  "lifestyle",
+  "portfolio",
+  "prewedding",
+  "event",
+  "headshot",
+  "pet",
+];
+
+function getFallbackPosts() {
+  return genres.map((genre, index) => ({
+    id: index + 1,
+    image: localMap[genre] || "",
+    caption: captions[genre] || "Featured post",
+    publicId: `solpiene/landingpage/featuredPost/${genre}`,
+    isFallback: true,
+  }));
+}
+
 export async function GET() {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const cloudKey = process.env.CLOUDINARY_API_KEY;
   const cloudSecret = process.env.CLOUDINARY_API_SECRET;
 
   if (!cloudName || !cloudKey || !cloudSecret) {
-    return Response.json(
-      { error: "Missing Cloudinary credentials" },
-      { status: 500 }
-    );
+    return Response.json(getFallbackPosts(), {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
   }
 
   cloudinary.config({
