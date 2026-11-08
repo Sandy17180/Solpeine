@@ -1,16 +1,7 @@
 const FALLBACK = [
-  { id: 1, image: "/Portrait.jpg", alt: "Client 1" },
-  { id: 2, image: "/Fashion.jpg", alt: "Client 2" },
-  { id: 3, image: "/Girl.jpg", alt: "Client 3" },
-  { id: 4, image: "/Katie.jpeg", alt: "Client 4" },
-  { id: 5, image: "/man.png", alt: "Client 5" },
-  { id: 6, image: "/man_standing.jpg", alt: "Client 6" },
-  { id: 7, image: "/Headshot.jpg", alt: "Client 7" },
-  { id: 8, image: "/fashionPortrait.jpg", alt: "Client 8" },
-  { id: 9, image: "/image8.jpg", alt: "Client 9" },
-  { id: 10, image: "/image9.jpg", alt: "Client 10" },
-  { id: 11, image: "/image10.jpg", alt: "Client 11" },
-  { id: 12, image: "/image11.jpg", alt: "Client 12" },
+  { id: 1, image: "/clientLogos/josco-jewellers.jpg", alt: "Josco Jewellers" },
+  { id: 2, image: "/clientLogos/tec.jpeg", alt: "The Executive Centre" },
+  { id: 3, image: "/clientLogos/zenable-me.png", alt: "Zenable ME" },
 ];
 
 function parseNameToAlt(name) {
@@ -27,34 +18,77 @@ function buildCloudUrl(cloud, publicId) {
 async function listFromCloudinary(cloud, apiKey, apiSecret) {
   const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
 
-  const url = `https://api.cloudinary.com/v1_1/${cloud}/resources/image?type=upload&max_results=500`;
+  // 1. First attempt: standard Admin list resources API
+  try {
+    const url = `https://api.cloudinary.com/v1_1/${cloud}/resources/image?type=upload&max_results=500`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Basic ${basic}` },
+    });
 
-  const res = await fetch(url, {
-    headers: { Authorization: `Basic ${basic}` },
-  });
+    if (res.ok) {
+      const body = await res.json();
+      const resources = body.resources || [];
 
-  if (!res.ok) return [];
+      // Filter by asset_folder, folder, or public_id matching client logos
+      const filtered = resources.filter((r) => {
+        const raw = `${r.asset_folder || ""} ${r.folder || ""} ${r.public_id || ""}`.toLowerCase();
+        const clean = raw.replace(/[\s_-]/g, "");
+        return clean.includes("clientlogo") || clean.includes("clientlog");
+      });
 
-  const body = await res.json();
-  const resources = body.resources || [];
+      if (filtered.length > 0) {
+        return filtered.map((r, i) => {
+          const publicId = r.public_id;
+          const filename = publicId.split("/").pop();
+          return {
+            id: i + 1,
+            image: buildCloudUrl(cloud, publicId),
+            alt: parseNameToAlt(filename),
+            publicId: publicId,
+          };
+        });
+      }
+    }
+  } catch (err) {
+    console.warn("Cloudinary resources list failed:", err?.message || err);
+  }
 
-  // Filter by asset_folder for clientLogos
-  const filtered = resources.filter((r) => {
-    const folder = (r.asset_folder || "").toLowerCase();
-    return folder.includes("clientlogos");
-  });
+  // 2. Second attempt: Cloudinary Search API (handles dynamic asset_folders across nested paths)
+  try {
+    const searchUrl = `https://api.cloudinary.com/v1_1/${cloud}/resources/search`;
+    const searchRes = await fetch(searchUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        expression: "folder:*client* OR asset_folder:*client* OR public_id:*client*",
+        max_results: 100,
+      }),
+    });
 
-  // Map results
-  return filtered.map((r, i) => {
-    const publicId = r.public_id;
-    const filename = publicId.split("/").pop();
-    return {
-      id: i + 1,
-      image: buildCloudUrl(cloud, publicId),
-      alt: parseNameToAlt(filename),
-      publicId: publicId,
-    };
-  });
+    if (searchRes.ok) {
+      const searchBody = await searchRes.json();
+      const searchResources = searchBody.resources || [];
+      if (searchResources.length > 0) {
+        return searchResources.map((r, i) => {
+          const publicId = r.public_id;
+          const filename = publicId.split("/").pop();
+          return {
+            id: i + 1,
+            image: buildCloudUrl(cloud, publicId),
+            alt: parseNameToAlt(filename),
+            publicId: publicId,
+          };
+        });
+      }
+    }
+  } catch (err) {
+    console.warn("Cloudinary search failed:", err?.message || err);
+  }
+
+  return [];
 }
 
 export async function GET(request) {

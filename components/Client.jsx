@@ -15,18 +15,9 @@ const AdvancedCameraReel = ({
   const [isAnimating, setIsAnimating] = useState(false);
 
   const DEFAULT_FALLBACK_IMAGES = [
-    "/Portrait.jpg",
-    "/Fashion.jpg",
-    "/Girl.jpg",
-    "/Katie.jpeg",
-    "/man.png",
-    "/man_standing.jpg",
-    "/Headshot.jpg",
-    "/fashionPortrait.jpg",
-    "/image8.jpg",
-    "/image9.jpg",
-    "/image10.jpg",
-    "/image11.jpg",
+    "/clientLogos/josco-jewellers.jpg",
+    "/clientLogos/tec.jpeg",
+    "/clientLogos/zenable-me.png",
   ];
 
   const clientImages = images && images.length > 0 ? images : DEFAULT_FALLBACK_IMAGES;
@@ -129,7 +120,7 @@ const AdvancedCameraReel = ({
                       <div
                         className="
                         w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40
-                        relative overflow-hidden rounded-md
+                        relative overflow-hidden rounded-md p-2 flex items-center justify-center bg-white
                       "
                       >
                         <Image
@@ -137,7 +128,7 @@ const AdvancedCameraReel = ({
                           alt={`Client ${(index % clientImages.length) + 1}`}
                           fill
                           sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, (max-width: 1024px) 128px, 160px"
-                          className="object-cover transition-all duration-300 group-hover:brightness-110"
+                          className="object-contain p-2 transition-all duration-300 group-hover:scale-105"
                         />
                       </div>
                     </div>
