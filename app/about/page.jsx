@@ -27,7 +27,10 @@ const staggerContainer = {
   },
 };
 
+const PROFILE_IMAGE = "https://res.cloudinary.com/dbgmbutwa/image/upload/f_auto,q_auto/solpiene/about/profile-image";
+
 const Page = () => {
+  const [profileSrc, setProfileSrc] = React.useState(PROFILE_IMAGE);
   return (
     <div className="relative w-full flex flex-col">
       {/* Top Half: Background split + Profile Image (Mobile) */}
@@ -44,11 +47,12 @@ const Page = () => {
           className="relative z-10 w-[250px] h-[251px] mx-auto mt-6 shadow-[5px_5px_0px_rgba(255,255,255)] top-6"
         >
           <Image
-            src="/api/profile-image"
+            src={profileSrc}
             alt="Profile"
             width={250}
             height={251}
             className="w-[250px] h-[251px] object-cover"
+            onError={() => setProfileSrc("/sandeep_profile.jpg")}
             loading="lazy"
           />
         </motion.div>
@@ -70,6 +74,7 @@ const Page = () => {
               width={350}
               height={100}
               className="mx-auto mb-4 max-w-full"
+              unoptimized
               loading="lazy"
             />
           </motion.div>
@@ -110,6 +115,7 @@ const Page = () => {
               width={86}
               height={53}
               alt="signature"
+              unoptimized
               loading="lazy"
             />
             <Link
@@ -149,6 +155,7 @@ const Page = () => {
                 width={800}
                 height={110}
                 alt="name"
+                unoptimized
                 loading="lazy"
               />
               <p
@@ -188,6 +195,7 @@ const Page = () => {
                   width={216}
                   height={53}
                   alt="signature"
+                  unoptimized
                   loading="lazy"
                 />
                 <Link
@@ -220,11 +228,12 @@ const Page = () => {
           >
             <div className="h-auto w-auto max-w-[437px] max-h-[635px] overflow-hidden md:flex hidden justify-center items-center shadow-[25px_25px_0px_rgba(255,255,255)]">
               <Image
-                src="/api/profile-image"
+                src={profileSrc}
                 width={437}
                 height={635}
                 alt="Profile"
                 className="object-cover translate-x-20 translate-y-32 scale-200"
+                onError={() => setProfileSrc("/sandeep_profile.jpg")}
                 loading="lazy"
               />
             </div>
@@ -234,6 +243,7 @@ const Page = () => {
                 width={466}
                 height={60}
                 alt="camera-line"
+                unoptimized
                 loading="lazy"
               />
             </div>
