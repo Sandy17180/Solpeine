@@ -16,6 +16,8 @@ const AdvancedCameraReel = ({
 
   const DEFAULT_FALLBACK_IMAGES = [
     "/clientLogos/josco-jewellers.jpg",
+    "/clientLogos/rove-clothing.jpg",
+    "/clientLogos/illuminating-windows.png",
     "/clientLogos/tec.jpeg",
     "/clientLogos/zenable-me.png",
   ];

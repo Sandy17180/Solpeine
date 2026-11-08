@@ -1,7 +1,9 @@
 const FALLBACK = [
   { id: 1, image: "/clientLogos/josco-jewellers.jpg", alt: "Josco Jewellers" },
-  { id: 2, image: "/clientLogos/tec.jpeg", alt: "The Executive Centre" },
-  { id: 3, image: "/clientLogos/zenable-me.png", alt: "Zenable ME" },
+  { id: 2, image: "/clientLogos/rove-clothing.jpg", alt: "Rove Clothing" },
+  { id: 3, image: "/clientLogos/illuminating-windows.png", alt: "Illuminating Windows" },
+  { id: 4, image: "/clientLogos/tec.jpeg", alt: "The Executive Centre" },
+  { id: 5, image: "/clientLogos/zenable-me.png", alt: "Zenable ME" },
 ];
 
 function parseNameToAlt(name) {
@@ -29,11 +31,16 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
       const body = await res.json();
       const resources = body.resources || [];
 
-      // Filter by asset_folder, folder, or public_id matching client logos
+      // Filter by asset_folder, folder, or public_id matching client or testimonial logos
       const filtered = resources.filter((r) => {
         const raw = `${r.asset_folder || ""} ${r.folder || ""} ${r.public_id || ""}`.toLowerCase();
         const clean = raw.replace(/[\s_-]/g, "");
-        return clean.includes("clientlogo") || clean.includes("clientlog");
+        return (
+          clean.includes("clientlogo") ||
+          clean.includes("clientlog") ||
+          clean.includes("testimoniallogo") ||
+          clean.includes("testimonial")
+        );
       });
 
       if (filtered.length > 0) {
@@ -63,7 +70,8 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        expression: "folder:*client* OR asset_folder:*client* OR public_id:*client*",
+        expression:
+          "folder:*client* OR asset_folder:*client* OR folder:*testimonial* OR asset_folder:*testimonial* OR public_id:*logo*",
         max_results: 100,
       }),
     });
