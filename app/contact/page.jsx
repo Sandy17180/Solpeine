@@ -1,12 +1,10 @@
 "use client";
 import Image from "next/image";
-import { Lato } from "next/font/google";
+import { lato } from "@/lib/fonts";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion"; // ✅ animation library
 import SuccessModal from "@/components/SuccessModal";
-
-const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export default function ContactPage() {
   const [showSuccess, setShowSuccess] = useState(false);

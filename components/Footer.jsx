@@ -1,7 +1,7 @@
 import logo from "@/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { Lato } from "next/font/google";
+import { lato } from "@/lib/fonts";
 import location from "@/public/pin-48.svg";
 import VisitorCounter from "@/components/VisitorCounter";
 
@@ -12,11 +12,6 @@ import youtubeLogo from "@/social/youtubeLogo.svg";
 import pinterestLogo from "@/social/pinterestLogo.svg";
 import linkedinLogo from "@/social/linkedinLogo.svg";
 import twitterLogo from "@/social/twitterLogo.svg";
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 const socials = [
   {

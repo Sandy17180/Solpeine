@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Lobster_Two } from "next/font/google";
-
-const lobster = Lobster_Two({ subsets: ["latin"], weight: ["400"] });
+import { lobster } from "@/lib/fonts";
 
 // Warm + friendly gradient presets
 const GRADIENTS = [

@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import { Taprom, Lato } from "next/font/google";
+import { taprom, lato } from "@/lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import instagramLogo from "@/social/instagramLogo.svg";
-
-const taprom = Taprom({ subsets: ["latin"], weight: "400" });
-const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 // Animation variants
 const fadeInUp = {

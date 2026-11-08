@@ -2,12 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Lato } from "next/font/google";
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+import { lato } from "@/lib/fonts";
 
 const shuffleArray = (array) => {
   const shuffled = [...array];

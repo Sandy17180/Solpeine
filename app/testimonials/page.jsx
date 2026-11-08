@@ -2,14 +2,12 @@
 
 import TestimonialCard from "@/components/TestimonialCards";
 import { testimonials } from "@/data/testimonials";
-import { Lato } from "next/font/google";
+import { lato } from "@/lib/fonts";
 import { motion, useAnimation } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import AdvancedCameraReel from "@/components/Client";
 import { useState, useEffect } from "react";
-
-const lato = Lato({ subsets: ["latin"], weight: ["400"] });
 
 const Column = ({ items, reverse = false, duration = 120 }) => {
   const controls = useAnimation();

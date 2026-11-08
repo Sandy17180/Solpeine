@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Taprom } from "next/font/google";
+import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
@@ -38,7 +38,6 @@ const initialHeadshotImages = [
     orientation: "landscape",
   },
 ];
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 
 export default function FashionPortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);

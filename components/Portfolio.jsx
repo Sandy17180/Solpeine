@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Taprom } from "next/font/google";
+import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
-
-const taprom = Taprom({ subsets: ["latin"], weight: ["400"] });
 
 const initialPortfolioImages = [
   { id: 1, image: "/Portfolio_Genre.jpg", orientation: "portrait" },
