@@ -5,13 +5,14 @@ import Image from "next/image";
 import arrowRight from "@/public/arrowRight.svg";
 import arrowLeft from "@/public/arrowLeft.svg";
 
-const HeroImagesClient = ({ initialImages }) => {
+const HeroImagesClient = ({ initialImages = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideInterval = useRef(null);
-  const images = initialImages;
+  const images = Array.isArray(initialImages) ? initialImages : [];
   const total = images.length;
 
   const startSlide = () => {
+    if (total <= 1) return;
     slideInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
     }, 3000);
@@ -29,10 +30,12 @@ const HeroImagesClient = ({ initialImages }) => {
   }, [total]);
 
   const handleNext = () => {
+    if (total <= 1) return;
     setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
   };
 
   const handlePrev = () => {
+    if (total <= 1) return;
     setCurrentIndex((prevIndex) => (prevIndex - 1 + total) % total);
   };
 
@@ -40,14 +43,13 @@ const HeroImagesClient = ({ initialImages }) => {
     setCurrentIndex(index);
   };
 
+  if (total === 0) return null;
+
   return (
     <div
       className="relative w-full md:h-[720px] h-[209px] overflow-hidden"
       onMouseEnter={stopSlide}
       onMouseLeave={startSlide}
-      priority={true}
-      fetchPriority="high"
-      
     >
       {/* All Slides - rendered absolutely */}
       <div className="relative w-full h-full pb-auto hover:cursor-pointer">

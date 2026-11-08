@@ -378,9 +378,9 @@ export default function Photography404() {
             transition={{ delay: i * 0.1, duration: 2 }}
             className="absolute"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              transform: `rotate(${Math.random() * 360}deg)`,
+              left: `${(i * 37 + 13) % 100}%`,
+              top: `${(i * 47 + 23) % 100}%`,
+              transform: `rotate(${(i * 59) % 360}deg)`,
             }}
           >
             <Camera size={24} />

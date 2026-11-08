@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function ThumbnailCarousel({
-  images,
-  currentIndex,
-  onSelect,
+  images = [],
+  currentIndex = 0,
+  onSelect = () => {},
   isMobile = false,
   thumbnailSize = {
     portrait: { width: 280, height: 350 },
@@ -14,9 +14,11 @@ export default function ThumbnailCarousel({
   },
 }) {
   const containerRef = useRef(null);
+  const safeImages = Array.isArray(images) ? images : [];
 
   // Triple dataset to enable seamless infinite scrolling
-  const infiniteImages = [...images, ...images, ...images];
+  const infiniteImages =
+    safeImages.length > 0 ? [...safeImages, ...safeImages, ...safeImages] : [];
 
   const getThumbnailSize = (orientation) => {
     const size =
@@ -119,9 +121,11 @@ export default function ThumbnailCarousel({
         return (
           <div
             key={idx}
-            onClick={() => onSelect(idx % images.length)}
+            onClick={() =>
+              safeImages.length > 0 && onSelect(idx % safeImages.length)
+            }
             className={`cursor-pointer border-4 transition-all duration-300 flex-shrink-0 flex ${
-              currentIndex === idx % images.length
+              safeImages.length > 0 && currentIndex === idx % safeImages.length
                 ? "border-[#d94a27] scale-105 z-10 shadow-lg"
                 : "border-transparent opacity-70 hover:opacity-100"
             }`}

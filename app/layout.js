@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
         {/* rotate prompt for mobile portrait users */}
         <RotatePrompt />
         <Toaster
-          position="center-top"
+          position="top-center"
           gutter={12}
           toastOptions={{
             duration: 5000,

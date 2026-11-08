@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function FeaturedPostsClient({ posts, fonts }) {
-  const { lato } = fonts;
+export default function FeaturedPostsClient({ posts = [], fonts = {} }) {
+  const lato = fonts?.lato || {};
 
   return (
     <div className="relative flex flex-col">
@@ -41,7 +41,7 @@ export default function FeaturedPostsClient({ posts, fonts }) {
 
               {/* Caption */}
               <div
-                className={`absolute md:bottom-[-48px] bottom-[-10px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center md:text-base text-[10px] italic px-6 py-3 md:rounded-2xl rounded-lg md:shadow-2xl shadow-xl md:w-[574px] w-[167px] md:h-[86px] h-[31px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato.className} font-normal text-xl z-5 cursor-default`}
+                className={`absolute md:bottom-[-48px] bottom-[-10px] text-shadow-lg flex justify-center items-center bg-[#e6e3e3]/80 backdrop-blur-xl text-black text-center md:text-base text-[10px] italic px-6 py-3 md:rounded-2xl rounded-lg md:shadow-2xl shadow-xl md:w-[574px] w-[167px] md:h-[86px] h-[31px] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0 ${lato?.className || ""} font-normal text-xl z-5 cursor-default`}
               >
                 {post.caption}
               </div>
