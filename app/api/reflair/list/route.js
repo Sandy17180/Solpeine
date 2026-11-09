@@ -7,13 +7,26 @@ export async function GET(request) {
     const url = new URL(request.url);
     const debug = url.searchParams.get("debug");
 
-    const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-    const apiKey = process.env.CLOUDINARY_API_KEY;
-    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    const cloud = (process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "").trim();
+    const apiKeyRaw = process.env.CLOUDINARY_API_KEY || "";
+    const apiSecretRaw = process.env.CLOUDINARY_API_SECRET || "";
+    const apiKey = apiKeyRaw.trim();
+    const apiSecret = apiSecretRaw.trim();
 
     if (debug === "1") {
       const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
       const authHeader = { Authorization: `Basic ${basic}` };
+
+      // Test 0: Ping API
+      let pingRes = null;
+      try {
+        const r = await fetch(`https://api.cloudinary.com/v1_1/${cloud}/ping`, {
+          headers: authHeader,
+        });
+        pingRes = { status: r.status, data: await r.json() };
+      } catch (e) {
+        pingRes = { error: String(e) };
+      }
 
       // Test 1: Folders API
       let foldersRes = null;
@@ -57,7 +70,14 @@ export async function GET(request) {
         JSON.stringify({
           cloud,
           hasKey: Boolean(apiKey),
+          keyRawLen: apiKeyRaw.length,
+          keyTrimLen: apiKey.length,
+          keyStart: apiKey ? apiKey.slice(0, 4) : null,
+          keyEnd: apiKey ? apiKey.slice(-4) : null,
+          secretRawLen: apiSecretRaw.length,
+          secretTrimLen: apiSecret.length,
           hasSecret: Boolean(apiSecret),
+          pingRes,
           foldersRes,
           searchRes,
           adminRes,

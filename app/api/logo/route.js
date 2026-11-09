@@ -101,9 +101,9 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
 
 export async function GET(request) {
   try {
-    const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-    const apiKey = process.env.CLOUDINARY_API_KEY;
-    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    const cloud = (process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "").trim();
+    const apiKey = (process.env.CLOUDINARY_API_KEY || "").trim();
+    const apiSecret = (process.env.CLOUDINARY_API_SECRET || "").trim();
 
     if (cloud && apiKey && apiSecret) {
       try {
