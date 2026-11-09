@@ -1,20 +1,34 @@
 import { getReflairImages } from "@/lib/reflair";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   try {
     const url = new URL(request.url);
     const debug = url.searchParams.get("debug");
 
+    const images = await getReflairImages();
+
     if (debug === "1") {
-      // For debug, we might want more info, but for now let's just return the list
-      const images = await getReflairImages();
-      return new Response(JSON.stringify({ resources: images, count: images.length }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
+      const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      const hasKey = Boolean(process.env.CLOUDINARY_API_KEY);
+      const hasSecret = Boolean(process.env.CLOUDINARY_API_SECRET);
+
+      return new Response(
+        JSON.stringify({
+          cloud,
+          hasKey,
+          hasSecret,
+          count: images.length,
+          resources: images,
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    const images = await getReflairImages();
     return new Response(JSON.stringify(images), {
       status: 200,
       headers: { "Content-Type": "application/json" },

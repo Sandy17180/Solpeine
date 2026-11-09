@@ -20,6 +20,16 @@ const GalleryClient = ({ initialImages }) => {
     if (initialImages && initialImages.length > 0) {
       setImages(shuffleArray(initialImages));
     }
+
+    // Live refresh from API to ensure all dynamic Cloudinary uploads load
+    fetch("/api/reflair/list")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setImages(shuffleArray(data));
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch live reflair images:", err));
   }, [initialImages]);
 
   return (
