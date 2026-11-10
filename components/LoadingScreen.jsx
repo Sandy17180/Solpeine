@@ -47,7 +47,7 @@ export default function LoadingScreen() {
   // Dynamic header
   let header = "Loading";
   if (pathname === "/") {
-    header = "Loading Solpiene";
+    header = "Loading Solpeine";
   } else if (pathname === "/workfolio") {
     header = "Loading Workfolio";
   } else if (pathname?.startsWith("/workfolio/")) {
@@ -142,10 +142,7 @@ export default function LoadingScreen() {
           className="absolute inset-0 flex items-center justify-center w-full"
         >
           <span
-            className={
-              `text-3xl sm:text-4xl font-semibold whitespace-nowrap bg-gradient-to-r ${gradient} bg-clip-text text-transparent drop-shadow-lg` +
-              lobster.className
-            }
+            className={`text-3xl sm:text-4xl font-semibold whitespace-nowrap bg-gradient-to-r ${gradient} bg-clip-text text-transparent drop-shadow-lg ${lobster.className}`}
           >
             {phrase}
           </span>

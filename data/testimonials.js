@@ -1,21 +1,21 @@
 export const testimonials = [
   {
-    name: "Alice Johnson",
+    name: "Sunayana",
     quote:
-      "I’ve worked with many teams over the years, but this collaboration stood out from the beginning. They not only listened to my ideas but also expanded on them in ways I would never have thought of myself. Every meeting felt purposeful and productive without ever being stressful. By the end, I walked away with results that felt both professional which is something rare to find.",
-    profile: "Marketing Manager",
+      "Solpeine captured our housewarming photos and video so beautifully—natural, elegant, and full of life! Sandeep made us feel completely comfortable, and the cinematic video left our friends and family amazed. We received so many compliments and already recommended him to our neighbours. Truly grateful!",
+    profile: "IT Professional",
   },
   {
-    name: "Daniel Smith",
+    name: "Himani Puri",
     quote:
-      "What impressed me the most was their ability to take something complex and make it feel approachable. They were confident but never overbearing, guiding me in exactly the right moments. Their creativity shone through in small details, and I found myself enjoying the process much more than expected. The final delivery was beyond my expectations.",
-    profile: "Product Designer",
+      "Had a wonderful experience with Solpeine! Sandy was patient, attentive, and made it feel like a true collaboration. The styling, lighting, and attention to detail were spot-on. The final images didn’t just look good; they felt right for my brand. Highly recommend Solpeine if you want your vision brought to life with care!",
+    profile: "Healer",
   },
   {
-    name: "Sophia Lee",
+    name: "Neha Yadav",
     quote:
-      "From the very first conversation, I felt like I was in safe hands. They had a way of asking the right questions that uncovered ideas I didn’t even know I had. The process felt collaborative rather than transactional, and that made all the difference. Looking back, it wasn’t just about achieving a goal—it was about creating something meaningful together.",
-    profile: "HR Specialist",
+      "Working with Sandeep has been an absolute pleasure. He is highly professional and demonstrates exceptional attention to detail. We truly enjoyed collaborating with him.",
+    profile: "Corporate Professional",
   },
   {
     name: "Ethan Miller",
@@ -90,10 +90,10 @@ export const testimonials = [
     profile: "Logistics Coordinator",
   },
   {
-    name: "Alice Smith",
+    name: "Priya & Arjun Menon",
     quote:
-      "I’ve worked with many teams over the years, but this collaboration stood out from the beginning. They not only listened to my ideas but also expanded on them in ways I would never have thought of myself. Every meeting felt purposeful and productive without ever being stressful. By the end, I walked away with results that felt both professional which is something rare to find.",
-    profile: "Marketing Manager",
+      "Capturing our energetic golden retriever seemed almost impossible, but Solpeine handled the session with remarkable patience and humor. The frames captured our dog's joyful spirit and our family bond in the most heartfelt, natural way. These portraits hold pride of place on our living room wall.",
+    profile: "Pet & Family Portrait",
   },
   {
     name: "Harper Young",

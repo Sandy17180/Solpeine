@@ -6,15 +6,28 @@ export default function VisitorCounter() {
   const [count, setCount] = useState(null);
 
   useEffect(() => {
-    fetch("https://abacus.jasoncameron.dev/hit/solpiene.vercel.app/visits")
-      .then((res) => res.json())
-      .then((data) => setCount(data.value))
-      .catch((err) => console.error("Error fetching visitor count:", err));
+    let isMounted = true;
+
+    fetch("https://abacus.jasoncameron.dev/hit/solpeine.vercel.app/visits")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (isMounted && data && typeof data.value !== "undefined") {
+          setCount(data.value);
+        }
+      })
+      .catch((err) => {
+        console.warn("Visitor counter unavailable:", err?.message || err);
+        if (isMounted) setCount(null);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
-    <div className="">
-      {count !== null ? `${count}` : "Loading..."}
-    </div>
+    <span>
+      {count !== null ? count.toLocaleString() : "—"}
+    </span>
   );
 }

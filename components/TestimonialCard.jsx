@@ -41,11 +41,11 @@ function TestimonialCard({ name, quote, fontClass, profile }) {
         {/* Name and Profile */}
         <div className="flex flex-col items-start md:gap-[10px]">
           <p
-            className={`md:text-xl! text-[10px] font-bold! text-[#433a3a] ${fontClass} leading-6 tracking-wider`}
+            className={`md:!text-xl text-[10px] !font-bold text-[#433a3a] ${fontClass} leading-6 tracking-wider`}
           >
             {name}
           </p>
-          <p className={`md:text-base text-[10px] italic! text-[#433a3a] ${fontClass}`}>
+          <p className={`md:text-base text-[10px] !italic text-[#433a3a] ${fontClass}`}>
             {profile}
           </p>
         </div>

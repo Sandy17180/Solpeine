@@ -52,14 +52,21 @@ export default function PetPortfolioClient({ initialImages }) {
       : { width: 610, height: 488 };
   };
 
-  const currentImage = petImages[currentIndex];
-  const { width, height } = getMainImageSize(
-    currentImage.orientation,
-    isMobile
-  );
+  const currentImage = petImages && petImages.length > 0 ? petImages[currentIndex] || petImages[0] : null;
+  const { width, height } = currentImage
+    ? getMainImageSize(currentImage.orientation, isMobile)
+    : { width: 488, height: 610 };
+
+  if (!currentImage) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh] text-gray-500">
+        No images available.
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col md:flex-row md:min-h-screen bg-#F5F1EAE0 text-black md:px-10 md:py-8">
+    <div className="flex flex-col md:flex-row md:min-h-screen bg-[#F5F1EAE0] text-black md:px-10 md:py-8">
       <div className="md:flex-1 flex flex-col items-center justify-center">
         {/* Title image */}
         <div className="md:mb-8 md:-mt-[60px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
@@ -84,6 +91,7 @@ export default function PetPortfolioClient({ initialImages }) {
           {/* Previous button */}
           <button
             onClick={prevImage}
+            aria-label="Previous image"
             className="z-10 md:mr-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
           >
             <Image
@@ -114,6 +122,7 @@ export default function PetPortfolioClient({ initialImages }) {
           {/* Next button */}
           <button
             onClick={nextImage}
+            aria-label="Next image"
             className="z-10 md:ml-4 bg-[#F5F1EAE0] p-2 md:mb-[302px] hover:opacity-80 transition active:scale-90 active:opacity-70 rounded-full duration-150"
           >
             <Image
@@ -132,7 +141,8 @@ export default function PetPortfolioClient({ initialImages }) {
         <ThumbnailCarousel
           images={petImages}
           currentIndex={currentIndex}
-          onSelectImage={selectImage}
+          onSelect={selectImage}
+          isMobile={isMobile}
           getSize={(orientation) =>
             getThumbNailImageSize(orientation, isMobile)
           }

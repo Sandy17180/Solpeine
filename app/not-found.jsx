@@ -19,10 +19,10 @@ export default function Photography404() {
   // Auto-change "photos" in the viewfinder
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % 4);
+      setCurrentImage((prev) => (prev + 1) % mockPhotos.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mockPhotos.length]);
 
   const cameraVariants = {
     initial: { rotateY: 0, scale: 1 },
@@ -99,8 +99,8 @@ export default function Photography404() {
         const IconComponent = element.icon;
         return (
           <motion.div
-            z-index={index}
             key={index}
+            style={{ zIndex: index }}
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 0.1,
@@ -126,7 +126,7 @@ export default function Photography404() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 0.6, scale: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
-        className="fixed inset-0 pointer-events-none z-5"
+        className="fixed inset-0 pointer-events-none z-10"
       >
         {/* Top Left Corner */}
         <motion.div

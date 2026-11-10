@@ -138,14 +138,14 @@ const Page = () => {
         </div>
       </motion.div>
 
-      {/* Content (Desktop) */}
-      <div className="relative z-10 lg:flex items-center justify-center h-full hidden">
+      {/* Content (Desktop & Tablet) */}
+      <div className="relative z-10 md:flex items-center justify-center h-full hidden">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="lg:grid lg:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-12 gap-20 py-20"
+          className="md:grid md:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-6 lg:px-12 gap-10 lg:gap-20 py-10 lg:py-20"
         >
           {/* Text Section */}
           <div className="flex flex-col justify-between max-w-xl">

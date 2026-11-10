@@ -100,7 +100,7 @@ const Footer = () => {
           />
           <p className="text-[#3a3a3a]">Based in Bengaluru</p>
         </div>
-        <div className="flex items-center gap-1 justify-center ext-[#3a3a3a]">
+        <div className="flex items-center gap-1 justify-center text-[#3a3a3a]">
           {<VisitorCounter />} views
         </div>
       </div>

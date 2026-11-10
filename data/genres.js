@@ -29,33 +29,39 @@ const cloudPublicIds = {
   pet: "solpiene/genreImages/pets",
 };
 
+function formatCloudUrl(publicId) {
+  if (!publicId) return "";
+  const encoded = publicId.split("/").map(encodeURIComponent).join("/");
+  return `${cloudBase}${encoded}`;
+}
+
 export const genreImages = {
   portraiture: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.portraiture)}`
+    ? formatCloudUrl(cloudPublicIds.portraiture)
     : "/Portrait.jpg",
   fashion: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.fashion)}`
+    ? formatCloudUrl(cloudPublicIds.fashion)
     : "/Fashion.jpg",
   product: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.product)}`
+    ? formatCloudUrl(cloudPublicIds.product)
     : "/Product.jpeg",
   lifestyle: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.lifestyle)}`
+    ? formatCloudUrl(cloudPublicIds.lifestyle)
     : "/Lifestyle.jpg",
   portfolio: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.portfolio)}`
+    ? formatCloudUrl(cloudPublicIds.portfolio)
     : "/Portfolio.jpg",
   pre_and_post_wedding: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.pre_and_post_wedding)}`
+    ? formatCloudUrl(cloudPublicIds.pre_and_post_wedding)
     : "/Pre-Wedding.jpg",
   events: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.events)}`
+    ? formatCloudUrl(cloudPublicIds.events)
     : "/Event.jpg",
   headshots: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.headshots)}`
+    ? formatCloudUrl(cloudPublicIds.headshots)
     : "/Headshot.jpg",
   pet: CLOUD
-    ? `${cloudBase}${encodeURIComponent(cloudPublicIds.pet)}`
+    ? formatCloudUrl(cloudPublicIds.pet)
     : "/Pet.jpg",
 };
 

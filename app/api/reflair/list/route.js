@@ -13,7 +13,7 @@ export async function GET(request) {
     const apiKey = apiKeyRaw.trim();
     const apiSecret = apiSecretRaw.trim();
 
-    if (debug === "1") {
+    if (debug === "1" && process.env.NODE_ENV !== "production") {
       const basic = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
       const authHeader = { Authorization: `Basic ${basic}` };
 
@@ -70,12 +70,6 @@ export async function GET(request) {
         JSON.stringify({
           cloud,
           hasKey: Boolean(apiKey),
-          keyRawLen: apiKeyRaw.length,
-          keyTrimLen: apiKey.length,
-          keyStart: apiKey ? apiKey.slice(0, 4) : null,
-          keyEnd: apiKey ? apiKey.slice(-4) : null,
-          secretRawLen: apiSecretRaw.length,
-          secretTrimLen: apiSecret.length,
           hasSecret: Boolean(apiSecret),
           pingRes,
           foldersRes,

@@ -7,6 +7,8 @@ export default function ThumbnailCarousel({
   images = [],
   currentIndex = 0,
   onSelect = () => {},
+  onSelectImage,
+  getSize,
   isMobile = false,
   thumbnailSize = {
     portrait: { width: 280, height: 350 },
@@ -15,12 +17,17 @@ export default function ThumbnailCarousel({
 }) {
   const containerRef = useRef(null);
   const safeImages = Array.isArray(images) ? images : [];
+  const handleSelect = onSelectImage || onSelect;
 
   // Triple dataset to enable seamless infinite scrolling
   const infiniteImages =
     safeImages.length > 0 ? [...safeImages, ...safeImages, ...safeImages] : [];
 
   const getThumbnailSize = (orientation) => {
+    if (typeof getSize === "function") {
+      return getSize(orientation);
+    }
+
     const size =
       orientation === "portrait"
         ? thumbnailSize.portrait
@@ -122,7 +129,7 @@ export default function ThumbnailCarousel({
           <div
             key={idx}
             onClick={() =>
-              safeImages.length > 0 && onSelect(idx % safeImages.length)
+              safeImages.length > 0 && handleSelect(idx % safeImages.length)
             }
             className={`cursor-pointer border-4 transition-all duration-300 flex-shrink-0 flex ${
               safeImages.length > 0 && currentIndex === idx % safeImages.length

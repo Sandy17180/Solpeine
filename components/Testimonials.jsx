@@ -16,24 +16,27 @@ export default function Testimonials() {
 
   const handleCardClick = (clickedIndex) => {
     setPositions((prev) => {
-      const newPositions = [...prev];
-      const clickedCardPosition = newPositions[clickedIndex];
+      const currentPos = prev[clickedIndex];
+      if (currentPos === 2) return prev;
 
-      const updated = newPositions.map((pos, i) => {
+      return prev.map((pos, i) => {
         if (i === clickedIndex) return 2;
-        if (pos === 2) return 1;
-        if (pos === 1) return 0;
-        return 0;
+        if (currentPos === 1) {
+          if (pos === 2) return 1;
+          return pos;
+        } else {
+          if (pos === 2) return 1;
+          if (pos === 1) return 0;
+          return pos;
+        }
       });
-
-      return updated;
     });
   };
 
   return (
     <div className="md:py-[72px] py-[16px] overflow-x-hidden">
       <div className="text-center md:mb-14">
-        <div className="flex justify-center md:mb-20 md-[10px]">
+        <div className="flex justify-center md:mb-20 mb-[10px]">
           <Image
             src="/testimonial.png"
             alt="Heading ECG Line"
@@ -45,7 +48,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="relative flex justify-center items-center md:min-h-[400px] min-h-[236px] md:max-w-7xl max-w-3xl md:mx-auto mx-[15px] mr-[50px] gap-10">
+      <div className="relative flex justify-center items-center md:min-h-[400px] min-h-[236px] md:max-w-7xl max-w-3xl md:mx-auto mx-[15px] gap-10">
         {testimonials.slice(0, 3).map((testimonial, i) => (
           <div
             key={i}

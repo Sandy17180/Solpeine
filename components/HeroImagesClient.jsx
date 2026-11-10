@@ -90,6 +90,7 @@ const HeroImagesClient = ({ initialImages = [] }) => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
             className={`md:w-[17px] md:h-[17px] w-[10px] h-[10px] rounded-full transition-colors ${
               index === currentIndex
                 ? "bg-white/80 border-[1px] shadow-[0_0_6px_rgba(255,255,255,0.5)]"

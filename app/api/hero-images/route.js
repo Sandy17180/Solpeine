@@ -94,8 +94,8 @@ export async function GET(request) {
     const url = new URL(request.url);
     const debug = url.searchParams.get("debug");
 
-    // Debug mode: return raw Cloudinary resource listing for inspection
-    if (debug === "1") {
+    // Debug mode: return raw Cloudinary resource listing for inspection (development only)
+    if (debug === "1" && process.env.NODE_ENV !== "production") {
       if (!cloud || !apiKey || !apiSecret) {
         return new Response(
           JSON.stringify({ error: "Cloudinary credentials not configured" }),

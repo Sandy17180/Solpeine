@@ -23,7 +23,8 @@ const Header = () => {
         {/* Hamburger Icon for Mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden focus:outline-none z-50"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          className="md:hidden focus:outline-none z-50 cursor-pointer"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
