@@ -18,111 +18,93 @@ export const testimonials = [
     profile: "Corporate Professional",
   },
   {
-    name: "Ethan Miller",
+    name: "Aditi & Rohan Mehra",
     quote:
-      "I entered the project a little hesitant, but those worries quickly disappeared. They struck the perfect balance between professionalism and approachability, making me feel comfortable every step of the way. Even when unexpected challenges came up, their calm confidence kept everything on track. By the end, I felt not only proud of the outcome but grateful for the entire journey.",
-    profile: "Frontend Developer",
+      "Sandeep shot our pre-wedding frames in Udaipur, and the results are straight out of a cinematic dream. He made us feel completely effortless in front of the lens. Every candid glance, sunset hue, and emotion was captured with pure elegance.",
+    profile: "Pre-Wedding Shoot",
   },
   {
-    name: "Emma Davis",
+    name: "Kavya Raman",
     quote:
-      "Their attention to detail and ability to adapt really impressed me. Every idea I shared was taken seriously, but they also had the courage to suggest alternatives that made the final result even stronger. It never felt like I was being pushed in a direction I didn’t want to go. Instead, it felt like a genuine partnership, where both sides were equally invested in success.",
-    profile: "Software Engineer",
+      "Working with Solpeine elevated my portfolio completely. Sandy understands lighting, silhouettes, and mood like few photographers do. The turnaround was super quick, and the color grading was breathtaking.",
+    profile: "Fashion & Editorial Model",
   },
   {
-    name: "James Thompson",
+    name: "Vikramaditya Sen",
     quote:
-      "Working with them was a refreshing experience because everything was handled with clarity and respect. I never once felt out of the loop or unsure about what was happening. They were patient, thorough, and intentional with their guidance, which made the entire process smooth. The outcome was excellent, but what I valued most was how supported I felt the entire time.",
-    profile: "Operations Lead",
+      "I needed clean, modern executive portraits for our company rebrand and PR features. Sandeep created an atmosphere of effortless confidence. The headshots strike the exact balance of approachable authority.",
+    profile: "Founder & CEO",
   },
   {
-    name: "Olivia Brown",
+    name: "Ananya Deshmukh",
     quote:
-      "I’m often cautious when entering projects like this, but their professionalism immediately put me at ease. They gave me space to express myself without judgment, and then skillfully translated those ideas into something coherent. Their presence was both grounding and inspiring, which is such a rare quality. The finished work reflected not just technical skill but real care.",
-    profile: "UX Researcher",
-  },
-  {
-    name: "Liam Carter",
-    quote:
-      "This project could have been overwhelming, but they made it feel surprisingly simple. They were structured enough to keep everything moving, yet flexible enough to adjust when needed. That adaptability gave me confidence that no matter what came up, we would find the right solution. In the end, the results exceeded my expectations and gave me a new appreciation for collaboration done right.",
-    profile: "Account Executive",
-  },
-  {
-    name: "Isabella Martinez",
-    quote:
-      "They have an incredible ability to transform scattered thoughts into something polished and purposeful. I was amazed by how quickly they grasped the core of what I was trying to achieve. At no point did I feel rushed or dismissed—instead, every detail was treated with care. The final product felt like the perfect reflection of my vision, enhanced by their expertise.",
-    profile: "Business Analyst",
-  },
-  {
-    name: "Benjamin Clark",
-    quote:
-      "I expected competence, but what I got was genuine dedication. They approached every challenge with curiosity rather than frustration, which made me feel at ease. Their guidance was thoughtful, never forceful, and they always explained their reasoning clearly. By the end, I trusted them completely and felt proud of what we accomplished together.",
-    profile: "Sales Manager",
-  },
-  {
-    name: "Mia Rodriguez",
-    quote:
-      "They managed to make what could have been a stressful process feel surprisingly effortless. I always felt like they were one step ahead, anticipating needs I didn’t even realize I had. Their balance of efficiency and empathy is what set them apart for me. The final outcome wasn’t just good—it carried a sense of care that made it special.",
-    profile: "Content Strategist",
-  },
-  {
-    name: "Noah Anderson",
-    quote:
-      "From the very beginning, their communication was clear and reassuring. They didn’t just provide updates, they provided understanding, which helped me feel confident at every stage. Their professionalism never felt cold—instead, it was paired with genuine kindness. The experience left me both impressed and grateful.",
-    profile: "Financial Advisor",
-  },
-  {
-    name: "Charlotte Wilson",
-    quote:
-      "They had this unique ability to make me feel both guided and free at the same time. Every suggestion was delivered with respect, and I always felt my perspective mattered. Their creativity was balanced with practicality, which ensured the final product wasn’t just beautiful but useful. It’s rare to find that kind of balance in any industry.",
-    profile: "PR Consultant",
-  },
-  {
-    name: "Amelia Lewis",
-    quote:
-      "From start to finish, the project felt steady and purposeful. They kept things moving without ever making me feel rushed. Whenever I had doubts, they offered reassurance while still giving me space to decide for myself. The end result carried their expertise but still felt authentically mine.",
-    profile: "Customer Success Lead",
-  },
-  {
-    name: "Henry Walker",
-    quote:
-      "I appreciated how they managed both the big picture and the tiny details. They never lost sight of the overall vision but also made sure nothing slipped through the cracks. Their calm presence was a constant source of reassurance. By the time it was done, I knew we had created something lasting and valuable.",
-    profile: "Logistics Coordinator",
+      "Solpeine has an unmatched eye for golden hour light and storytelling. The outdoor lifestyle session felt like a relaxed walk rather than a rigid shoot, and the final captures were full of authentic warmth and life.",
+    profile: "Lifestyle & Travel Creator",
   },
   {
     name: "Priya & Arjun Menon",
     quote:
-      "Capturing our energetic golden retriever seemed almost impossible, but Solpeine handled the session with remarkable patience and humor. The frames captured our dog's joyful spirit and our family bond in the most heartfelt, natural way. These portraits hold pride of place on our living room wall.",
+      "Capturing our energetic golden retriever seemed almost impossible, but Solpeine handled the session with remarkable patience and humor. The frames captured our dog's joyful spirit and our family bond in the most heartfelt, natural way.",
     profile: "Pet & Family Portrait",
   },
   {
-    name: "Harper Young",
+    name: "Devina Chawla",
     quote:
-      "What impressed me was the way they treated the project as if it were their own. They brought passion and commitment to every step, and it showed in the results. I never once felt like just another client—this felt like a true collaboration. That sense of care made the final product all the more meaningful.",
-    profile: "Art Director",
+      "Our handcrafted jewelry required macro-level precision and exquisite lighting to bring out the gemstone facets. Solpeine delivered studio product shots that boosted our online conversions immediately.",
+    profile: "Artisan Jewelry Brand",
   },
   {
-    name: "Lucas Hall",
+    name: "Sameer & Natasha Kapoor",
     quote:
-      "They combined strong technical knowledge with genuine warmth, which made everything easier. I always felt informed and included, but never overwhelmed. Their ability to simplify the process without losing quality really stood out. It was a professional experience, but one that also felt deeply human.",
-    profile: "IT Consultant",
+      "From intimate family rituals to the high-energy sangeet, Solpeine didn't miss a single beat. Looking through our wedding album feels like reliving the most magical days of our lives. Exceptional artistry!",
+    profile: "Wedding & Celebrations",
   },
   {
-    name: "Ella Scott",
+    name: "Dr. Meera Nambiar",
     quote:
-      "From the first meeting, they made it clear that this was about partnership, not just service. They listened closely and adapted whenever things shifted, always keeping me comfortable. Their flexibility was matched by their commitment to quality, which gave me complete confidence. The outcome was everything I hoped for and more.",
-    profile: "Legal Advisor",
+      "Sandeep’s warmth and attention to detail put me completely at ease. He guided subtle poses naturally, creating portraits that look polished, authentic, and dignified. Highly recommended!",
+    profile: "Healthcare Professional",
   },
   {
-    name: "Alexander King",
+    name: "Tarun Bhatia",
     quote:
-      "They turned what could have been an intimidating process into something enjoyable and inspiring. Their approach was lighthearted without ever losing focus, which kept me at ease. I left not only with a great final product but also with a sense of growth from the experience itself. That combination is truly rare.",
-    profile: "Startup Founder",
+      "We hired Solpeine to document our latest luxury residential design project. His composition, perspective control, and natural lighting balance highlighted the spaces exactly as we envisioned.",
+    profile: "Interior Architect",
   },
   {
-    name: "Zoe Peterson",
+    name: "Shreya Mukherjee",
     quote:
-      "They carried themselves with a calm authority that reassured me at every stage. Even when tough decisions had to be made, I felt supported rather than pressured. Their efficiency never came at the cost of empathy, and that balance created a smooth, meaningful process. I would work with them again in a heartbeat.",
-    profile: "Creative Director",
+      "Capturing motion in dance requires acute timing and artistic sensibility. Solpeine captured every leap, fabric flutter, and expression with pin-point sharpness and theatrical drama. Outstanding work!",
+    profile: "Classical Dancer",
+  },
+  {
+    name: "Aman & Ritika Varma",
+    quote:
+      "Our maternity session was such an intimate, serene experience. Sandeep made sure Ritika was comfortable throughout the session. The portraits are tender, timeless treasures our family will cherish forever.",
+    profile: "Maternity Portrait",
+  },
+  {
+    name: "Karan Singhania",
+    quote:
+      "Solpeine brought high-fashion editorial polish to our seasonal collection lookbook. The studio lighting, texture fidelity, and framing gave our garments the elevated appeal they deserved.",
+    profile: "Apparel Brand Director",
+  },
+  {
+    name: "Mehak & Sahil Oberoi",
+    quote:
+      "Solpeine covered our milestone anniversary evening with friends and family. The candid captures of laughter, tears, and toasts were so genuine. It felt like having a trusted friend documenting our celebration.",
+    profile: "Anniversary Event",
+  },
+  {
+    name: "Siddharth Roy",
+    quote:
+      "Finding a photographer who captures character and depth in headshots is rare. Sandy captured nuanced expressions that helped me book casting auditions within weeks of updating my portfolio.",
+    profile: "Actor & Performer",
+  },
+  {
+    name: "Rituparna Sengupta",
+    quote:
+      "The lighting and rich textures in Solpeine’s culinary and product shots made our menu come alive. Every dish looked vibrant, appetizing, and magazine-worthy. We couldn't be happier!",
+    profile: "Culinary & Hospitality Brand",
   },
 ];
