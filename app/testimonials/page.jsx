@@ -35,6 +35,17 @@ const Column = ({ items, reverse = false, duration = 120 }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  const getLoopItems = (arr) => {
+    if (!arr || arr.length === 0) return [];
+    let base = [...arr];
+    while (base.length < 6) {
+      base = [...base, ...arr];
+    }
+    return [...base, ...base];
+  };
+
+  const loopItems = getLoopItems(items);
+
   return (
     <motion.div
       className="flex flex-col gap-6"
@@ -43,7 +54,7 @@ const Column = ({ items, reverse = false, duration = 120 }) => {
       onMouseEnter={!isMobile ? () => controls.stop() : undefined}
       onMouseLeave={!isMobile ? startAnimation : undefined}
     >
-      {[...items, ...items].map((testimonial, i) => (
+      {loopItems.map((testimonial, i) => (
         <div key={`${testimonial.name}-${i}`} className="flex-shrink-0">
           <TestimonialCard
             name={testimonial.name}
