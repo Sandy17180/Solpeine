@@ -57,14 +57,21 @@ const GenreCard = React.memo(
           href={`/workfolio/${genre}`}
           className="h-full w-full flex items-center justify-center bg-black"
         >
-          <Image
-            src={genreImages[genre]}
-            alt={genre}
-            fill
-            priority={index < 3}
-            sizes="(max-width: 768px) 50vw, 33vw"
-            className="object-contain transition duration-300 rounded-b-2xl"
-          />
+          <div
+            className="relative w-full h-full flex items-center justify-center overflow-hidden"
+            style={{
+              aspectRatio: "16 / 10",
+            }}
+          >
+            <Image
+              src={genreImages[genre]}
+              alt={genre}
+              fill
+              priority={index < 3}
+              sizes="(max-width: 768px) 50vw, 33vw"
+              className="object-contain transition duration-300 rounded-b-2xl"
+            />
+          </div>
 
           {/* Caption */}
           <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-0">

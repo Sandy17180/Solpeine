@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { getThumbnailDynamicSize } from "@/utils/aspect";
 
 export default function ThumbnailCarousel({
   images = [],
@@ -23,21 +24,30 @@ export default function ThumbnailCarousel({
   const infiniteImages =
     safeImages.length > 0 ? [...safeImages, ...safeImages, ...safeImages] : [];
 
-  const getThumbnailSize = (orientation) => {
+  const getThumbnailSize = (img) => {
+    const orientation =
+      img?.orientation ||
+      (img?.height && img?.width
+        ? img.height >= img.width
+          ? "portrait"
+          : "landscape"
+        : "portrait");
+
+    let baseSize;
     if (typeof getSize === "function") {
-      return getSize(orientation);
+      baseSize = getSize(orientation);
+    } else {
+      const size =
+        orientation === "portrait"
+          ? thumbnailSize.portrait
+          : thumbnailSize.landscape;
+
+      baseSize = isMobile
+        ? { width: size.width / 2, height: size.height / 2 }
+        : size;
     }
 
-    const size =
-      orientation === "portrait"
-        ? thumbnailSize.portrait
-        : thumbnailSize.landscape;
-
-    if (isMobile) {
-      return { width: size.width / 2, height: size.height / 2 };
-    }
-
-    return size;
+    return getThumbnailDynamicSize(img, isMobile, baseSize);
   };
 
   // Detect scroll direction from rendered layout
@@ -123,7 +133,9 @@ export default function ThumbnailCarousel({
       `}
     >
       {infiniteImages.map((img, idx) => {
-        const size = getThumbnailSize(img.orientation);
+        const size = getThumbnailSize(img);
+        const isSelected =
+          safeImages.length > 0 && currentIndex === idx % safeImages.length;
 
         return (
           <div
@@ -131,22 +143,28 @@ export default function ThumbnailCarousel({
             onClick={() =>
               safeImages.length > 0 && handleSelect(idx % safeImages.length)
             }
-            className={`cursor-pointer border-4 transition-all duration-300 flex-shrink-0 flex ${
-              safeImages.length > 0 && currentIndex === idx % safeImages.length
+            className={`cursor-pointer border-4 transition-all duration-300 flex-shrink-0 flex items-center justify-center overflow-hidden bg-black/5 ${
+              isSelected
                 ? "border-[#d94a27] scale-105 z-10 shadow-lg"
                 : "border-transparent opacity-70 hover:opacity-100"
             }`}
             style={{
               width: `${size.width}px`,
               height: `${size.height}px`,
+              aspectRatio: size.aspectRatio,
             }}
           >
             <Image
               src={img.image}
-              alt={`Thumbnail ${idx}`}
+              alt={img.alt || `Thumbnail ${idx}`}
               width={size.width}
               height={size.height}
-              style={{ width: "auto", height: "auto" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                aspectRatio: size.aspectRatio,
+              }}
               className="object-contain"
             />
           </div>

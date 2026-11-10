@@ -78,6 +78,8 @@ async function listFromCloudinary(cloud, apiKey, apiSecret) {
       id: i + 1,
       src: buildCloudUrl(cloud, publicId),
       alt: parseNameToAlt(filename),
+      width: r.width,
+      height: r.height,
     };
   });
 

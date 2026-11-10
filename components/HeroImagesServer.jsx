@@ -59,6 +59,8 @@ async function getHeroImages() {
             id: it.id || idx + 1,
             src: it.src || it.url || it.public_id,
             alt: it.alt || parseNameToAlt(it.src || it.public_id || it.url),
+            width: it.width,
+            height: it.height,
           };
         }
         return null;

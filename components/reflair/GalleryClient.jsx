@@ -34,28 +34,49 @@ const GalleryClient = ({ initialImages }) => {
 
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 p-4 space-y-4">
-      {images.map((photo, index) => (
-        <motion.div
-          key={photo.id}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ amount: 0.1 }}
-          transition={{ duration: 0.4, delay: (index % 10) * 0.05 }}
-          className="w-full break-inside-avoid overflow-hidden rounded-lg"
-        >
-          <div className="relative overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              width={600}
-              height={800}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              priority={index < 6}
-              className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-        </motion.div>
-      ))}
+      {images.map((photo, index) => {
+        const photoRatio =
+          typeof photo.width === "number" &&
+          typeof photo.height === "number" &&
+          photo.width > 0 &&
+          photo.height > 0
+            ? `${photo.width} / ${photo.height}`
+            : "3 / 4";
+
+        return (
+          <motion.div
+            key={photo.id}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ amount: 0.1 }}
+            transition={{ duration: 0.4, delay: (index % 10) * 0.05 }}
+            className="w-full break-inside-avoid overflow-hidden rounded-lg"
+          >
+            <div
+              className="relative overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-black/5"
+              style={{
+                aspectRatio: photoRatio,
+              }}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width || 600}
+                height={photo.height || 800}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={index < 6}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  aspectRatio: photoRatio,
+                }}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

@@ -46,6 +46,8 @@ export async function GET(request) {
         image: buildCloudUrl(cloud, r.public_id),
         alt: parseNameToAlt(r.public_id.split("/").pop()),
         orientation: r.height >= r.width ? "portrait" : "landscape",
+        width: r.width,
+        height: r.height,
       }));
 
       return NextResponse.json(mapped);
@@ -76,6 +78,8 @@ export async function GET(request) {
         image: buildCloudUrl(cloud, r.public_id),
         alt: parseNameToAlt(r.public_id.split("/").pop()),
         orientation: r.height >= r.width ? "portrait" : "landscape",
+        width: r.width,
+        height: r.height,
       }));
 
       return NextResponse.json(mapped);

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
+import { getMainImageDimensions } from "@/utils/aspect";
 
 export default function FashionPortfolioClient({ initialImages }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,9 +59,7 @@ export default function FashionPortfolioClient({ initialImages }) {
     fashionImages && fashionImages.length > 0
       ? fashionImages[currentIndex] || fashionImages[0]
       : null;
-  const { width, height } = currentImage
-    ? getMainImageSize(currentImage.orientation, isMobile)
-    : { width: 488, height: 610 };
+  const dynamicSize = getMainImageDimensions(currentImage, isMobile);
 
   if (!currentImage) {
     return (
@@ -117,14 +116,30 @@ export default function FashionPortfolioClient({ initialImages }) {
               isMobile ? "w-full h-full" : "md:w-full md:h-full"
             }`}
           >
-            <Image
-              src={currentImage.image}
-              alt={`Fashion ${currentIndex + 1}`}
-              width={width}
-              height={height}
-              style={{ width: "auto", height: "auto" }}
-              className="object-contain"
-            />
+            <div
+              className="relative flex items-center justify-center max-w-full max-h-full transition-all duration-300"
+              style={{
+                aspectRatio: dynamicSize.aspectRatio,
+                maxWidth: `${dynamicSize.width}px`,
+                maxHeight: `${dynamicSize.height}px`,
+                width: "100%",
+              }}
+            >
+              <Image
+                src={currentImage.image}
+                alt={currentImage.alt || `Fashion ${currentIndex + 1}`}
+                width={dynamicSize.width}
+                height={dynamicSize.height}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  aspectRatio: dynamicSize.aspectRatio,
+                }}
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
 
           {/* Next button */}

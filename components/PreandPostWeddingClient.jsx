@@ -5,6 +5,7 @@ import Image from "next/image";
 import { taprom } from "@/lib/fonts";
 import cameraline from "@/public/cameraline-colored.svg";
 import ThumbnailCarousel from "./ThumbnailCarousel";
+import { getMainImageDimensions } from "@/utils/aspect";
 
 export default function PreandPostWeddingClient({ initialImages }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -47,9 +48,7 @@ export default function PreandPostWeddingClient({ initialImages }) {
     preAndPostImages && preAndPostImages.length > 0
       ? preAndPostImages[currentIndex] || preAndPostImages[0]
       : null;
-  const { width, height } = currentImage
-    ? getMainImageSize(currentImage.orientation, isMobile)
-    : { width: 488, height: 610 };
+  const dynamicSize = getMainImageDimensions(currentImage, isMobile);
 
   if (!currentImage) {
     return (
@@ -105,14 +104,30 @@ export default function PreandPostWeddingClient({ initialImages }) {
             className={`relative flex justify-center items-center md:py-0 py-10 ${isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
               }`}
           >
-            <Image
-              src={currentImage.image}
-              alt={`Wedding ${currentIndex + 1}`}
-              width={width}
-              height={height}
-              style={{ width: "auto", height: "auto" }}
-              className="object-contain"
-            />
+            <div
+              className="relative flex items-center justify-center max-w-full max-h-full transition-all duration-300"
+              style={{
+                aspectRatio: dynamicSize.aspectRatio,
+                maxWidth: `${dynamicSize.width}px`,
+                maxHeight: `${dynamicSize.height}px`,
+                width: "100%",
+              }}
+            >
+              <Image
+                src={currentImage.image}
+                alt={currentImage.alt || `Wedding ${currentIndex + 1}`}
+                width={dynamicSize.width}
+                height={dynamicSize.height}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  aspectRatio: dynamicSize.aspectRatio,
+                }}
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
 
           {/* Next button */}
