@@ -3,8 +3,7 @@ import GalleryClient from "@/components/reflair/GalleryClient";
 // 1. Import the lobster font exactly how your header does it
 import { lobster } from "@/lib/fonts";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 60;
+export const revalidate = 600;
 
 export const metadata = {
   title: "Reflair Gallery | Solpeine",

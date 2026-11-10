@@ -70,7 +70,7 @@ export default function PreandPostWeddingClient({ initialImages }) {
           </p>
           <div className="relative flex md:-mt-[50px] -mt-[30px] ml-[30px] md:ml-[0px] md:justify-start justify-center w-full">
             <Image
-              src={cameraline}
+              src={cameraline} priority
               alt="decor"
               width={260}
               height={40}

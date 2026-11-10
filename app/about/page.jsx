@@ -9,20 +9,20 @@ import instagramLogo from "@/social/instagramLogo.svg";
 
 // Animation variants
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
 };
 
 const fadeIn = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 1 } },
+  show: { opacity: 1, transition: { duration: 0.4 } },
 };
 
 const staggerContainer = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -62,8 +62,7 @@ const Page = () => {
       <motion.div
         variants={staggerContainer}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
         className="relative w-full flex items-start justify-center px-4 pt-6 pb-9 md:hidden"
       >
         <div className="max-w-3xl text-center">
@@ -74,8 +73,7 @@ const Page = () => {
               width={350}
               height={100}
               className="mx-auto mb-4 max-w-full"
-              unoptimized
-              loading="lazy"
+              priority
             />
           </motion.div>
 
@@ -111,12 +109,10 @@ const Page = () => {
             className="mt-6 flex flex-col items-end mr-8"
           >
             <Image
-              src="/signature.svg"
+              src="/signature.png"
               width={86}
               height={53}
               alt="signature"
-              unoptimized
-              loading="lazy"
             />
             <Link
               href="https://www.instagram.com/sandeepsai_fotofusion/"
@@ -143,8 +139,7 @@ const Page = () => {
         <motion.div
           variants={staggerContainer}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          animate="show"
           className="md:grid md:grid-cols-2 grid-cols-1 lg:max-w-[1440px] w-full px-6 lg:px-12 gap-10 lg:gap-20 py-10 lg:py-20"
         >
           {/* Text Section */}
@@ -155,8 +150,7 @@ const Page = () => {
                 width={800}
                 height={110}
                 alt="name"
-                unoptimized
-                loading="lazy"
+                priority
               />
               <p
                 className={`${taprom.className} lg:text-2xl text-base text-[#D94A27] my-6 lg:mt-4 lg:mb-6 tracking-[0.15em]`}
@@ -191,12 +185,10 @@ const Page = () => {
             <motion.div variants={fadeIn} className="flex justify-end mt-10">
               <div className="flex flex-col items-center">
                 <Image
-                  src="/signature.svg"
+                  src="/signature.png"
                   width={216}
                   height={53}
                   alt="signature"
-                  unoptimized
-                  loading="lazy"
                 />
                 <Link
                   href="https://www.instagram.com/sandeepsai_fotofusion/"

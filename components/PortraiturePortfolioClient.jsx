@@ -83,7 +83,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
 
           <div className="relative flex -mt-[30px] md:justify-start justify-center w-full">
             <Image
-              src={cameraline}
+              src={cameraline} priority
               alt="decor"
               width={260}
               height={40}
@@ -159,7 +159,7 @@ export default function PortraiturePortfolioClient({ initialImages }) {
         </div>
       </div>
 
-      {/* RIGHT SIDE – THUMBNAIL CAROUSEL */}
+      {/* RIGHT SIDE - THUMBNAIL CAROUSEL */}
       <div className="md:flex-1 flex flex-col items-center justify-center md:mt-0 mt-8">
         <ThumbnailCarousel
           images={portraitImages}

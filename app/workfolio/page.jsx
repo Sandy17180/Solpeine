@@ -13,16 +13,16 @@ const containerVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 },
+    transition: { staggerChildren: 0.04 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 15 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.35, ease: "easeOut" },
   },
 };
 
@@ -96,6 +96,7 @@ const GenreCard = React.memo(
                     alt="decor"
                     width={260}
                     height={30}
+                    priority={index < 3}
                     style={{ width: "auto", height: "auto" }}
                     className="sm:w-[300px] md:w-[340px] lg:w-[380px] "
                   />

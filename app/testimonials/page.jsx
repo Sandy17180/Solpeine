@@ -75,6 +75,7 @@ export default function TestimonialsPage() {
             alt="Clients"
             width={480}
             height={115}
+            priority
             className="md:w-[480px] w-[240px] h-auto"
           />
         </div>

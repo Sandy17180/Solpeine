@@ -72,7 +72,7 @@ export default function ProductGenreClient({ initialImages }) {
           </p>
           <div className="relative flex -mt-[30px] md:justify-start justify-center w-full">
             <Image
-              src={cameraline}
+              src={cameraline} priority
               alt="decor"
               width={260}
               height={40}

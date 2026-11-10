@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.svg";
+import logo from "@/public/logo.png";
 import { lobster, sawarabi } from "@/lib/fonts";
 import { Menu, X } from "lucide-react";
 
@@ -63,17 +63,17 @@ const Header = () => {
 
       {/* Mobile Dropdown */}
       <div
-        className={`lg:hidden fixed top-[58px] left-0 w-[120px] bg-[#f5f1ea]/95 backdrop-blur-md transition-all duration-500 ease-in-out ${
-          isOpen ? "-translate-x-0" : "-translate-x-[500px]"
+        className={`md:hidden fixed top-[70px] left-0 w-52 bg-[#f5f1ea]/95 backdrop-blur-md shadow-xl border-r border-b border-[#e0d8cc] rounded-br-2xl transition-transform duration-300 ease-in-out z-50 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <nav className="md:hidden flex flex-col items-start px-4 py-6 gap-5">
+        <nav className="flex flex-col items-start px-5 py-6 gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className={`text-[#d94a27] hover:text-[#3a3a3a] ${lobster.className} text-xl`}
+              className={`text-[#d94a27] hover:text-[#3a3a3a] ${lobster.className} text-xl tracking-wide transition-colors duration-150`}
             >
               {link.label}
             </Link>

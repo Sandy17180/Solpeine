@@ -137,9 +137,9 @@ export default function ContactPage() {
       {/* left side (form) */}
       <motion.div
         className="md:w-3/7 w-full md:px-0 px-8 md:pl-8 md:pr-4 pt-4 md:pb-[75px] pb-0 relative z-10 bg-gradient-to-r from-[#f5f1ea] to-transparent overflow-hidden"
-        initial={{ x: -80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="flex items-center justify-center">
           <Image
@@ -147,6 +147,7 @@ export default function ContactPage() {
             alt="contact"
             width={554}
             height={32}
+            priority
             className="md:w-[554px] w-[200px]"
           />
         </div>
