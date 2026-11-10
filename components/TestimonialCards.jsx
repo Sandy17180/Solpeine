@@ -3,72 +3,66 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-function TestimonialCard({ name, quote, fontClass, profile }) {
+function TestimonialCard({
+  name,
+  quote,
+  fontClass,
+  profile,
+  genre,
+  isActive = false,
+  onClick,
+}) {
   return (
     <motion.div
-      className="bg-[#f3e6e3] rounded-xl border-[#f3e6e3] md:border-2 px-4 py-6 flex flex-col items-start transition-all duration-300 ease-in-out w-full max-w-[440px] min-h-[180px] md:min-h-[320px] justify-center gap-4"
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      onClick={onClick}
+      className={`bg-[#f3e6e3] rounded-2xl p-6 md:p-8 flex flex-col justify-between transition-all duration-300 w-full min-h-[240px] md:min-h-[280px] gap-4 relative text-left ${
+        onClick ? "cursor-pointer" : ""
+      } ${
+        isActive
+          ? "border-2 border-[#d94a27] shadow-[0_10px_30px_rgba(217,74,39,0.18)] scale-[1.01]"
+          : "border-2 border-transparent shadow-md hover:shadow-xl hover:border-[#d94a27]/30"
+      }`}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      {/* Quote Icon */}
-      <div className="w-full flex justify-start">
+      {/* Top Header: Quote Icon + Genre Badge */}
+      <div className="w-full flex items-center justify-between">
         <Image
           src="/apostrophe.svg"
           alt="icon"
-          width={38}
-          height={38}
-          className="text-orange-500 w-5 h-5 md:w-9 md:h-9"
+          width={32}
+          height={32}
+          className="text-orange-500 w-6 h-6 md:w-8 md:h-8"
         />
+        {genre && (
+          <span className="text-[11px] md:text-xs font-semibold px-3 py-1 rounded-full bg-[#d94a27]/10 text-[#d94a27] tracking-wider uppercase">
+            {genre}
+          </span>
+        )}
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col justify-between gap-2 md:gap-6 transition-all duration-300 ease-in-out">
-        {/* Quote Text */}
+      {/* Quote Text */}
+      <p
+        className={`${fontClass} text-[#4a4a4a] text-sm md:text-base leading-relaxed tracking-wide flex-1`}
+        style={{
+          fontStyle: "normal",
+        }}
+      >
+        "{quote}"
+      </p>
+
+      {/* Name and Profile */}
+      <div className="flex flex-col items-start pt-3 border-t border-[#d94a27]/15">
         <p
-          className={`${fontClass} text-[#505050] font-medium`}
-          style={{
-            textAlign: "justify",
-            fontStyle: "normal",
-            fontSize: "clamp(14px, 2vw, 18px)",
-            lineHeight: "1.5",
-            letterSpacing: "0.05em",
-          }}
+          className={`${fontClass} text-[#2d2d2d] text-base md:text-lg font-bold tracking-wide`}
         >
-          "{quote}"
+          {name}
         </p>
-
-        {/* Name and Profile */}
-        <div className="flex flex-col items-start gap-1 md:gap-2">
-          <p
-            className={`${fontClass} text-[#505050]`}
-            style={{
-              textAlign: "left",
-              fontSize: "clamp(16px, 2.2vw, 20px)",
-              fontWeight: 700,
-              lineHeight: "1.4",
-              letterSpacing: "0.03em",
-              fontStyle: "normal",
-            }}
-          >
-            {name}
-          </p>
-
-          <p
-            className={`${fontClass} text-[#505050] border-b-2 border-red-600`}
-            style={{
-              textAlign: "left",
-              fontSize: "clamp(14px, 1.8vw, 16px)",
-              fontWeight: 400,
-              lineHeight: "1.4",
-              letterSpacing: "0.03em",
-              fontStyle: "italic",
-            }}
-          >
-            {profile}
-          </p>
-        </div>
+        <p
+          className={`${fontClass} text-[#666] text-xs md:text-sm italic font-medium`}
+        >
+          {profile}
+        </p>
       </div>
     </motion.div>
   );
