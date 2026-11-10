@@ -32,7 +32,7 @@ const socials = [
   },
   { href: "https://pin.it/Mtz9RIVOB", src: pinterestLogo, alt: "pinterest" },
   {
-    href: "https://www.linkedin.com/in/sandeep-sai-k-2155861b1/",
+    href: "https://www.linkedin.com/company/solpeine-studio/",
     src: linkedinLogo,
     alt: "LinkedIn",
   },
