@@ -12,10 +12,10 @@ const FALLBACK_IMAGES = [
   "/statue.jpg",
   "/image10.jpg",
   "/image12.jpg",
-  "/image16.png",
-  "/image18.png",
-  "/image21.png",
-  "/image45.png",
+  "/image16.jpg",
+  "/image18.jpg",
+  "/image21.jpg",
+  "/image45.jpg",
 ];
 
 function parseNameToAlt(name) {

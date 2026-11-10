@@ -37,7 +37,6 @@ export default function TestimonialsPage() {
             height={115}
             className="md:w-[480px] w-[240px] h-auto"
             priority
-            unoptimized
           />
           <p
             className={`${lato.className} text-[#555] text-sm sm:text-base md:text-lg max-w-2xl mt-4 px-2 tracking-wide font-normal`}
@@ -77,7 +76,6 @@ export default function TestimonialsPage() {
             width={480}
             height={115}
             className="md:w-[480px] w-[240px] h-auto"
-            unoptimized
           />
         </div>
       </div>
