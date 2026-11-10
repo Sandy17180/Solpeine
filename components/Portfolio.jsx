@@ -93,7 +93,7 @@ export default function Portfolio() {
         {/* Title — EXACT mobile spacing preserved */}
         <div className="md:mb-8 mt-10 md:-mt-[60px] flex flex-col justify-center md:items-start items-center w-full">
           <p
-            className={`${taprom.className} md:ml-8 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center tracking-[6.08px]`}
+            className={`${taprom.className} md:ml-8 ml-0 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center tracking-[6.08px]`}
           >
             Portfolio
           </p>
@@ -104,6 +104,7 @@ export default function Portfolio() {
               alt="decor"
               width={260}
               height={40}
+              unoptimized
               loading="lazy"
               className="md:ml-8 mt-4 md:mt-0 w-[200px] md:w-[260px] object-contain"
             />

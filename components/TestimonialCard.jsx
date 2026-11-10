@@ -23,6 +23,7 @@ function TestimonialCard({ name, quote, fontClass, profile }) {
           alt="icon"
           width={38}
           height={38}
+          unoptimized
           className="text-orange-500 md:w-[38px] md:h-[38px] w-[20px] h-[20px] md:mb-0 mb-1"
         />
       </div>

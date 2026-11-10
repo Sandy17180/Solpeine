@@ -97,6 +97,7 @@ const GenreCard = React.memo(
                     width={260}
                     height={30}
                     priority={index < 3}
+                    unoptimized
                     style={{ width: "auto", height: "auto" }}
                     className="sm:w-[300px] md:w-[340px] lg:w-[380px] "
                   />

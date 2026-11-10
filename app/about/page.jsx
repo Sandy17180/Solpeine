@@ -74,6 +74,7 @@ const Page = () => {
               height={100}
               className="mx-auto mb-4 max-w-full"
               priority
+              unoptimized
             />
           </motion.div>
 
@@ -151,6 +152,7 @@ const Page = () => {
                 height={110}
                 alt="name"
                 priority
+                unoptimized
               />
               <p
                 className={`${taprom.className} lg:text-2xl text-base text-[#D94A27] my-6 lg:mt-4 lg:mb-6 tracking-[0.15em]`}

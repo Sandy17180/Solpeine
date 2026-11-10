@@ -59,6 +59,7 @@ const Footer = () => {
               alt="Logo"
               width={193}
               height={98}
+              unoptimized
               className="w-[103px] sm:w-[120px] md:w-[193px] h-auto"
             />
           </Link>
@@ -81,6 +82,7 @@ const Footer = () => {
                   alt={social.alt}
                   width={32}
                   height={32}
+                  unoptimized
                   className="w-[20px] md:w-[32px] h-auto"
                 />
               </div>
@@ -96,6 +98,7 @@ const Footer = () => {
             alt="location"
             width={28}
             height={28}
+            unoptimized
             className="w-[16px] md:w-[28px] h-auto"
           />
           <p className="text-[#3a3a3a]">Based in Bengaluru</p>

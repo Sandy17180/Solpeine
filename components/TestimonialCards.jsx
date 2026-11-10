@@ -32,6 +32,7 @@ function TestimonialCard({
           alt="icon"
           width={32}
           height={32}
+          unoptimized
           className="text-orange-500 w-6 h-6 md:w-8 md:h-8"
         />
         {genre && (

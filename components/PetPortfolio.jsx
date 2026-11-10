@@ -128,7 +128,7 @@ export default function PetPortfolio() {
         {/* Title image */}
         <div className="md:mb-8 md:-mt-[60px] mt-10 md:-ml-[60px] flex flex-col justify-center md:items-start items-center w-full">
           <p
-            className={`${taprom.className} md:ml-10 -ml-12 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
+            className={`${taprom.className} md:ml-10 ml-0 lg:text-[38px] md:text-[40px] text-[20px] text-[#d94a27] lg:leading-[70px] md:leading-[50px] leading-[25px] text-center max-w-full tracking-[6.08px]`}
           >
             Pet
           </p>
@@ -138,6 +138,7 @@ export default function PetPortfolio() {
               alt="decor"
               width={260}
               height={50}
+              unoptimized
               className="md:ml-8 mt-4 md:mt-0 text-[#d94a27] md:w-[160px] w-[160px] object-contain"
             />
           </div>

@@ -45,7 +45,7 @@ export default function SocialButtons() {
       {socials.map((social) => (
         <Link key={social.href} href={social.href} target="_blank" rel="noopener noreferrer">
           <div className="shadow-2xl hover:scale-110 hover:brightness-130 transition hover:shadow-none">
-            <Image src={social.src} alt={social.alt} width={32} height={32} />
+            <Image src={social.src} alt={social.alt} width={32} height={32} unoptimized />
           </div>
         </Link>
       ))}

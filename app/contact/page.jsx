@@ -148,6 +148,7 @@ export default function ContactPage() {
             width={554}
             height={32}
             priority
+            unoptimized
             className="md:w-[554px] w-[200px]"
           />
         </div>
@@ -292,7 +293,7 @@ export default function ContactPage() {
           href="https://wa.me/919036021726"
           target="_blank"
         >
-          <Image src="/whatsapp.svg" height={32} width={32} alt="whatsapp" />
+          <Image src="/whatsapp.svg" height={32} width={32} alt="whatsapp" unoptimized />
           <span className="text-lg">Reach us on WhatsApp!</span>
         </Link>
       </motion.div>

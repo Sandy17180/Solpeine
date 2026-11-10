@@ -66,6 +66,7 @@ export default function FeaturedPostsClient({ posts = [], fonts = {} }) {
                       src={isEven ? "/arrowOdd.svg" : "/arrowEven.svg"}
                       alt="Decorative path"
                       fill
+                      unoptimized
                       className="object-contain"
                     />
                   </div>
