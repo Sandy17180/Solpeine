@@ -1,183 +1,109 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+
+const DEFAULT_FALLBACK_IMAGES = [
+  "/clientLogos/josco-jewellers.jpg",
+  "/clientLogos/rove-clothing.jpg",
+  "/clientLogos/illuminating-windows.png",
+  "/clientLogos/tec.jpeg",
+  "/clientLogos/zenable-me.png",
+];
 
 const AdvancedCameraReel = ({
   images = [],
-  speed = 20, // seconds for a full loop
+  speed = 35, // seconds for a full loop
   pauseOnHover = true,
 }) => {
   const [isPaused, setIsPaused] = useState(false);
-  const reelRef = useRef(null);
-  const [reelWidth, setReelWidth] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  const DEFAULT_FALLBACK_IMAGES = [
-    "/clientLogos/josco-jewellers.jpg",
-    "/clientLogos/rove-clothing.jpg",
-    "/clientLogos/illuminating-windows.png",
-    "/clientLogos/tec.jpeg",
-    "/clientLogos/zenable-me.png",
-  ];
+  const clientImages = useMemo(() => {
+    return images && images.length > 0 ? images : DEFAULT_FALLBACK_IMAGES;
+  }, [images]);
 
-  const clientImages = images && images.length > 0 ? images : DEFAULT_FALLBACK_IMAGES;
-  const duplicatedImages =
-    clientImages.length > 0
-      ? [
-          ...clientImages,
-          ...clientImages,
-          ...clientImages,
-          ...clientImages,
-          ...clientImages,
-        ]
-      : [];
-
-  // measure reel width once rendered
-  useEffect(() => {
-    if (reelRef.current && clientImages.length > 0) {
-      // Use requestAnimationFrame to ensure DOM is fully rendered
-      const timer = setTimeout(() => {
-        const width = reelRef.current.scrollWidth / 5;
-        setReelWidth(width);
-        setIsAnimating(true);
-      }, 50);
-      return () => clearTimeout(timer);
+  // Create an unbreakable continuous track:
+  // 1. Ensure the base set has at least 10 items so it's always wider than 4K screens
+  // 2. Double it ([...baseSet, ...baseSet]) so translating from 0% to -50% is 100% seamless
+  const duplicatedImages = useMemo(() => {
+    if (!clientImages || clientImages.length === 0) return [];
+    let base = [...clientImages];
+    while (base.length < 10) {
+      base = [...base, ...clientImages];
     }
+    return [...base, ...base];
   }, [clientImages]);
 
+  if (duplicatedImages.length === 0) {
+    return (
+      <div className="w-full h-32 sm:h-40 bg-black animate-pulse" />
+    );
+  }
+
   return (
-    <div className="w-full overflow-hidden py-8 px-4 sm:px-6 md:px-12">
-      {duplicatedImages.length === 0 ? (
-        <div className="h-24 sm:h-32 md:h-40 bg-gray-200 rounded-lg animate-pulse" />
-      ) : (
-        <>
-          <div
-            className="relative"
-            onMouseEnter={() => pauseOnHover && setIsPaused(true)}
-            onMouseLeave={() => pauseOnHover && setIsPaused(false)}
-          >
-            {/* Film perforations top */}
-            <div className="absolute top-0 left-0 right-0 h-4 sm:h-5 md:h-6 bg-black flex items-center z-10 overflow-hidden">
-              <motion.div
-                className="flex space-x-2 sm:space-x-3"
-                animate={
-                  isAnimating
-                    ? { x: isPaused ? undefined : [0, -reelWidth] }
-                    : {}
-                }
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: speed,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {Array.from({ length: 50 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
-                  ></div>
-                ))}
-              </motion.div>
+    <div
+      className="w-full relative overflow-hidden bg-black py-2 sm:py-3 select-none"
+      onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+      onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+    >
+      {/* Edge Gradient Vignettes for Seamless Entry/Exit */}
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 sm:w-20 md:w-32 bg-gradient-to-r from-[#F5F1EA] via-[#F5F1EA]/50 to-transparent z-20" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 sm:w-20 md:w-32 bg-gradient-to-l from-[#F5F1EA] via-[#F5F1EA]/50 to-transparent z-20" />
+
+      {/* Film Reel Strip - Animated Continuous Loop */}
+      <motion.div
+        className="flex items-center w-max will-change-transform"
+        animate={{
+          x: isPaused ? undefined : ["0%", "-50%"],
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: speed,
+            ease: "linear",
+          },
+        }}
+      >
+        {duplicatedImages.map((image, index) => {
+          const clientIndex = (index % clientImages.length) + 1;
+
+          return (
+            <div
+              key={index}
+              className="flex flex-col items-center flex-shrink-0 bg-black px-2 sm:px-3 md:px-4"
+            >
+              {/* Top Film Sprockets for this frame */}
+              <div className="w-full flex justify-between items-center py-1 sm:py-1.5 px-1 sm:px-2">
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+              </div>
+
+              {/* Film Frame Cell (Logo) */}
+              <div className="relative p-1 sm:p-1.5 bg-[#141414] border-x border-[#2a2a2a] rounded-sm group transition-transform duration-300 hover:scale-[1.03]">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 relative bg-white rounded-md p-2.5 sm:p-3 flex items-center justify-center shadow-lg overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={`Client ${clientIndex}`}
+                    fill
+                    sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, (max-width: 1024px) 160px, 176px"
+                    className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Bottom Film Sprockets for this frame */}
+              <div className="w-full flex justify-between items-center py-1 sm:py-1.5 px-1 sm:px-2">
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+                <div className="w-2.5 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3 bg-[#F5F1EA] rounded-[2px]" />
+              </div>
             </div>
-
-            {/* Main film container */}
-            <div className="relative bg-black py-4 sm:py-6 overflow-hidden">
-              <motion.div
-                ref={reelRef}
-                className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6"
-                animate={
-                  isAnimating
-                    ? { x: isPaused ? undefined : [0, -reelWidth] }
-                    : {}
-                }
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: speed,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {duplicatedImages.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex-shrink-0 relative group cursor-pointer"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{
-                      opacity: {
-                        duration: 0.6,
-                        delay: (index % clientImages.length) * 0.08,
-                        ease: "easeOut",
-                      },
-                    }}
-                  >
-                    <div className="bg-white rounded-lg shadow-xl transform group-hover:scale-105 transition-transform duration-300">
-                      <div
-                        className="
-                        w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40
-                        relative overflow-hidden rounded-md p-2 flex items-center justify-center bg-white
-                      "
-                      >
-                        <Image
-                          src={image}
-                          alt={`Client ${(index % clientImages.length) + 1}`}
-                          fill
-                          sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, (max-width: 1024px) 128px, 160px"
-                          className="object-contain p-2 transition-all duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Film perforations bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-4 sm:h-5 md:h-6 bg-black flex items-center z-10 overflow-hidden">
-              <motion.div
-                className="flex space-x-2 sm:space-x-3"
-                animate={
-                  isAnimating
-                    ? { x: isPaused ? undefined : [0, -reelWidth] }
-                    : {}
-                }
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: speed,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {Array.from({ length: 50 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-3 h-3 sm:w-4 sm:h-4 bg-[#F5F1EA] rounded-sm flex-shrink-0"
-                  ></div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Shadow effects */}
-            <div className="absolute left-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-gray-900 to-transparent z-20 pointer-events-none"></div>
-            <div className="absolute right-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-gray-900 to-transparent z-20 pointer-events-none"></div>
-          </div>
-
-          {pauseOnHover && (
-            <p className="text-center text-xs sm:text-sm mt-2 text-gray-600">
-              Hover to pause
-            </p>
-          )}
-        </>
-      )}
+          );
+        })}
+      </motion.div>
     </div>
   );
 };
