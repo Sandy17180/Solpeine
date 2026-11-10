@@ -104,7 +104,7 @@ export default function PetPortfolioClient({ initialImages }) {
 
           {/* Main image */}
           <div
-            className={`relative flex justify-center items-center md:py-0 py-10 ${
+            className={`relative flex-1 min-w-0 flex justify-center items-center md:py-0 py-10 ${
               isMobile ? "w-full h-full" : "md:w-full md:h-full md:mb-[369px]"
             }`}
           >
@@ -112,8 +112,8 @@ export default function PetPortfolioClient({ initialImages }) {
               className="relative flex items-center justify-center max-w-full max-h-full transition-all duration-300"
               style={{
                 aspectRatio: dynamicSize.aspectRatio,
-                maxWidth: `${dynamicSize.width}px`,
-                maxHeight: `${dynamicSize.height}px`,
+                maxWidth: `min(${dynamicSize.width}px, 100%)`,
+                maxHeight: `min(${dynamicSize.height}px, 70vh)`,
                 width: "100%",
               }}
             >

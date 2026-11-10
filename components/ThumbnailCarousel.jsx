@@ -116,7 +116,7 @@ export default function ThumbnailCarousel({
     <div
       ref={containerRef}
       className={`
-        md:w-[398px] w-auto
+        md:w-[398px] w-auto max-w-full
         md:h-[1022px] h-full
         bg-[#F1D5CAA8]
         flex
